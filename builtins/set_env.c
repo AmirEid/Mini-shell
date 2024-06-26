@@ -6,19 +6,47 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:58:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/25 12:46:07 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:46:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-void	set_env(char *name, char *value, t_list *env)
+//"OLDPWD", old_pwd, env
+
+void	set_env(char *name, char *path, t_list *mini_env)
 {
-	t_list	*current;
+	char	*new_entry;
+	size_t	new_entry_len;
+	t_list *current;
+
+	current = mini_env;
+	new_entry = NULL;
+	new_entry_len = ft_strlen(name) + ft_strlen(path) + 2; // for '=' and null terminator
+	while (current)
+	{
+		if (find_path((char *)current->content, name))
+		{
+			memory_allocator((void **)&new_entry, new_entry_len);
+			ft_strlcat(new_entry, name, new_entry_len);
+			ft_strlcat(new_entry, "=", new_entry_len);
+			ft_strlcat(new_entry, path, new_entry_len);
+			//printf("new_entry: %s\n", new_entry);
+			//printf("current->content: %s\n", (char *)current->content);
+			current->content = new_entry;
+			return;
+		}
+		current = current->next;
+	}
+}
+
+/*
+void	set_env(char *name, char *value, char *env)
+{
+	int		i;
 	char	*new_entry;
 	size_t	new_entry_len;
 
-	current = env;
 	new_entry_len = ft_strlen(name) + ft_strlen(value) + 2; // for '=' and null terminator
 	new_entry = malloc(new_entry_len);
 	if (new_entry == NULL)
@@ -29,10 +57,9 @@ void	set_env(char *name, char *value, t_list *env)
 	strcpy(new_entry, name);
 	new_entry[ft_strlen(name)] = '=';
 	strcpy(new_entry + ft_strlen(name) + 1, value);
-	while (current)
+	for (i = 0; env[i]; i++)
 	{
-
-		if (ft_strncmp(, name, ft_strlen(name)) == 0 && env[i][ft_strlen(name)] == '=')
+		if (ft_strncmp(env[i], name, ft_strlen(name)) == 0 && env[i][ft_strlen(name)] == '=')
 		{
 			free(env[i]);
 			env[i] = new_entry;
@@ -43,26 +70,19 @@ void	set_env(char *name, char *value, t_list *env)
 	env[i + 1] = NULL;
 }
 
-char *ft_getenv(t_data *data, char *value)
+char *get_env_value(char *key)
 {
-	t_list	*current;
-	char	*name;
-	size_t	name_len;
-
-	current = data->mini_env;
-	name_len = ft_strlen(value);
+	t_list *current;
+		
+	current = g_data.mini_env;
 	while (current)
 	{
-		name = ft_strchr(current->content, '=');
-		if (name == NULL)
+		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
-			current = current->next;
-			continue;
+			return (ft_strdup(current->value));
 		}
-		if (ft_strncmp(current->content, value, name_len) == 0 && current->content[name_len] == '=')
-			return (name + 1);
 		current = current->next;
 	}
 	return (NULL);
-}
+}*/
 

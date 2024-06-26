@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 18:13:06 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/26 10:31:46 by anomourn         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/26 10:34:02 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,35 @@ void	test_export(t_data data, t_list  *tokens)
 	}
 }
 
+void    test_cd(t_data data, t_list  *tokens)
+{
+    t_list *current = tokens;
+    while (current != NULL) {
+        t_tkn_data *tokenData = (t_tkn_data *)current->content;
+        if (tokenData->type == WORD_CD)
+            ft_cd(data.tokens, data.mini_env);
+        current = current->next;
+    }
+}
+/*
+int main (int argc, char **argv, char **env)
+{
+    t_data data;
+    
+    data.mini_env = get_env(data, env);
+    while (1)
+    {
+        data.args = readline("minishell $ ");
+        if (!data.args)
+            break;
+        if (ft_strlen(data.args) != 0)
+        {
+            ft_tokenizing(&data);
+        }
+    }
+}
+*/
+
 int main (int argc, char **argv, char **env)
 {
 	t_data data;
@@ -90,9 +119,7 @@ int main (int argc, char **argv, char **env)
 
 	argc = 0;
 	argv = 0;
-	
-
-    data.args = readline("enter a string:");
+	data.args = readline("minishell $ ");
 	data.mini_env = get_env(data, env);
 	//print_env(data);
 	data.tokens = NULL;
@@ -102,6 +129,7 @@ int main (int argc, char **argv, char **env)
 	//ft_parsing(&data);
 	//printTokens(data.tokens);
     test_export(data, data.tokens);
+    test_cd(data, data.tokens);
     // printf("After export:\n");
     print_env(data);
 	//printTokens(data.tokens);
