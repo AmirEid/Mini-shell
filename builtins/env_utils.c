@@ -12,12 +12,13 @@
 
 # include "../headers/minishell.h"
 
-void	set_env(char *name, char *value, char **env)
+void	set_env(char *name, char *value, t_list *env)
 {
-	int		i;
+	t_list	*current;
 	char	*new_entry;
 	size_t	new_entry_len;
 
+	current = env;
 	new_entry_len = ft_strlen(name) + ft_strlen(value) + 2; // for '=' and null terminator
 	new_entry = malloc(new_entry_len);
 	if (new_entry == NULL)
@@ -28,9 +29,10 @@ void	set_env(char *name, char *value, char **env)
 	strcpy(new_entry, name);
 	new_entry[ft_strlen(name)] = '=';
 	strcpy(new_entry + ft_strlen(name) + 1, value);
-	for (i = 0; env[i]; i++)
+	while (current)
 	{
-		if (ft_strncmp(env[i], name, ft_strlen(name)) == 0 && env[i][ft_strlen(name)] == '=')
+
+		if (ft_strncmp(, name, ft_strlen(name)) == 0 && env[i][ft_strlen(name)] == '=')
 		{
 			free(env[i]);
 			env[i] = new_entry;
@@ -41,17 +43,24 @@ void	set_env(char *name, char *value, char **env)
 	env[i + 1] = NULL;
 }
 
-char *get_env_value(char *key)
+char *ft_getenv(t_data *data, char *value)
 {
-	t_list *current;
-		
-	current = g_data.mini_env;
+	t_list	*current;
+	char	*name;
+	size_t	name_len;
+
+	current = data->mini_env;
+	name_len = ft_strlen(value);
 	while (current)
 	{
-		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
+		name = ft_strchr(current->content, '=');
+		if (name == NULL)
 		{
-			return (ft_strdup(current->value));
+			current = current->next;
+			continue;
 		}
+		if (ft_strncmp(current->content, value, name_len) == 0 && current->content[name_len] == '=')
+			return (name + 1);
 		current = current->next;
 	}
 	return (NULL);

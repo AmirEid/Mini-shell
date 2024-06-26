@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:56:03 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/25 14:01:41 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:33:06 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,4 @@ t_list	*parse_line(char *line)
 		token = strtok(NULL, " ");
 	}
 	return tokens;
-}
-
-char	*read_line()
-{
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t nread = getline(&line, &len, stdin); //sans utiliser getline
-	if (nread == -1)
-	{
-		free(line);
-		return NULL;
-	}
-	line[strcspn(line, "\n")] = '\0'; // supp le caract de new line
-	return line;
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 15:51:15 by anomourn         ###   ########.fr       */
+/*   Created: 2024/06/25 18:13:06 by anomourn          #+#    #+#             */
+/*   Updated: 2024/06/26 10:31:46 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ void printTokens(t_list *tokens) {
     }
 }
 
-void    test_export(t_data data, t_list  *tokens)
+void	test_export(t_data data, t_list  *tokens)
 {
-    t_list *current = tokens;
-    while (current != NULL) {
-        t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        if (tokenData->type == WORD_EXPORT)
-            ft_export(data, current);
-        current = current->next;
-    }
+	t_list *current = tokens;
+	while (current != NULL) {
+		t_tkn_data *tokenData = (t_tkn_data *)current->content;
+		if (tokenData->type == WORD_EXPORT)
+			ft_export(data, current);
+		current = current->next;
+	}
 }
 
 int main (int argc, char **argv, char **env)
@@ -90,25 +90,28 @@ int main (int argc, char **argv, char **env)
 
 	argc = 0;
 	argv = 0;
-	data.args = readline("Enter a string: ");
+	
+
+    data.args = readline("enter a string:");
 	data.mini_env = get_env(data, env);
 	//print_env(data);
 	data.tokens = NULL;
+	//ft_signals();
 	printf("You entered: %s\n", data.args);
 	ft_tokenizing(&data);
 	//ft_parsing(&data);
 	//printTokens(data.tokens);
-    // test_export(data, data.tokens);
+    test_export(data, data.tokens);
     // printf("After export:\n");
-    // print_env(data);
-	printTokens(data.tokens);
+    print_env(data);
+	//printTokens(data.tokens);
 	/*if (data.tokens != NULL)
 	{
 		ft_parsing(&data);
 	}*/
-
 	free(data.args);
+	//ft_clear_history();
+	//ft_free_signals();
 	return 0;
 }
 //https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation
-

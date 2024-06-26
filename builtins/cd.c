@@ -12,16 +12,16 @@
 
 # include "../headers/minishell.h"
 
-void	ft_cd(t_list *tokens, char **env)
+void	ft_cd(t_list *tokens, t_list *env)
 {
 	char	*old_pwd;
 	char	cwd[1024];
 	char	*path;
 	char	*new_pwd;
 
-	if (!tokens || !tokens->next || !(path = (char *)tokens->next->content))
+	if (!tokens || !tokens->next)
 	{
-		path = get_env_value("HOME");
+		path = search_env(env, "HOME");
 		if (!path)
 		{
 			write(STDERR_FILENO, "minishell: cd: HOME not set\n", 29);
