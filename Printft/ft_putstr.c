@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.h                                         :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 22:03:40 by aeid              #+#    #+#             */
-/*   Updated: 2024/06/25 22:38:45 by aeid             ###   ########.fr       */
+/*   Created: 2023/11/07 11:59:11 by rpaic             #+#    #+#             */
+/*   Updated: 2023/11/07 11:59:14 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_H
-# define EXPANDER_H
+#include "ft_printf.h"
 
-# include "minishell.h"
+int	ft_putstr(char *str)
+{
+	int	i;
 
-void expander(t_list *mini_env, t_list *tokens);
-
-#endif
+	i = 0;
+	if (!str)
+		return (write(1, "(null)", 6));
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/06/25 15:34:22 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/04 01:05:10 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str)
 		if ((*tkn_str)[i] == '$' && (*tkn_str)[i + 1] != '\0' && (*tkn_str)[i + 1] != ' ')
 		{
 			i++;
-			while (ft_isprint((*tkn_str)[i]) && (*tkn_str)[i] != '\0' && !ft_ismeta((*tkn_str)[i]) && variable_len > 0)
+			while (ft_isprint((*tkn_str)[i]) && (*tkn_str)[i] != '\0' && !ft_ismeta((*tkn_str)[i]) && variable_len > 0 && (*tkn_str)[i] != '$')
 			{
 				i++;
 				variable_len--;
@@ -96,12 +96,17 @@ void expander(t_list *mini_env, t_list *tokens)
 {
 	t_list *current;
 	t_tkn_data *tmp;
+	t_list *prev;
+	t_tkn_data *prev_tmp;
 
 	current = tokens;
+	prev = current;
+	prev_tmp = NULL;
 	while (current)
 	{
 		tmp = (t_tkn_data *)current->content;
-		if (tmp->type == META_DOL)
+		prev_tmp = (t_tkn_data *)prev->content;
+		if (tmp->type == META_DOL && prev && prev_tmp->type != META_HEREDOC)
 			meta_dol_expander(mini_env, tmp->variable_len, &tmp->token);
 		else if (tmp->type == SPECIAL_DQUOTE || tmp->type == WORD_DOL || tmp->type == WORD_WITH_DQUOTE_INSIDE)
 		{
@@ -110,10 +115,7 @@ void expander(t_list *mini_env, t_list *tokens)
 		}
 		else if (tmp->type == SPECIAL_SQUOTE)
 			tmp->type = WORD;
-	/*else if (tkn_type = WORD_DOL || tkn_type == WORD_WITH_DQUOTE_INSIDE)
-	{
-		set the type back to word, so it is easier to handle later
-	}*/
+		prev = current;
 		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 10:34:02 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:35:43 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ t_data g_data;
 
 int g_status;
 
+int	g_exit_code = 0;
+
 //int main (int argc, char **argv, char **env)
 // static void printTokens(t_list *tokens) {
 //     t_list *current = tokens;
 //     while (current != NULL) 
 // 	{
 //         t_tkn_data *tokenData = (t_tkn_data *)current->content;
-//         printf("%s\n", tokenData->token);
+//         ft_printf("%s\n", tokenData->token);
 //         current = current->next;
 //     }
 // }
@@ -31,7 +33,7 @@ int g_status;
     t_list *current = tokens;
     while (current != NULL) {
         t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        printf("%s\n", tokenData->token);
+        ft_printf("%s\n", tokenData->token);
         current = current->next;
     }
 }*/
@@ -55,6 +57,7 @@ const char* getTypeName(t_types type) {
 		case WORD_PWD: return "WORD_PWD";
 		case WORD_DOL: return "WORD_DOL";
         case WORD: return "WORD";
+        case COMMAND: return "COMMAND";
         case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
         default: return "UNKNOWN_TYPE";
     }
@@ -69,77 +72,50 @@ void printTokens(t_list *tokens) {
     }
 }
 
-void	test_export(t_data data, t_list  *tokens)
-{
-	t_list *current = tokens;
-	while (current != NULL) {
-		t_tkn_data *tokenData = (t_tkn_data *)current->content;
-		if (tokenData->type == WORD_EXPORT)
-			ft_export(data, current);
-		current = current->next;
-	}
-}
-
-void    test_cd(t_data data, t_list  *tokens)
+void    test_export(t_data data, t_list  *tokens)
 {
     t_list *current = tokens;
     while (current != NULL) {
         t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        if (tokenData->type == WORD_CD)
-            ft_cd(data.tokens, data.mini_env);
+        if (tokenData->type == WORD_EXPORT)
+            ft_export(data, current);
         current = current->next;
     }
 }
-/*
-int main (int argc, char **argv, char **env)
-{
-    t_data data;
-    
-    data.mini_env = get_env(data, env);
-    while (1)
-    {
-        data.args = readline("minishell $ ");
-        if (!data.args)
-            break;
-        if (ft_strlen(data.args) != 0)
-        {
-            ft_tokenizing(&data);
-        }
-    }
-}
-*/
 
-int main (int argc, char **argv, char **env)
-{
-	t_data data;
-    int ac = argc;  // <----- AGGIUNTO PER EVITARE WARNING
-    ac++;
-    char **av = argv;
-    av[0] = av[0];
 
-	argc = 0;
-	argv = 0;
+int	main (int argc, char **argv, char **env)
+{
+	t_data	data;
+	int		pwd_result;
+	t_list *tokens;
+
+	(void)argc;
+	(void)argv;
 	data.args = readline("minishell $ ");
 	data.mini_env = get_env(data, env);
-	//print_env(data);
 	data.tokens = NULL;
-	//ft_signals();
+	data.pwd = NULL;
+	//print_env(data);
 	printf("You entered: %s\n", data.args);
-	ft_tokenizing(&data);
-	//ft_parsing(&data);
+    ft_signals();
+	ft_lexer(&data);
+    ft_parsing(&data, data.tokens);
 	//printTokens(data.tokens);
-    test_export(data, data.tokens);
-    test_cd(data, data.tokens);
+    //test_export(data, data.tokens);
+    //test_cd(data, data.tokens);
     // printf("After export:\n");
-    print_env(data);
-	//printTokens(data.tokens);
-	/*if (data.tokens != NULL)
-	{
-		ft_parsing(&data);
-	}*/
-	free(data.args);
-	//ft_clear_history();
-	//ft_free_signals();
+    //solo_export(data);
+    //ft_printf("After export:\n");
+    //print_env(data);
+	printTokens(data.tokens);
+	pwd_result = ft_pwd(&data);
+	// if (pwd_result == 0)
+	// 	printf("pwd displayed successfully :) \n");
+	// else
+	// 	printf("Error displaying pwd :( Error code: %d\n", pwd_result);
+
+	//free(data.args);
 	return 0;
 }
 //https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation

@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing.c                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rpaic <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/06/16 20:29:44 by rpaic            ###   ########.fr       */
+/*   Created: 2023/11/07 11:17:33 by rpaic             #+#    #+#             */
+/*   Updated: 2023/11/07 11:17:35 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "ft_printf.h"
 
-// void ft_parsing(t_data *data)
-// {
-// 	t_list *current = data->tokens;
-// 	while (current != NULL) 
-// 	{
-// 		current = current->next;
-// 	}
-// }
+int	ft_putchar(int c)
+{
+	return (write(1, &c, 1));
+}
