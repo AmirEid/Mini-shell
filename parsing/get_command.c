@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/03 22:14:03 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/05 18:05:28 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char **get_cmd_path(t_list *mini_env)
 	char *path_str;
 	
 	path_str = search_env(mini_env, "PATH");
+	//we MUST free path_str!!!!!
 	return(ft_split(path_str, ':'));
 }
 

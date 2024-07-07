@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:45:28 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/07 22:26:15 by rpaic            ###   ########.fr       */
+/*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
+/*   Updated: 2024/07/07 21:57:56 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new_list;
+//!!!! FIX THIS !!!! check if type is meta_dol print by skipping spaces 
+//export c="   4 6   "
+//export
+//....
+//...
+//declare -x c="   4 6   "$
+//rpaic@c2r3p9:~$ echo $c | cat -e
+//4 6$
 
-	new_list = malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->content = content;
-	if (ft_strchr(content, '='))
-		new_list->print = 1;
-	else
-		new_list->print = 0;
-	new_list->next = NULL;
-	return (new_list);
-}
+//rpaic@c2r3p9:~$ echo "    4 6   " | cat -e
+//    4 6   $
+

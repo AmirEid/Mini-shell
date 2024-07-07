@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:58:33 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/05 20:21:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/07 22:10:55 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    print_env(t_data data)
     temp = data.mini_env;
     while (temp)
     {
-        if (ft_strchr((char *)temp->content, '='))
+        if (temp->print)
             ft_printf("%s\n", (char *)temp->content);
         temp = temp->next;
     }

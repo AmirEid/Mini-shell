@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:27:02 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/05 11:22:51 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:29:33 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 
 # include "minishell.h"
 
-void    print_env(t_data data);
+void        print_env(t_data data);
 //char	*get_env_value(char *key);
-void    solo_export(t_data data);
-t_list  *get_env(t_data data, char **env);
-void	set_env(char *name, char *path, t_list *mini_env);
-char 	*search_env(t_list *mini_env, char *variable);
-char 	*find_path(char *curr_content, char *variable);
+void        solo_export(t_data data);
+t_list      *get_env(t_data data, char **env);
+void	    set_env(char *name, char *path, t_list *mini_env);
+char 	    *search_env(t_list *mini_env, char *variable);
+char 	    *find_path(char *curr_content, char *variable);
 // void	ft_cd(t_list *tokens, t_list *mini_env);
-void    check_left_side_export(char *str, int *left_side_type);
-void    ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
-
+void        check_left_side_export(char *str, int *left_side_type);
+t_list     *ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
+size_t      biggest_strlen(char *str1, char *str2);
+size_t      most_right_eq(char *str1, char *str2);
 #endif

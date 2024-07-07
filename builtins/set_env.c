@@ -12,8 +12,6 @@
 
 # include "../headers/minishell.h"
 
-//"OLDPWD", old_pwd, env
-
 void	set_env(char *name, char *path, t_list *mini_env)
 {
 	char	*new_entry;

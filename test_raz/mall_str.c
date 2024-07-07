@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   mall_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:45:28 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/07 22:26:15 by rpaic            ###   ########.fr       */
+/*   Created: 2024/07/04 10:47:08 by rpaic             #+#    #+#             */
+/*   Updated: 2024/07/04 10:48:25 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-t_list	*ft_lstnew(void *content)
+int main(void)
 {
-	t_list	*new_list;
-
-	new_list = malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->content = content;
-	if (ft_strchr(content, '='))
-		new_list->print = 1;
-	else
-		new_list->print = 0;
-	new_list->next = NULL;
-	return (new_list);
+    char    *str;
+    int     i = 0;
+    
+    str = malloc(3);
+    while (i < 3)
+    {
+        str[i] = 'a';
+        i++;
+    }
+    str[0] = '\0';
+    free(str);
+    return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:38:58 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/05 14:12:06 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:59:17 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 # define LIBFT_H
 # include <stddef.h>  // Needed for size_t
 # include <stdlib.h>
+# include <stdbool.h> 
+
 /* Function prototypes */
 typedef struct s_list
 {
 	//char			*key;
-	char			*value;
+	//char			*value;
 	void			*content;
+	bool			print;
 	struct s_list	*next;
 }	t_list;
 
