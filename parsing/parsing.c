@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/03 20:45:34 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/05 20:29:16 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static void ft_free_path(char **path)
 	while (path[i])
 	{
 		free(path[i]);
+		path[i] = NULL;
 		i++;
 	}
 	free(path);
+	path = NULL;
 }
 
 void ft_parsing(t_data *data, t_list *tokens)

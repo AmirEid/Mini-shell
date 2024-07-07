@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/04 00:01:52 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/05 20:16:26 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ void    test_export(t_data data, t_list  *tokens)
     }
 }
 
-// void    test_cd(t_data data, t_list  *tokens)
-// {
-//     t_list *current = tokens;
-//     while (current != NULL) {
-//         t_tkn_data *tokenData = (t_tkn_data *)current->content;
-//         if (tokenData->type == WORD_CD)
-//             ft_cd(data.tokens, data.mini_env);
-//         current = current->next;
-//     }
-// }
+void    test_cd(t_data data, t_list  *tokens)
+{
+    t_list *current = tokens;
+    while (current != NULL) {
+        t_tkn_data *tokenData = (t_tkn_data *)current->content;
+        if (tokenData->type == WORD_CD)
+            ft_cd(data.tokens, data.mini_env);
+        current = current->next;
+    }
+}
 /*
 int main (int argc, char **argv, char **env)
 {
@@ -113,6 +113,7 @@ int main (int argc, char **argv, char **env)
 int main (int argc, char **argv, char **env)
 {
 	t_data data;
+    
     int ac = argc;  // <----- AGGIUNTO PER EVITARE WARNING
     ac++;
     char **av = argv;
@@ -129,12 +130,12 @@ int main (int argc, char **argv, char **env)
     ft_parsing(&data, data.tokens);
 	//printTokens(data.tokens);
     //test_export(data, data.tokens);
-    //test_cd(data, data.tokens);
+    test_cd(data, data.tokens);
     // printf("After export:\n");
     //solo_export(data);
     //ft_printf("After export:\n");
-    //print_env(data);
-	printTokens(data.tokens);
+    print_env(data);
+	//printTokens(data.tokens);
 	/*if (data.tokens != NULL)
 	{
 		ft_parsing(&data);

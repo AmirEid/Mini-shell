@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/02 23:48:13 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/05 19:35:23 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef enum s_types
 
 typedef struct s_tkn_data
 {
-	char *token;
+	char *token; 
 	t_types type;
 	int variable_len;
 	char *cmd_exec_path;

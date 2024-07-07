@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/02 23:32:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/07 14:53:20 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void quote_removal_copy(char *string, t_data *data, t_tkn_data *token, t_list *n
 	copy_assign(string, data, token, node);
 }
 
-int static ft_checker(t_data *data, int *quote_flag, t_tkn_data *token)
+static int ft_checker(t_data *data, int *quote_flag, t_tkn_data *token)
 {
 	if (!ft_isprint(data->args[data->current]) && !(*quote_flag % 2))
 		return (1);

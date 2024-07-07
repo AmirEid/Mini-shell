@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:58 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/25 23:30:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/05 19:47:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	memory_allocator(void **ptr, size_t size)
 	if (!*ptr)
 	{
 		perror("malloc");
+		//garbage_collector(g_data);
 		return ;
 	}
+	// list_add_front_node(&g_data->garbage, *ptr);
 }
 
 int	ft_isquote(int c)

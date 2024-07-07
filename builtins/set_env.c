@@ -27,12 +27,15 @@ void	set_env(char *name, char *path, t_list *mini_env)
 	{
 		if (find_path((char *)current->content, name))
 		{
-			//memory_allocator((void **)&new_entry, new_entry_len);
+			memory_allocator((void **)&new_entry, new_entry_len);
+			new_entry = ft_strjoin(name, "=");
+			new_entry = ft_strjoin(new_entry, "=");
+			/*
 			ft_strlcat(new_entry, name, new_entry_len);
 			ft_strlcat(new_entry, "=", new_entry_len);
-			ft_strlcat(new_entry, path, new_entry_len);
-			//printf("new_entry: %s\n", new_entry);
-			//printf("current->content: %s\n", (char *)current->content);
+			ft_strlcat(new_entry, path, new_entry_len);*/
+			printf("new_entry: %s\n", new_entry);
+			printf("current->content: %s\n", (char *)current->content);
 			current->content = new_entry;
 			return;
 		}
