@@ -6,9 +6,10 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 20:29:14 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/05 20:25:15 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/07 14:59:49 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../headers/minishell.h"
 
@@ -44,7 +45,7 @@ static void maybe_create_env_var(t_data data, char *str)
         new_node = ft_lstnew(ft_strdup(str));
         // if (!new_node)
         //     garbage_collector(data);
-        ft_lstadd_back(&data.mini_env, ft_lstnew(ft_strdup(str)));
+        ft_lstadd_back(&data.mini_env, new_node);
     }
 }
 

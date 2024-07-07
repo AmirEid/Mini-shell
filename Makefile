@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
+#    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/03 20:49:50 by rpaic            ###   ########.fr        #
+#    Updated: 2024/07/05 11:22:40 by anomourn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ H_SRC = lexer.h minishell.h builtins.h parsing.h
 H_DIR = headers/
 H_PATH = $(addprefix $(H_DIR), $(H_SRC))
 
-M_SRC = main.c
+M_SRC = main.c signals.c
 M_OBJ = $(M_SRC:.c=.o)
 
 L_SRC = lexer.c word_token.c utils.c meta_token.c special_token.c \
@@ -38,7 +38,7 @@ P_DIR = parsing/
 P_PATH = $(addprefix $(P_DIR), $(P_SRC))
 P_OBJ = $(P_PATH:.c=.o)
 
-B_SRC = check_env_arg.c export.c get_env.c search_env.c cd.c set_env.c
+B_SRC = check_env_arg.c export.c get_env.c search_env.c cd.c set_env.c pwd.c
 B_DIR = builtins/
 B_PATH = $(addprefix $(B_DIR), $(B_SRC))
 B_OBJ = $(B_PATH:.c=.o)

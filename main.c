@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/05 20:16:26 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/07 15:04:02 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 t_data g_data;
 
 int g_status;
+
+int	g_exit_code = 0;
 
 //int main (int argc, char **argv, char **env)
 // static void printTokens(t_list *tokens) {
@@ -81,16 +83,16 @@ void    test_export(t_data data, t_list  *tokens)
     }
 }
 
-void    test_cd(t_data data, t_list  *tokens)
-{
-    t_list *current = tokens;
-    while (current != NULL) {
-        t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        if (tokenData->type == WORD_CD)
-            ft_cd(data.tokens, data.mini_env);
-        current = current->next;
-    }
-}
+// void    test_cd(t_data data, t_list  *tokens)
+// {
+//     t_list *current = tokens;
+//     while (current != NULL) {
+//         t_tkn_data *tokenData = (t_tkn_data *)current->content;
+//         if (tokenData->type == WORD_CD)
+//             ft_cd(data.tokens, data.mini_env);
+//         current = current->next;
+//     }
+// }
 /*
 int main (int argc, char **argv, char **env)
 {
@@ -113,7 +115,6 @@ int main (int argc, char **argv, char **env)
 int main (int argc, char **argv, char **env)
 {
 	t_data data;
-    
     int ac = argc;  // <----- AGGIUNTO PER EVITARE WARNING
     ac++;
     char **av = argv;
@@ -123,9 +124,11 @@ int main (int argc, char **argv, char **env)
 	argv = 0;
 	data.args = readline("minishell $ ");
 	data.mini_env = get_env(data, env);
-	//print_env(data);
 	data.tokens = NULL;
+	data.pwd = NULL;
+	//print_env(data);
 	printf("You entered: %s\n", data.args);
+    ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
 	//printTokens(data.tokens);
@@ -134,8 +137,8 @@ int main (int argc, char **argv, char **env)
     // printf("After export:\n");
     //solo_export(data);
     //ft_printf("After export:\n");
-    print_env(data);
-	//printTokens(data.tokens);
+    //print_env(data);
+	printTokens(data.tokens);
 	/*if (data.tokens != NULL)
 	{
 		ft_parsing(&data);
@@ -145,4 +148,3 @@ int main (int argc, char **argv, char **env)
 	return 0;
 }
 //https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation
-
