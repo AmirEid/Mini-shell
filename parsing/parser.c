@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/05 20:07:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/08 21:23:38 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static void	ft_check_next_token(t_list *current, t_tkn_data *string)
 			exit(2);
 		}
 		next = (t_tkn_data *)current->next->content;
+		if (string->type != META_PIPE && next->type == META_PIPE)
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			exit(2);
+		}
 		if (next->type == string->type)
 		{
 			if (string->type == META_PIPE)
@@ -42,6 +47,12 @@ static void	ft_check_next_token(t_list *current, t_tkn_data *string)
 						2);
 			exit(2);
 		}
+		if ((next->type == META_HEREDOC && string->type == META_PIPE) || (next->type == META_PIPE && string->type == META_HEREDOC))
+		
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			exit(2);
+		}
 	}
 }
 
@@ -49,11 +60,13 @@ static void	ft_organizer(t_list *tokens)
 {
 	t_list		*current;
 	t_list		*tmp;
+	t_list		*tmp2;
 	t_list		*redir_tmp;
 	t_tkn_data	*string;
 
 	current = tokens;
 	string = NULL;
+	tmp2 = NULL;
 	redir_tmp = NULL;
 	tmp = NULL;
 	while (current)
@@ -63,22 +76,32 @@ static void	ft_organizer(t_list *tokens)
 		{
 			if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT
 				|| string->type == META_APPEND || string->type == META_HEREDOC)
+			{
 				redir_tmp = current;
+				while (current)
+				{
+					string = (t_tkn_data *)current->content;
+					if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT
+						|| string->type == META_APPEND || string->type == META_HEREDOC)
+						{
+							current = current->next;
+							tmp2 = current;
+							current = current->next;
+						}
+					if (!current || string->type == META_PIPE)
+						return ;
+					if (string->type == WORD || string->type == COMMAND)
+					{
+						tmp->next = current;
+						tmp2->next = current->next;
+						current->next = redir_tmp;
+						current = redir_tmp->next;
+						break ;
+					}
+				}
+			}
 			else
 				break ;
-			current = current->next->next;
-			if (!current)
-				return ;
-			string = (t_tkn_data *)current->content;
-			if ((string->type == WORD || string->type == COMMAND) && current
-				&& string->type != META_PIPE)
-			{
-				tmp->next = current;
-				redir_tmp->next->next = current->next;
-				current->next = redir_tmp;
-				current = redir_tmp->next;
-			}
-			//printTokens(tokens);
 		}
 		tmp = current;
 		current = current->next;
@@ -87,14 +110,20 @@ static void	ft_organizer(t_list *tokens)
 	}
 }
 
-void	ft_parser(t_data *data, t_list *tokens)
+//echo 1=2 < inf > out here=3 > out
+
+void	ft_parser(t_list *tokens)
 {
 	t_list		*current;
 	t_tkn_data	*string;
 
 	current = tokens;
-	string = NULL;
-	printf("here%d\n", data->list_size);
+	string = (t_tkn_data *)current->content;
+	if (string->type == META_PIPE)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		exit(2);
+	}
 	while (current)
 	{
 		string = (t_tkn_data *)current->content;

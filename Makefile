@@ -3,13 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
+#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/08 17:24:54 by rpaic            ###   ########.fr        #
+#    Updated: 2024/07/08 23:13:07 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME = minishell
 CC = cc -g
@@ -20,7 +19,7 @@ RM = rm -f
 PRINT_DIR = ./Printft
 LIBFT_DIR = ./Libft
 
-H_SRC = lexer.h minishell.h builtins.h parsing.h
+H_SRC = lexer.h minishell.h builtins.h parsing.h execution.h
 H_DIR = headers/
 H_PATH = $(addprefix $(H_DIR), $(H_SRC))
 
@@ -44,6 +43,11 @@ B_DIR = builtins/
 B_PATH = $(addprefix $(B_DIR), $(B_SRC))
 B_OBJ = $(B_PATH:.c=.o)
 
+E_SRC = execution.c execute_external.c
+E_DIR = execution/
+E_PATH = $(addprefix $(E_DIR), $(E_SRC))
+E_OBJ = $(E_PATH:.c=.o)
+
 %.o: %.c $(H_PATH) Makefile
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -55,7 +59,7 @@ $(NAME): $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ)
 all: $(NAME)
 
 clean:
-	$(RM) $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ)
+	$(RM) $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ) $(E_OBJ)
 	
 fclean: clean
 	$(RM) $(NAME)
