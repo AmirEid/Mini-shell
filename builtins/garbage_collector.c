@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:45:28 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/08 11:49:40 by rpaic            ###   ########.fr       */
+/*   Created: 2024/07/08 13:36:03 by rpaic             #+#    #+#             */
+/*   Updated: 2024/07/08 14:18:18 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../headers/minishell.h"
 
-t_list	*ft_lstnew(void *content)
+void free_null(void *ptr)
 {
-	t_list	*new_list;
-
-	new_list = malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->content = content;
-	if (ft_strchr((char *)content, '='))
-		new_list->print = 1;
-	else
-		new_list->print = 0;
-	new_list->next = NULL;
-	return (new_list);
+    if (ptr)
+        free(ptr);
+    ptr = NULL;
 }
+
+void free_mtx(char **path)
+{
+	int i;
+
+	i = 0;
+	while (path[i])
+	{
+		free_null(path[i]);
+		i++;
+	}
+	free_null(path);
+}
+
+//GARBAGE COLLECTOR da definire

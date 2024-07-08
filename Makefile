@@ -6,7 +6,7 @@
 #    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/07 20:21:07 by rpaic            ###   ########.fr        #
+#    Updated: 2024/07/08 17:24:54 by rpaic            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ P_DIR = parsing/
 P_PATH = $(addprefix $(P_DIR), $(P_SRC))
 P_OBJ = $(P_PATH:.c=.o)
 
-B_SRC = check_env_arg.c export.c get_env.c search_env.c cd.c set_env.c pwd.c export_utils.c
+B_SRC = check_env_arg.c export.c get_env.c search_env.c cd.c set_env.c \
+		pwd.c export_utils.c garbage_collector.c
 B_DIR = builtins/
 B_PATH = $(addprefix $(B_DIR), $(B_SRC))
 B_OBJ = $(B_PATH:.c=.o)

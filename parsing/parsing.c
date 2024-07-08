@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/05 20:29:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/08 13:47:43 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void ft_free_path(char **path)
-{
-	int i;
-
-	i = 0;
-	while (path[i])
-	{
-		free(path[i]);
-		path[i] = NULL;
-		i++;
-	}
-	free(path);
-	path = NULL;
-}
 
 void ft_parsing(t_data *data, t_list *tokens)
 {
@@ -37,5 +23,5 @@ void ft_parsing(t_data *data, t_list *tokens)
 	define_builtins(tokens);
 	define_commands(tokens, path);
 	ft_parser(data, tokens);
-	ft_free_path(path);
+	free_mtx(path);
 }

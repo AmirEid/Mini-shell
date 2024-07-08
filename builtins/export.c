@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/07 22:03:43 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/08 18:17:40 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void maybe_create_env_var(t_data data, char *str)
     while (temp_env)
     {
         l_eq = ft_strdup((char *)(temp_env->content));
-        if (temp_env->print == 0 && !ft_strncmp(str, l_eq, biggest_strlen( str, l_eq)))
+        if (temp_env->print == 0 && !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
             flag++ ;
-        l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0';
+        l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0'; //il '=' diventa '\0'
         if (!ft_strncmp(str, l_eq, biggest_strlen( str, l_eq)))
             flag++ ;
         free(l_eq);
@@ -63,27 +63,34 @@ static void maybe_create_env_var(t_data data, char *str)
     ft_lstadd_back(&data.mini_env, new_node);
 }
 
-// static void update_env_var(t_data data, char *str, char *eq)
-// {
-//     t_list  *temp;
-//     char    *new_token;
+static void     update_env_var(t_data data, char *str, char *eq)
+{
+    t_list  *temp;
+    size_t      compare_till;
     
-//     temp = g_data.mini_env;
-//     if (*(eq + 1) == '\0')
-//         return (maybe_create_env_var(data, str));
-//     while (temp)
-//     {
-//         if (!ft_strncmp(str, (char *)(temp->content), eq - str + 1))
-//         {
-//             str[eq - str] = '\0';
-//             str[eq - str - 1] = '=';
-//             set_env(str, eq, data.mini_env);
-//             return ;
-//         }
-//         temp = temp->next;
-//     }
-    
-// }
+    temp = data.mini_env;
+    if (*(eq + 1) == '\0')
+    {
+        str[eq - str] = '\0';
+        str[eq - str - 1] = '=';
+        return (create_new_env_var(data, str));
+    }
+    while (temp)
+    {
+        compare_till = idx_of_eq_or_plus(str, (char *)(temp->content));
+        if (!ft_strncmp(str, (char *)(temp->content), compare_till))
+        {
+            if (temp->print)
+                temp->content = strjoin_free(temp->content, eq + 1, 1);
+            else
+                temp->content = strjoin_free(temp->content, eq, 1);
+            temp->print = 1;
+            return ;
+        }
+        temp = temp->next;
+    }
+    add_toenv_skip_plus(data, str);
+}
 t_list    *ft_export(t_data data, t_list *cur_token)
 {
     char    *str;
@@ -104,9 +111,9 @@ t_list    *ft_export(t_data data, t_list *cur_token)
             ft_printf("minishell: export: `%s': not a valid identifier\n", str); //EXIT STATUS
         else if (left_side_type == 1)
             create_new_env_var(data, str);
-        // else if (left_side_type == 2)
-        //     update_env_var(data, str, ft_strchr(str, '='));
+        else if (left_side_type == 2)
+            update_env_var(data, str, ft_strchr(str, '='));
         actual_node = actual_node->next;
     }
-    return (actual_node); //tkn that is not argument of export cmd
+    return (actual_node); //exec continua from here
 }
