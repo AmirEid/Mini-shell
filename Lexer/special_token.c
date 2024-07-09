@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/09 15:53:31 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/09 16:55:14 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void ft_special_token(t_data *data, t_types type)
 	token->type = type;
 	token->variable_len = 0;
 	token->cmd_exec_path = NULL;
-	token->token = NULL;
 	quote_flag = 0;
 	while (ft_isprint(data->args[data->current]) && data->args[data->current])
 	{
@@ -68,11 +67,7 @@ void ft_special_token(t_data *data, t_types type)
 			}
 			tmp = ft_substr(data->args, data->start, data->current - data->start);
 		}
-		printf("token->token: %s\n", token->token);
-		if (token->token == NULL)
-			token->token = ft_strdup(tmp);
-		else
-			token->token = ft_strjoin(token->token, tmp);
+		token->token = ft_strjoin(token->token, tmp);
 		free(tmp);
 		data->start = data->current;
 	}
