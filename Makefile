@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
+#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/09 14:19:58 by rpaic            ###   ########.fr        #
+#    Updated: 2024/07/09 15:30:10 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,12 @@ B_DIR = builtins/
 B_PATH = $(addprefix $(B_DIR), $(B_SRC))
 B_OBJ = $(B_PATH:.c=.o)
 
-E_SRC = execution.c execute_external.c
+E_SRC = ft_execution.c execute_external.c
 E_DIR = execution/
 E_PATH = $(addprefix $(E_DIR), $(E_SRC))
 E_OBJ = $(E_PATH:.c=.o)
 
-U_SRC = utils.c
+U_SRC = strjoin_free.c
 U_DIR = utils/
 U_PATH = $(addprefix $(U_DIR), $(U_SRC))
 U_OBJ = $(U_PATH:.c=.o)

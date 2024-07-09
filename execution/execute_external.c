@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/09 11:36:26 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/09 15:27:22 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static char **ft_get_env_matrix(t_list *env)
 		envp[i] = ft_strdup((char *)current->content);
 		current = current->next;
 	}
+	return(envp);
 }
 
 void ft_command_execution(t_list *tokens, t_list *env, t_list **current)
@@ -78,7 +79,7 @@ void ft_command_execution(t_list *tokens, t_list *env, t_list **current)
 	char **envp;
 	//t_list *curr;
 	
-	args = ft_get_commands(tokens, *current);
+	args = ft_get_commands(tokens, current);
 	envp = ft_get_env_matrix(env);
 
 	free_mtx(envp);

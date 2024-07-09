@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/07/04 14:41:29 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/07/09 15:26:01 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	sigquit_handler(int sig)
 	sa.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &sa);
 }
-
+//anouk, possiamo usare solo un globale per l'exit code 
 /** Signal handler for the SIGINT signal inside a heredoc (ctrl+c) */
 void	ft_heredoc_handler(int sig)
 {

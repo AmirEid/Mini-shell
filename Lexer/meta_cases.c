@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/03 22:30:20 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/09 15:59:08 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	{
 		tmp = data->args[data->current];
 		(data->current)++;
+		if (data->args[data->current] == '$')
+			get_variable_len(data, data->current, &token->variable_len);
 		data->start = data->current;
 		while (data->args[data->current] != tmp)
 			(data->current)++;

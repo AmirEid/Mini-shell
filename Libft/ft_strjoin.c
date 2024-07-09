@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:25:19 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/09 13:37:00 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/09 16:42:50 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,34 @@
 #include <stdio.h>
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	int		i;
-	int		j;
-	char	*str;
+	size_t	l;
+	size_t	m;
+	char	*p;
+	char	*str_ptr;
 
-	if (!s1 || !s2)
+	l = 0;
+	m = 0;
+	p = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (p == NULL)
 		return (NULL);
-	i = 0;
-	j = 0;
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	while (s1[i])
-		str[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		str[j++] = s2[i++];
-	str[j] = '\0';
-	return (str);
+	str_ptr = p;
+	if (s1 != NULL)
+	{
+		while (s1[m] != '\0')
+			{
+				p[m] = s1[m];
+				m++;
+			}
+	}
+	while (s2[l] != '\0')
+	{
+		p[m + l] = s2[l];
+		l++;
+	}
+	p[m + l] = '\0';
+	return (str_ptr);
 }
 /*
 int	main()
