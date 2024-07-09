@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/08 23:11:47 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/09 11:36:26 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void ft_command_execution(t_list *tokens, t_list *env, t_list **current)
 	char **envp;
 	//t_list *curr;
 	
-
 	args = ft_get_commands(tokens, *current);
 	envp = ft_get_env_matrix(env);
 

@@ -1,0 +1,15 @@
+            our output         expected
+
+"$"USER""   seg fault          $USER: command not found
+$"$USER"    $USER              rpaic
+$           OK? - META_DOL     becames $ as cmd  
+'$USER'     null               $USER: command not found
+"'$USER'"   seg fault          'rpaic': command not found
+"$USER"     sega               rpaic: command not found
+
+cat | ls    working on         fa' "ls" poi "cat" aspetta un input, 
+                               appena lo riceve fa exit 0: command not found
+
+cat | cat | cat | ls           fa "ls" poi ogni cat aspetta un input.
+                               dopo 3 input fa exit 0
+
