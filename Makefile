@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/08 23:13:07 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/09 14:19:58 by rpaic            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,18 +48,23 @@ E_DIR = execution/
 E_PATH = $(addprefix $(E_DIR), $(E_SRC))
 E_OBJ = $(E_PATH:.c=.o)
 
+U_SRC = utils.c
+U_DIR = utils/
+U_PATH = $(addprefix $(U_DIR), $(U_SRC))
+U_OBJ = $(U_PATH:.c=.o)
+
 %.o: %.c $(H_PATH) Makefile
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ)
+$(NAME): $(M_OBJ) $(L_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(U_OBJ)
 	make -C $(LIBFT_DIR)
 	make -C $(PRINT_DIR)
-	$(CC) $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ) $(LFLAGS) $(PFLAGS) -lreadline -o $(NAME)
+	$(CC) $(M_OBJ) $(L_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(U_OBJ) $(LFLAGS) $(PFLAGS) -lreadline -o $(NAME)
 
 all: $(NAME)
 
 clean:
-	$(RM) $(M_OBJ) $(L_OBJ) $(B_OBJ) $(P_OBJ) $(E_OBJ)
+	$(RM) $(M_OBJ) $(L_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(U_OBJ)
 	
 fclean: clean
 	$(RM) $(NAME)

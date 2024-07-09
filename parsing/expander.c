@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/04 01:05:10 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/09 13:30:39 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str
 	i = 0;
 	variable = NULL;
 	after_expand = NULL;
-	if ((*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ' || variable_len == 0)
-			return ;
+	if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
+		return ;
 	memory_allocator((void **)&variable, variable_len - 1);
 	while (i < variable_len)
 	{

@@ -11,6 +11,7 @@
         "libft.h": "c",
         "compare": "c",
         "type_traits": "c",
-        "ft_printf.h": "c"
+        "ft_printf.h": "c",
+        "utils.h": "c"
     }
 }

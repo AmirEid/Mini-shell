@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:12:39 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/08 18:33:19 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/09 14:23:11 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,6 @@ size_t  idx_of_eq_or_plus(char *str_plus, char *str_eq)
     if (i > j)
         return (i);
     return (j);
-}
-
-char	*strjoin_free(char *s1, char *s2, int frees)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	if (!s1 || !s2)
-		return (NULL);
-	i = 0;
-	j = 0;
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	while (s1[i])
-		str[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		str[j++] = s2[i++];
-	str[j] = '\0';
-    if (frees >= 1)
-    {
-        if (frees >= 2)
-            free_null(s2);
-        free_null(s1);
-	}
-    return (str);
 }
 
 void add_toenv_skip_plus(t_data data, char *str)

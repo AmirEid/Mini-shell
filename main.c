@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/09 12:02:24 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:16:12 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int main (int argc, char **argv, char **env)
     ft_parsing(&data, data.tokens);
     //ft_execution(data.tokens, data.mini_env);
 	printTokens(data.tokens);
-    //test_export(data, data.tokens);
+    test_export(data, data.tokens);
     //test_cd(data, data.tokens);
     // printf("After export:\n");
     //solo_export(data);

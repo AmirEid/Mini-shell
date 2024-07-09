@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:25:05 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/03 11:46:33 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:11:08 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void    check_left_side(char *str, int *left_side_type)
     {
         if ((ft_isalnum(*str) == 0) && *str != '_')
         {
-            *left_side_type = 0;  //ERROR but test it working
+            *left_side_type = 0;  //ERROR but test if working
             return ;
         }
         str++;
