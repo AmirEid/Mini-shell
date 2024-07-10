@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/09 15:27:22 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/09 21:27:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char **ft_get_commands(t_list *tokens, t_list **current)
 	{
 		tokendata = (t_tkn_data *)(*current)->content;
 		if (tokendata->type == COMMAND || tokendata->type == WORD)
-			args[i] = ft_strdup(tokendata->token);
+			args[i] = (tokendata->token);
 		(*current) = (*current)->next;
 	}
 	return (args);
@@ -67,21 +67,33 @@ static char **ft_get_env_matrix(t_list *env)
 	envp[len] = NULL;
 	while (current != NULL && ++i < len)
 	{
-		envp[i] = ft_strdup((char *)current->content);
+		envp[i] = ((char *)current->content);
 		current = current->next;
 	}
 	return(envp);
+}
+
+void print_matrix(char **matrix)
+{
+	int i;
+
+	i = -1;
+	while (matrix[++i] != NULL)
+		printf("%s\n", matrix[i]);
 }
 
 void ft_command_execution(t_list *tokens, t_list *env, t_list **current)
 {
 	char **args;
 	char **envp;
-	//t_list *curr;
-	
+
 	args = ft_get_commands(tokens, current);
 	envp = ft_get_env_matrix(env);
-
-	free_mtx(envp);
-	free_mtx(args);
+	print_matrix(args);
+	exit (0);
+	//print_matrix(envp);
+	
+	free_null(envp);
+	free_null(args);
+	
 }
