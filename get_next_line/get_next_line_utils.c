@@ -6,11 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:00:34 by amireid           #+#    #+#             */
-/*   Updated: 2024/01/19 16:41:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 23:09:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/get_next_line.h"
+#include "../headers/get_next_line.h"
 
 size_t	ft_strln(char *str)
 {
@@ -52,7 +52,7 @@ char	*ft_join(char *s1, char *s2)
 	return (p);
 }
 
-char	*ft_strchr(char *str, int c)
+char	*ft_strchar(char *str, int c)
 {
 	int	i;
 

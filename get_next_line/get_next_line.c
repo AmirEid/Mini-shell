@@ -6,11 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:59:12 by amireid           #+#    #+#             */
-/*   Updated: 2024/01/19 16:53:39 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 23:09:16 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/get_next_line.h"
+#include "../headers/get_next_line.h"
 
 // #include <stdio.h>
 
@@ -23,7 +23,7 @@ char	*ft_left_string(int fd, char *fline)
 	if (!buff)
 		return (NULL);
 	bytes_read = 1;
-	while (!ft_strchr(fline, '\n') && bytes_read != 0)
+	while (!ft_strchar(fline, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
 		if (bytes_read == -1)

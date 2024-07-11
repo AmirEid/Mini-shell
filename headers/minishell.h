@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/09 15:11:17 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/11 23:08:35 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int		ft_cd(t_list *tokens, t_data *data);
 # include "parsing.h"
 # include "execution.h"
 # include "utils.h"
+# include "get_next_line.h"
 
 #endif

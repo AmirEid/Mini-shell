@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 17:55:45 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 23:33:52 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,29 @@ static int	ft_get_list_size(t_list *list)
 	return (size);
 }
 
-static char	**ft_get_commands(t_list *tokens, t_list **current)
+static char	**ft_get_commands(t_list *tokens, t_list *current)
 {
 	t_tkn_data	*tokendata;
 	char		**args;
 	int			len;
 	int			i;
+	t_list		*temp;
 
 	i = -1;
+	temp = current;
 	len = ft_get_list_size(tokens);
 	memory_allocator((void **)&args, sizeof(char *) * (len + 1));
 	args[len] = NULL;
-	while (*current != NULL && ++i < len)
+	while (temp != NULL && ++i < len)
 	{
-		tokendata = (t_tkn_data *)(*current)->content;
+		tokendata = (t_tkn_data *)current->content;
 		//double check this
 		if (tokendata->type != META_PIPE && tokendata->type != META_REDIR_IN
 			&& tokendata->type != META_REDIR_OUT
 			&& tokendata->type != META_APPEND
 			&& tokendata->type != META_HEREDOC)
 			args[i] = (tokendata->token);
-		(*current) = (*current)->next;
+		temp = temp->next;
 	}
 	return (args);
 }
@@ -86,18 +88,21 @@ static char	**ft_get_env_matrix(t_list *env)
 // 		printf("%s\n", matrix[i]);
 // }
 
-void	ft_command_execution(t_list *tokens, t_list *env, t_list **current)
+void	ft_command_execution(t_list *tokens, t_list *env, t_list *current)
 {
 	char **args;
 	char **envp;
+	t_tkn_data *tokendata;
 
+	tokendata = (t_tkn_data *)current->content;
 	args = ft_get_commands(tokens, current);
 	envp = ft_get_env_matrix(env);
-	execve(args[0], args, envp);
+	execve(tokendata->cmd_exec_path, args, envp);
 	//print_matrix(args);
 	//exit(0);
 	//print_matrix(envp);
 
 	free_null(envp);
 	free_null(args);
+	
 }

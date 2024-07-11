@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 18:22:44 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 23:29:55 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void open_files_errors_manager(int fd, char *exit_message, int exit_status, char
 void ft_dup2_error_manager(int fd, char *exit_message, int exit_status);
 void ft_heredoc(t_list *file);
 void ft_redir_in(t_list *file);
-void ft_command_execution(t_list *tokens, t_list *env, t_list **current);
+void ft_command_execution(t_list *tokens, t_list *env, t_list *current);
 
 #endif
