@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/11 23:18:02 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 23:36:37 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ int main (int argc, char **argv, char **env)
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
+	printTokens(data.tokens);
     ft_execution(data.tokens, data.mini_env);
     waitpid(-1, NULL, 0);
-	printTokens(data.tokens);
     //test_export(data, data.tokens);
     //test_cd(data, data.tokens);
     // printf("After export:\n");
