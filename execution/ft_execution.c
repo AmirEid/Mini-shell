@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 00:47:09 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 16:53:55 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,6 @@ static void ft_assign_args(t_list **args, t_list *tokens)
 	}
 }
 
-void ft_execute_one_command_line(t_list *tokens, t_list *env)
-{
-	t_list *current;
-	t_tkn_data *tokendata;
-	//THIS IS WORK IN PROGRESS
-	//in this function i should iterate over the list, until pipe or null..
-	//the function will call different functions depending on the type of the token. >> > < << external, builtin
-	//make sure to do invoke execve in the end of the function, execute first all builtins and redirections first, then
-	//execute the external command.
-	// a process can only hand one command (external or builtin) at a time, with redirections.
-	current = tokens;
-	tokendata = (t_tkn_data *)current->content;
-	while (current != NULL && tokendata->type != META_PIPE)
-	{
-		if (tokendata->type == COMMAND)
-			ft_command_execution(tokens, env, &current);
-		current = current->next;
-		if (current != NULL)
-			tokendata = (t_tkn_data *)current->content;
-	}
-}
-
 void ft_execution(t_list *tokens, t_list *env)
 {
 	t_list *current;
@@ -106,6 +84,6 @@ void ft_execution(t_list *tokens, t_list *env)
 	{
 		pid = fork();
 		if (pid == 0)
-			ft_execute_one_command_line(tokens, env);
+			ft_execute_routine(tokens, env);
 	}
 }
