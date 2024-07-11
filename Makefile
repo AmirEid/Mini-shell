@@ -6,7 +6,7 @@
 #    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/11 17:44:59 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/11 18:23:12 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,8 @@ B_PATH = $(addprefix $(B_DIR), $(B_SRC))
 B_OBJ = $(B_PATH:.c=.o)
 
 #execution
-E_SRC = ft_execution.c execute_external.c execute_routine.c \
-		ft_here_doc.c exec_utils.c
+E_SRC = execution.c execute_external.c execute_routine.c \
+		ft_here_doc.c exec_utils.c ft_redir_in.c
 E_DIR = execution/
 E_PATH = $(addprefix $(E_DIR), $(E_SRC))
 E_OBJ = $(E_PATH:.c=.o)

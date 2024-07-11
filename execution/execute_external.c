@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 17:52:30 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/11 17:55:45 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list **current)
 
 	args = ft_get_commands(tokens, current);
 	envp = ft_get_env_matrix(env);
-	print_matrix(args);
-	exit(0);
+	execve(args[0], args, envp);
+	//print_matrix(args);
+	//exit(0);
 	//print_matrix(envp);
 
 	free_null(envp);
