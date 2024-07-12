@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 23:49:56 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/12 22:11:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static void	execute_redirections(t_list *token)
 		tokendata = (t_tkn_data *)current->content;
 		if (tokendata->type == META_REDIR_IN)
 			ft_redir_in(current->next);
-		/*else if (tokendata->type == META_REDIR_OUT)
+		else if (tokendata->type == META_REDIR_OUT)
 			ft_redir_out(current->next);
 		else if (tokendata->type == META_APPEND)
-			ft_redir_append(current->next);*/
+			ft_redir_append(current->next);
 		else if (tokendata->type == META_HEREDOC)
 			ft_heredoc(current->next);
 		current = current->next;
@@ -79,6 +79,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env)
 			execute_redirections(tokens);
 		if (tokendata->type == COMMAND)
 			ft_command_execution(tokens, env, current);
-		current = current->next;
+		
+		break;
 	}
 }

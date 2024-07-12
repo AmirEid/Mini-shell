@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/11 23:40:11 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/12 19:51:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current)
 	execve(tokendata->cmd_exec_path, args, envp);
 	//exit(0);
 	//print_matrix(envp);
-
 	free_null(envp);
 	free_null(args);
 	

@@ -6,11 +6,11 @@
 #    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2024/07/12 00:32:21 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/12 22:11:05 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME = minishellasvavas
 CC = cc -g
 CFLAGS = -Wall -Wextra -Werror
 PFLAGS = -L./Printft -lftprintf
@@ -50,7 +50,8 @@ B_OBJ = $(B_PATH:.c=.o)
 
 #execution
 E_SRC = execution.c execute_external.c execution_routine.c \
-		ft_here_doc.c exec_errno_manage.c ft_redir_in.c
+		ft_here_doc.c exec_errno_manage.c ft_redir_in.c ft_redir_out.c \
+		ft_redir_append.c
 E_DIR = execution/
 E_PATH = $(addprefix $(E_DIR), $(E_SRC))
 E_OBJ = $(E_PATH:.c=.o)
