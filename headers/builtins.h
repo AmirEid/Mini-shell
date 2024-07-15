@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:27:02 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/08 17:20:38 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/15 17:30:24 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ size_t      idx_of_eq_or_plus(char *str_plus, char *str_eq);
 //FREE and GARBAGE
 void        free_mtx(char **path);
 void        free_null(void *ptr);
+
+void execute_command(t_list *tokens, t_data *data);
 
 #endif

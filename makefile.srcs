@@ -1,0 +1,42 @@
+M_SRC = ./Lexer/lexer.c \
+	./Lexer/meta_cases.c \
+	./Lexer/meta_token.c \
+	./Lexer/special_token.c \
+	./Lexer/utils.c \
+	./Lexer/word_token.c \
+	./builtins/cd.c \
+	./builtins/cd_utils.c \
+	./builtins/check_env_arg.c \
+	./builtins/echo.c \
+	./builtins/exit.c \
+	./builtins/export.c \
+	./builtins/export_utils.c \
+	./builtins/garbage_collector.c \
+	./builtins/get_env.c \
+	./builtins/pwd.c \
+	./builtins/search_env.c \
+	./builtins/set_env.c \
+	./builtins/unset.c \
+	./execution/exec_errno_manage.c \
+	./execution/execute_external.c \
+	./execution/execution.c \
+	./execution/execution_routine.c \
+	./execution/ft_here_doc.c \
+	./execution/ft_redir_append.c \
+	./execution/ft_redir_in.c \
+	./execution/ft_redir_out.c \
+	./get_next_line/get_next_line.c \
+	./get_next_line/get_next_line_utils.c \
+	./main.c \
+	./my minishell_guide/my_mini_shell.c \
+	./parsing/define_builtins.c \
+	./parsing/expander.c \
+	./parsing/get_command.c \
+	./parsing/parser.c \
+	./parsing/parsing.c \
+	./signals.c \
+	./test/test.c \
+	./test/test_set_enc.c \
+	./test/tests.c \
+	./test_raz/mall_str.c \
+	./utils/strjoin_free.c

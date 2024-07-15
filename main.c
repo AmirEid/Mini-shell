@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/12 19:01:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/15 17:34:17 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,15 @@ int main (int argc, char **argv, char **env)
 	data.mini_env = get_env(data, env);
 	data.tokens = NULL;
 	data.pwd = NULL;
+    data.old_pwd = NULL;
+    data.env = NULL;
 	//print_env(data);
 	printf("You entered: %s\n", data.args);
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
 	printTokens(data.tokens);
-    ft_execution(data.tokens, data.mini_env);
+    ft_execution(data.tokens, data.mini_env); 
     //waitpid(-1, NULL, 0);
     //test_export(data, data.tokens);
     //test_cd(data, data.tokens);
@@ -150,3 +152,19 @@ int main (int argc, char **argv, char **env)
 	return 0;
 }
 //https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation
+
+// int main()
+// {
+//     t_data data;
+//     data.pwd = NULL;
+
+//     if (ft_pwd(&data) == 0)
+//         printf("Current working directory: %s\n", data.pwd);
+//     else
+//         printf("An error occurred while trying to get the current working directory.\n");
+
+//     if (data.pwd != NULL)
+//         free(data.pwd);
+
+//     return 0;
+// }
