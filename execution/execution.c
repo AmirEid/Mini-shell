@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 23:48:59 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/23 00:23:22 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 		{
 			pid = fork();
 			if (pid == 0)
-				ft_command_execution(tokens, env, tokens);
+				ft_execute_routine(tokens, env, data);
+			else
+				waitpid(pid, NULL, 0);
 		}
 		else
 			ft_execute_routine(tokens, env, data);
+		
 	}
 }
