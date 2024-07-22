@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 16:23:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 21:33:39 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_get_number_of_redirections(t_list *tokens)
 	return (num_redirs);
 }
 
-static void	execute_redirections(t_list *token)
+static void	execute_redirections(t_list *token, t_list *env)
 {
 	t_list		*current;
 	t_tkn_data	*tokendata;
@@ -49,9 +49,10 @@ static void	execute_redirections(t_list *token)
 		else if (tokendata->type == META_APPEND)
 			ft_redir_append(current->next);
 		else if (tokendata->type == META_HEREDOC)
-			ft_heredoc(current->next);
+			ft_heredoc(current->next, env);
 		current = current->next;
-		tokendata = (t_tkn_data *)current->content;
+		if (current != NULL)
+			tokendata = (t_tkn_data *)current->content;
 	}
 }
 
@@ -73,7 +74,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 	num_redirs = ft_get_number_of_redirections(tokens);
 	tokendata = (t_tkn_data *)current->content;
 	if (num_redirs > 0)
-		execute_redirections(tokens);
+		execute_redirections(tokens, env);
 	if (tokendata->type == COMMAND)
 		ft_command_execution(tokens, env, current);
 	if (tokendata->type == WORD_CD)

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/07 15:02:02 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 21:05:17 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum s_types
 	WORD_DOL, //ec$"ho" vs ec"$ho"
 	WORD,
 	WORD_WITH_DQUOTE_INSIDE,
+	WORD_WITH_SQUOTE_INSIDE,
 	COMMAND, //check for $
 } t_types;
 

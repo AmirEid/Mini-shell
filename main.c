@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/22 18:23:47 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 23:27:03 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ const char* getTypeName(t_types type) {
         case WORD: return "WORD";
         case COMMAND: return "COMMAND";
         case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
+        case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
         default: return "UNKNOWN_TYPE";
     }
 }
@@ -135,9 +136,9 @@ int main (int argc, char **argv, char **env)
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
-	//printTokens(data.tokens);
-    ft_execution(data.tokens, data.mini_env, &data); 
+	printTokens(data.tokens);
 	//print_env(data);
+    ft_execution(data.tokens, data.mini_env, &data); 
     //waitpid(-1, NULL, 0);
     //test_export(data, data.tokens);
     //test_cd(data, data.tokens);

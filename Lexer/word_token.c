@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/07 14:53:20 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 23:42:38 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ void quote_removal_copy(char *string, t_data *data, t_tkn_data *token, t_list *n
 				token->type = WORD_WITH_DQUOTE_INSIDE;
 		}
 		else if (data->args[data->start + i] == '\'') 
+		{
 			ft_copier(&i, '\'', string, data, &quote_flag);
+			token->type = WORD_WITH_SQUOTE_INSIDE;
+		}
 		else
 		{
 			string[i] = data->args[data->start + i];
@@ -123,6 +126,10 @@ void quote_removal_copy(char *string, t_data *data, t_tkn_data *token, t_list *n
 		}
 	}
 	string[i] = '\0';
+	if (data->args[data->start + i] == '\"')
+		token->type = WORD_WITH_DQUOTE_INSIDE;
+	if (data->args[data->start + i] == '\'')
+		token->type = WORD_WITH_SQUOTE_INSIDE;
 	copy_assign(string, data, token, node);
 }
 

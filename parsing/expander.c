@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 18:19:36 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 21:20:23 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void expander(t_list *mini_env, t_list *tokens)
 	current = tokens;
 	prev = current;
 	prev_tmp = NULL;
+	tmp = NULL;
 	while (current)
 	{
 		tmp = (t_tkn_data *)current->content;
@@ -111,9 +112,10 @@ void expander(t_list *mini_env, t_list *tokens)
 		else if (tmp->type == SPECIAL_DQUOTE || tmp->type == WORD_DOL || tmp->type == WORD_WITH_DQUOTE_INSIDE)
 		{
 			dquote_expander(mini_env, tmp->variable_len, &tmp->token);
-			tmp->type = WORD;
+			if (prev_tmp->type != META_HEREDOC)
+				tmp->type = WORD;
 		}
-		else if (tmp->type == SPECIAL_SQUOTE)
+		else if ((tmp->type == SPECIAL_SQUOTE || tmp->type == WORD_WITH_SQUOTE_INSIDE) && prev_tmp->type != META_HEREDOC)
 			tmp->type = WORD;
 		prev = current;
 		current = current->next;

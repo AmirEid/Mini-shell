@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 17:52:59 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 23:48:59 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ static void printargs(t_list *args[], int process_num)
 //the number of processes we have to create. We can just pass the array of pointers to the functions.
 void ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
-	t_list *current;
-	//t_tkn_data *tokendata;
+	t_tkn_data *tokendata;
 	int process_num;
 	t_list *args[MAX_PROCESS_NUM + 1];
 	pid_t pid;
 	
-	current = tokens;
+	tokendata = (t_tkn_data *)data->tokens->content;
 	pid = 0;
 	process_num = ft_get_process_num(tokens);
 	if (process_num < 1 || process_num > MAX_PROCESS_NUM)
@@ -100,8 +99,13 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
+		if (tokendata->type == COMMAND)
+		{
+			pid = fork();
+			if (pid == 0)
+				ft_command_execution(tokens, env, tokens);
+		}
+		else
 			ft_execute_routine(tokens, env, data);
 	}
 }
