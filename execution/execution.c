@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/23 00:23:22 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/23 00:27:10 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,6 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 	if (process_num > 1)
 	{
 		ft_assign_args(args, tokens);
-		//printargs(args, process_num);
-		//this function will create processes and pipes and then pass to execute one command line as well. (generic function for all the pieces of the command line)
-		//while pid, then send to each fork args[i] and env
 		create_pipes_and_execution(args, process_num, env, data);
 	}
 	else
