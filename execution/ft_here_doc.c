@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 23:28:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/23 00:33:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void check_expansion(char *buffer, int fd, t_list *env)
 		write(fd, buffer, ft_strlen(buffer));
 }
 
-
 void ft_heredoc(t_list *file, t_list *env)
 {
 	t_tkn_data *tokendata;
@@ -75,6 +74,7 @@ void ft_heredoc(t_list *file, t_list *env)
 		free(buffer);
 	}
 	get_next_line(-1);
+	free(buffer);
 	close(fd);
 	fd = open(".heredoc", O_RDONLY);
 	if (fd == -1)
