@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 17:52:52 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 18:34:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 		}
 	}
 	close_pipes(pipe_fd, process_num);
+	//this should be the parent process where it waits for all the children 
+	//to finish using waitpid, checking the exit status and do the free
 	while(process_num--)
 		wait(NULL);
 }
