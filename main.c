@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/22 17:53:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 18:23:47 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,21 @@ int main (int argc, char **argv, char **env)
     t_data data;
     
     data.mini_env = get_env(data, env);
+    data.tokens = NULL;
+    data.pwd = NULL;
+    data.old_pwd = NULL;
+    data.env = NULL;
     while (1)
     {
         data.args = readline("minishell $ ");
-        if (!data.args)
-            break;
-        if (ft_strlen(data.args) != 0)
-        {
-            ft_tokenizing(&data);
-        }
+        printf("You entered: %s\n", data.args);
+        ft_lexer(&data);
+        ft_parsing(&data, data.tokens);
+        ft_execution(data.tokens, data.mini_env, &data);
     }
-}
-*/
+    return 0;
+}*/
+
 
 int main (int argc, char **argv, char **env)
 {
@@ -132,7 +135,7 @@ int main (int argc, char **argv, char **env)
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
-	printTokens(data.tokens);
+	//printTokens(data.tokens);
     ft_execution(data.tokens, data.mini_env, &data); 
 	//print_env(data);
     //waitpid(-1, NULL, 0);
@@ -143,10 +146,10 @@ int main (int argc, char **argv, char **env)
     //ft_printf("After export:\n");
     //rint_env(data);
 	//printTokens(data.tokens);
-	/*if (data.tokens != NULL)
-	{
-		ft_parsing(&data);
-	}*/
+	//if (data.tokens != NULL)
+	//{
+		//ft_parsing(&data);//
+	//}//
 
 	//free(data.args);
 	return 0;

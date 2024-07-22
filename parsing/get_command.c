@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/05 18:05:28 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/22 18:29:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,8 @@ void define_commands(t_list *tokens, char **path)
 		string = (t_tkn_data *)current->content;
 		if (string->type == WORD)
 			string->cmd_exec_path = get_command(path, string->token);
-		if (string->cmd_exec_path == NULL)
-			printf("Command not found\n");
-		else
-		{
-			printf("Command path: %s\n", string->cmd_exec_path);
+		if (string->cmd_exec_path != NULL)
 			string->type = COMMAND;
-		}
 		current = current->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:44:06 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/15 18:57:34 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:18:46 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void define_builtins(t_list *token)
 		current = current->next;
 	}
 }
-
+//what is this?????????
 void	execute_command(t_list *tokens, t_data *data)
 {
 	t_list *current = tokens;
