@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/12 19:00:57 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/22 17:52:59 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int ft_get_process_num(t_list *tokens)
 	return (process_num + 1);
 }
 
-/*static void ft_assign_args(t_list **args, t_list *tokens)
+static void ft_assign_args(t_list *args[], t_list *tokens)
 {
 	t_list *current;
 	t_tkn_data *tokendata;
@@ -38,7 +38,9 @@ static int ft_get_process_num(t_list *tokens)
 
 	i = 0;
 	current = tokens;
-	tokendata = (t_tkn_data *)current->content;
+	tokendata = NULL;
+	if (current == NULL)
+		return ;
 	args[i] = tokens;
 	while (current != NULL)
 	{
@@ -46,44 +48,60 @@ static int ft_get_process_num(t_list *tokens)
 		while (tokendata->type != META_PIPE && current != NULL)
 		{
 			current = current->next;
-			tokendata = (t_tkn_data *)current->content;
+			if (current != NULL)
+				tokendata = (t_tkn_data *)current->content;
 		}
 		if (tokendata->type == META_PIPE)
 		{
-			i++;
-			args[i] = current->next;
+			args[++i] = current->next;
 			current = current->next;
 		}
 	}
-}*/
+}
 
-void ft_execution(t_list *tokens, t_list *env)
+static void printargs(t_list *args[], int process_num) 
+{
+	int i;
+	t_tkn_data *tokendata;
+
+	i = 0;
+	tokendata = NULL;
+	while (i < process_num)
+	{
+		tokendata = (t_tkn_data *)args[i]->content;
+		printf("args[%d]: %s\n", i, tokendata->token);
+		i++;
+	}
+}
+
+//I changed t_list **args because there is no need to allocate memory and we already know/
+//the number of processes we have to create. We can just pass the array of pointers to the functions.
+void ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
 	t_list *current;
 	//t_tkn_data *tokendata;
 	int process_num;
-	t_list **args;
-	//pid_t pid;
+	t_list *args[MAX_PROCESS_NUM + 1];
+	pid_t pid;
 	
 	current = tokens;
-	args = NULL;
-	//pid = 0;
+	pid = 0;
 	process_num = ft_get_process_num(tokens);
-	if (process_num < 1)
+	if (process_num < 1 || process_num > MAX_PROCESS_NUM)
 		return ;
-	/*else if (process_num > 1)
+	args[process_num + 1] = NULL;
+	if (process_num > 1)
 	{
-		memory_allocator((void **)&args, sizeof(t_list *) * process_num);
-		args[process_num] = NULL;
 		ft_assign_args(args, tokens);
+		//printargs(args, process_num);
 		//this function will create processes and pipes and then pass to execute one command line as well. (generic function for all the pieces of the command line)
 		//while pid, then send to each fork args[i] and env
-		create_pipes_and_execution(args, env);
-	}*/
+		create_pipes_and_execution(args, process_num, env, data);
+	}
 	else
 	{
-		//pid = fork();
-		//if (pid == 0)
-			ft_execute_routine(tokens, env);
+		pid = fork();
+		if (pid == 0)
+			ft_execute_routine(tokens, env, data);
 	}
 }

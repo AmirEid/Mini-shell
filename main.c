@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/15 17:34:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:53:04 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,13 @@ int main (int argc, char **argv, char **env)
 	data.pwd = NULL;
     data.old_pwd = NULL;
     data.env = NULL;
-	//print_env(data);
 	printf("You entered: %s\n", data.args);
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
 	printTokens(data.tokens);
-    ft_execution(data.tokens, data.mini_env); 
+    ft_execution(data.tokens, data.mini_env, &data); 
+	//print_env(data);
     //waitpid(-1, NULL, 0);
     //test_export(data, data.tokens);
     //test_cd(data, data.tokens);

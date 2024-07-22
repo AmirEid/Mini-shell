@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/09 13:40:16 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/22 13:24:35 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ static void     update_env_var(t_data data, char *str, char *eq)
     }
     add_toenv_skip_plus(data, str);
 }
-t_list    *ft_export(t_data data, t_list *cur_token)
+
+// I removed the return
+void    ft_export(t_data data, t_list *cur_token)
 {
     char    *str;
     t_list  *actual_node;
@@ -99,7 +101,8 @@ t_list    *ft_export(t_data data, t_list *cur_token)
     
     actual_node = cur_token->next;
     if (!actual_node || ((t_tkn_data *)(actual_node->content))->type != WORD)
-        return (solo_export(data), actual_node);   
+        return ;
+        //return (solo_export(data), actual_node);   
     while (actual_node && ((t_tkn_data *)(actual_node->content))->type == WORD)
     {   
         str = ((t_tkn_data *)(actual_node->content))->token;
@@ -115,5 +118,5 @@ t_list    *ft_export(t_data data, t_list *cur_token)
             update_env_var(data, str, ft_strchr(str, '='));
         actual_node = actual_node->next;
     }
-    return (actual_node); //exec continua from here
+    //return (actual_node); //exec continua from here
 }

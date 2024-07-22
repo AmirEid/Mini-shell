@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:27:02 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/15 17:30:24 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/22 13:23:51 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char 	    *search_env(t_list *mini_env, char *variable);
 char 	    *find_path(char *curr_content, char *variable);
 // void	ft_cd(t_list *tokens, t_list *mini_env);
 void        check_left_side_export(char *str, int *left_side_type);
-t_list     *ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
+void     ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
 size_t      biggest_strlen(char *str1, char *str2);
 size_t      most_right_eq(char *str1, char *str2);
 
@@ -38,5 +38,6 @@ void        free_mtx(char **path);
 void        free_null(void *ptr);
 
 void execute_command(t_list *tokens, t_data *data);
+void ft_unset(t_data data, t_list *cur_token);
 
 #endif
