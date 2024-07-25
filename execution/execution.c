@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/23 00:27:10 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 16:40:03 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ static void ft_assign_args(t_list *args[], t_list *tokens)
 	}
 }
 
-static void printargs(t_list *args[], int process_num) 
-{
-	int i;
-	t_tkn_data *tokendata;
+// static void printargs(t_list *args[], int process_num) 
+// {
+// 	int i;
+// 	t_tkn_data *tokendata;
 
-	i = 0;
-	tokendata = NULL;
-	while (i < process_num)
-	{
-		tokendata = (t_tkn_data *)args[i]->content;
-		printf("args[%d]: %s\n", i, tokendata->token);
-		i++;
-	}
-}
+// 	i = 0;
+// 	tokendata = NULL;
+// 	while (i < process_num)
+// 	{
+// 		tokendata = (t_tkn_data *)args[i]->content;
+// 		printf("args[%d]: %s\n", i, tokendata->token);
+// 		i++;
+// 	}
+// }
 
 //I changed t_list **args because there is no need to allocate memory and we already know/
 //the number of processes we have to create. We can just pass the array of pointers to the functions.

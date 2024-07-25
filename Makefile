@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/07/22 14:26:08 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/25 16:35:25 by rpaic            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,10 +60,11 @@ M_SRC = ./Lexer/lexer.c \
 	./utils/strjoin_free.c
 
 
+
 $(NAME): $(M_SRC)
 	make -C $(LIBFT_DIR)
 	make -C $(PRINT_DIR)
-	$(CC) $(M_SRC) $(LFLAGS) $(PFLAGS) -lreadline -o $(NAME)
+	$(CC) $(M_SRC) $(LFLAGS) $(PFLAGS) $(CFLAGS) -lreadline -o $(NAME)
 	@echo "\e[0;35m ----> MINISHELL compliled with succes\e[0;m"
 
 all: $(NAME)

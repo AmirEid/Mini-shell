@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/22 23:27:03 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 17:20:02 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,16 @@ int main (int argc, char **argv, char **env)
     return 0;
 }*/
 
+void       test_echo(t_list *tokens)
+{
+    t_list *current = tokens;
+    while (current != NULL) {
+        t_tkn_data *tokenData = (t_tkn_data *)current->content;
+        if (tokenData->type == WORD_ECHO)
+            ft_echo(current);
+        current = current->next;
+    }
+}
 
 int main (int argc, char **argv, char **env)
 {
@@ -138,14 +148,15 @@ int main (int argc, char **argv, char **env)
     ft_parsing(&data, data.tokens);
 	printTokens(data.tokens);
 	//print_env(data);
-    ft_execution(data.tokens, data.mini_env, &data); 
+    //ft_execution(data.tokens, data.mini_env, &data); 
     //waitpid(-1, NULL, 0);
     //test_export(data, data.tokens);
+    test_echo(data.tokens);
     //test_cd(data, data.tokens);
     // printf("After export:\n");
     //solo_export(data);
     //ft_printf("After export:\n");
-    //rint_env(data);
+    //print_env(data);
 	//printTokens(data.tokens);
 	//if (data.tokens != NULL)
 	//{

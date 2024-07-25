@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 21:33:39 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 16:44:18 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		ft_pwd(data);
 	if (tokendata->type == WORD_EXPORT)
 		ft_export(*data, tokens);
-	if (tokendata->type == WORD_UNSET)
-		ft_unset(*data, tokens);
+	// if (tokendata->type == WORD_UNSET)
+	// 	ft_unset(*data, tokens);
 		//add here all the builtins @razvan @anouk
 }

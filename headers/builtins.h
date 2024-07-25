@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:27:02 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/22 13:23:51 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 16:51:58 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void        free_null(void *ptr);
 void execute_command(t_list *tokens, t_data *data);
 void ft_unset(t_data data, t_list *cur_token);
 
+void ft_echo(t_list *cur_token);
 #endif

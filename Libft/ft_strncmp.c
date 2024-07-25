@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:42:52 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/08 18:49:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 15:41:35 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-/*
-int main()
-{
-	printf("   %d\n",strncmp("test\200", "test\0", 6));
-	printf("-> %d\n",ft_strncmp("test\200", "test\0", 6));
-}*/
+
+// int main()
+// {
+// 	//printf("   %d\n",strncmp("test\200", "test\0", 6));
+// 	printf("-> %d\n",ft_strncmp("-n-n", "-n", 4));
+// }
