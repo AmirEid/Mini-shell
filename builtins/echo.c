@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/25 18:01:26 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:13:35 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void write_no_white(char *str)
     now = str;
     while (*now && is_white(*now))
             now++;
-    while (now)
+    while (*now)
     {
         if (is_white(*now))
             flag = 1;
@@ -61,19 +61,6 @@ static void write_no_white(char *str)
             write(STDOUT_FILENO, now, 1);
         }
         now++;
-    }
-    // while((now + 1) && ((ft_isprint(now) || is_white(now))))
-    // {
-    //     if (ft_isprint(now))
-    //         while (ft_isprint(now))
-    //             write(STDOUT_FILENO, now++, 1);
-    //     else
-    //     {  
-    //         write(STDOUT_FILENO, " ", 1);
-    //         while (now && is_white(now))
-    //             now++;
-    //     }
-    // }
 }
 
 void ft_echo(t_list *cur_token)
@@ -93,7 +80,8 @@ void ft_echo(t_list *cur_token)
     {
         if (((t_tkn_data *)(curr->content))->type == META_DOL)
             write_no_white(((t_tkn_data *)(curr->content))->token);
-        write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token, ft_strlen(((t_tkn_data *)(curr->content))->token));
+        else
+            write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token, ft_strlen(((t_tkn_data *)(curr->content))->token));
         write(STDOUT_FILENO, " ", 1);
         curr = curr->next;
     }
