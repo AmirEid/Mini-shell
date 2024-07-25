@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/25 17:54:32 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/26 01:05:22 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,30 @@ void    test_export(t_data data, t_list  *tokens)
 //         current = current->next;
 //     }
 // }
-/*
+
+
 int main (int argc, char **argv, char **env)
 {
     t_data data;
     
+    (void)argc;
+    (void)argv;
+    data = initialize_data();
     data.mini_env = get_env(data, env);
-    data.tokens = NULL;
-    data.pwd = NULL;
-    data.old_pwd = NULL;
-    data.env = NULL;
     while (1)
     {
-        data.args = readline("minishell $ ");
-        printf("You entered: %s\n", data.args);
+        prompt_loop(&data);
         ft_lexer(&data);
         ft_parsing(&data, data.tokens);
         ft_execution(data.tokens, data.mini_env, &data);
+        free_all(&data);
+        reinitialize_data(&data);
     }
     return 0;
-}*/
+}
 
+
+/*
 void       test_echo(t_list *tokens)
 {
     t_list *current = tokens;
@@ -124,8 +127,8 @@ void       test_echo(t_list *tokens)
             ft_echo(current);
         current = current->next;
     }
-}
-
+}*/
+/*
 int main (int argc, char **argv, char **env)
 {
 	t_data data;
@@ -136,7 +139,7 @@ int main (int argc, char **argv, char **env)
 
 	argc = 0;
 	argv = 0;
-	data.args = readline("minishell $ ");
+	 data.args = readline("minishell $ ");
 	data.mini_env = get_env(data, env);
 	data.tokens = NULL;
 	data.pwd = NULL;
@@ -148,10 +151,10 @@ int main (int argc, char **argv, char **env)
     ft_parsing(&data, data.tokens);
 	//printTokens(data.tokens);
 	//print_env(data);
-    //ft_execution(data.tokens, data.mini_env, &data); 
+    ft_execution(data.tokens, data.mini_env, &data); 
     //waitpid(-1, NULL, 0);
     //test_export(data, data.tokens);
-    test_echo(data.tokens);
+    //test_echo(data.tokens);
     //test_cd(data, data.tokens);
     // printf("After export:\n");
     //solo_export(data);
@@ -163,9 +166,9 @@ int main (int argc, char **argv, char **env)
 		//ft_parsing(&data);//
 	//}//
 
-	//free(data.args);
+	free_all(&data);
 	return 0;
-}
+}*/
 //https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation
 
 // int main()

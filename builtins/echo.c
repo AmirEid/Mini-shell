@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/25 18:13:35 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/25 19:09:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void write_no_white(char *str)
             write(STDOUT_FILENO, now, 1);
         }
         now++;
+    }
 }
 
 void ft_echo(t_list *cur_token)

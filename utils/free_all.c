@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/16 11:49:29 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:23:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 void	free_list(t_list *list)
 {
 	t_list	*tmp;
-
+	t_tkn_data	*tkn_data;
+	
+	tmp = NULL;
+	tkn_data = NULL;
 	while (list)
 	{
 		tmp = list;
+		tkn_data = (t_tkn_data *)tmp->content;
 		list = list->next;
+		free(tkn_data->token);
+		if (tkn_data->cmd_exec_path)
+			free(tkn_data->cmd_exec_path);
+		free(tkn_data);
 		free(tmp);
 	}
 }
@@ -45,7 +53,7 @@ void free_all(t_data *data)
 	int	i;
 
 	i = 0;
-	free_env_list(&data->mini_env);
+	//free_env_list(&data->mini_env);
 	free_list(data->tokens);
 	//free(data->pwd);
 	//free(data->old_pwd);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 17:25:04 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/26 00:34:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-static void	ft_check_next_token(t_list *current, t_tkn_data *string)
+static int	ft_check_next_token(t_list *current, t_tkn_data *string)
 {
 	t_tkn_data	*next;
 
@@ -29,13 +29,13 @@ static void	ft_check_next_token(t_list *current, t_tkn_data *string)
 			else
 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 						2);
-			exit(2);
+			return(-1);
 		}
 		next = (t_tkn_data *)current->next->content;
 		if (string->type != META_PIPE && next->type == META_PIPE)
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			exit(2);
+			return(-1);
 		}
 		if (next->type == string->type)
 		{
@@ -45,14 +45,15 @@ static void	ft_check_next_token(t_list *current, t_tkn_data *string)
 			else
 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 						2);
-			exit(2);
+			return(-1);
 		}
 		if ((next->type == META_HEREDOC && string->type == META_PIPE) || (next->type == META_PIPE && string->type == META_HEREDOC))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			exit(2);
+			return(-1);
 		}
 	}
+	return(0);
 }
 
 static void	ft_organizer(t_list *tokens)
@@ -111,7 +112,7 @@ static void	ft_organizer(t_list *tokens)
 
 //echo 1=2 < inf > out here=3 > out
 
-void	ft_parser(t_list *tokens)
+void	ft_parser(t_list *tokens, t_data *data)
 {
 	t_list		*current;
 	t_tkn_data	*string;
@@ -121,12 +122,15 @@ void	ft_parser(t_list *tokens)
 	if (string->type == META_PIPE)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		exit(2);
+		data->exit_status = -1;
+		return;
 	}
 	while (current)
 	{
 		string = (t_tkn_data *)current->content;
-		ft_check_next_token(current, string);
+		data->exit_status = ft_check_next_token(current, string);
+		if (data->exit_status == -1)
+			return ;
 		current = current->next;
 	}
 	ft_organizer(tokens);

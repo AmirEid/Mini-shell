@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 18:24:29 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:20:52 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_get_list_size(t_list *list)
 	return (size);
 }
 
-static char	**ft_get_commands(t_list *tokens, t_list *current)
+static char	**ft_get_commands(t_list *tokens, t_list *current, t_data *data)
 {
 	t_tkn_data	*tokendata;
 	char		**args;
@@ -43,7 +43,7 @@ static char	**ft_get_commands(t_list *tokens, t_list *current)
 	i = -1;
 	temp = current;
 	len = ft_get_list_size(tokens);
-	memory_allocator((void **)&args, sizeof(char *) * (len + 1));
+	memory_allocator((void **)&args, sizeof(char *) * (len + 1), data);
 	args[len] = NULL;
 	while (temp != NULL && ++i < len)
 	{
@@ -59,7 +59,7 @@ static char	**ft_get_commands(t_list *tokens, t_list *current)
 	return (args);
 }
 
-static char	**ft_get_env_matrix(t_list *env)
+static char	**ft_get_env_matrix(t_list *env, t_data *data)
 {
 	t_list	*current;
 	char	**envp;
@@ -69,7 +69,7 @@ static char	**ft_get_env_matrix(t_list *env)
 	i = -1;
 	current = env;
 	len = ft_lstsize(env);
-	memory_allocator((void **)&envp, sizeof(char *) * (len + 1));
+	memory_allocator((void **)&envp, sizeof(char *) * (len + 1), data);
 	envp[len] = NULL;
 	while (current != NULL && ++i < len)
 	{
@@ -88,15 +88,15 @@ void print_matrix(char **matrix)
 		printf("%s\n", matrix[i]);
 }
 
-void	ft_command_execution(t_list *tokens, t_list *env, t_list *current)
+void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *data)
 {
 	char **args;
 	char **envp;
 	t_tkn_data *tokendata;
 
 	tokendata = (t_tkn_data *)current->content;
-	args = ft_get_commands(tokens, current);
-	envp = ft_get_env_matrix(env);
+	args = ft_get_commands(tokens, current, data);
+	envp = ft_get_env_matrix(env, data);
 	//print_matrix(args);
 	execve(tokendata->cmd_exec_path, args, envp);
 	//exit(0);

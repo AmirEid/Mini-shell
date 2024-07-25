@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 23:42:38 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/26 00:23:24 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void quote_removal_copy(char *string, t_data *data, t_tkn_data *token, t_list *n
 	dol_count = dollar_counter(data->args, data->current);
 	len = data->current - data->start - quote_flag - dol_count;
 	i = 0;
-	memory_allocator((void **)&string, len + 1);
+	memory_allocator((void **)&string, len + 1, data);
 	while (i < (len + dol_count))
 	{
 		if (data->args[data->start + i] == '$' && ft_isquote(data->args[data->start + i + 1]))
@@ -159,7 +159,7 @@ static int ft_checker(t_data *data, int *quote_flag, t_tkn_data *token)
 		}
 		if (data->args[data->current] == '\"')
 			(*quote_flag)++;
-		if (ft_isprint(data->args[data->current + 1]) && !ft_ismeta(data->args[data->current + 1]) && data->args[data->current + 1] != '$')
+		if (data->args[data->current] && ft_isprint(data->args[data->current + 1]) && !ft_ismeta(data->args[data->current + 1]) && data->args[data->current + 1] != '$')
 		{
 			(data->current)++;
 			while (ft_isprint(data->args[data->current]) && !ft_ismeta(data->args[data->current]) && data->args[data->current] != '$' && data->args[data->current] != '\0')
@@ -186,15 +186,15 @@ static int ft_checker(t_data *data, int *quote_flag, t_tkn_data *token)
 	return (0);
 }
 
-void ft_word_token(t_data *data, t_types type)
+int ft_word_token(t_data *data, t_types type)
 {
 	t_list *node;
 	char *string;
 	t_tkn_data *token;
 	int quote_flag;
 	
-	memory_allocator((void **)&node, sizeof(t_list));
-	memory_allocator((void **)&token, sizeof(t_tkn_data));
+	memory_allocator((void **)&node, sizeof(t_list), data);
+	memory_allocator((void **)&token, sizeof(t_tkn_data), data);
 	quote_flag = 0;
 	token->type = type;
 	token->variable_len = 0;
@@ -204,13 +204,14 @@ void ft_word_token(t_data *data, t_types type)
 	{
 		if (ft_checker(data, &quote_flag, token))
 			break ;
-		(data->current)++; 
+		if (data->args[data->current])
+			(data->current)++; 
 	}
 	if (quote_flag % 2 != 0)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-		//g_global.exit_status = 258;
-		return ;
+		(data->current)--;
+		return (-1);
 	}
 	if (!(quote_flag % 2) && quote_flag != 0)
 		quote_removal_copy(string, data, token, node, quote_flag);
@@ -220,5 +221,6 @@ void ft_word_token(t_data *data, t_types type)
 		copy_assign(string, data, token, node);;
 	}
 	(data->current)--;
+	return (0);
 }
 

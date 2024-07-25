@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/15 17:00:55 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:06:23 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ typedef struct	s_data
 	t_list	*tokens;
 	int		list_size;
 	int		current;
+	int 	exit_status;
 	int		start;
-	int		exit_code;
+	//int		exit_code;
 	char	*pwd;
 	char	*old_pwd;
 	char	*args; //needs to be freed, result of readline//

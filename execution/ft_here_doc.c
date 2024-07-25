@@ -6,20 +6,20 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/23 00:33:25 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:21:58 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static char *get_variable(char *string)
+static char *get_variable(char *string, t_data *data)
 {
 	int i;
 	int j;
 	char *variable;
 	
 	i = ft_strlen(string);
-	memory_allocator((void **)&variable, i - 2);
+	memory_allocator((void **)&variable, i - 2, data);
 	i = 0;
 	j = -1;
 	while (string[++i] != '\n')
@@ -28,7 +28,7 @@ static char *get_variable(char *string)
 	return (variable);
 }
 
-static void check_expansion(char *buffer, int fd, t_list *env)
+static void check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 {
 	int i;
 	char *path;
@@ -39,8 +39,8 @@ static void check_expansion(char *buffer, int fd, t_list *env)
 	variable = NULL;
 	if (buffer[i] == '$')
 	{
-		variable = get_variable(buffer);
-		path = search_env(env, variable);
+		variable = get_variable(buffer, data);
+		path = search_env(env, variable, data);
 		if (path)
 		{
 			write(fd, path, ft_strlen(path));
@@ -52,7 +52,7 @@ static void check_expansion(char *buffer, int fd, t_list *env)
 		write(fd, buffer, ft_strlen(buffer));
 }
 
-void ft_heredoc(t_list *file, t_list *env)
+void ft_heredoc(t_list *file, t_list *env, t_data *data)
 {
 	t_tkn_data *tokendata;
 	int p_errno;
@@ -70,7 +70,7 @@ void ft_heredoc(t_list *file, t_list *env)
 		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)
 			write(fd, buffer, ft_strlen(buffer));
 		else
-			check_expansion(buffer, fd, env);
+			check_expansion(buffer, fd, env, data);
 		free(buffer);
 	}
 	get_next_line(-1);

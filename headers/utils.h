@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:21:20 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/09 14:25:15 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/26 01:08:18 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 # define UTILS_H
 
 char	*strjoin_free(char *s1, char *s2, int frees);
+void	free_all(t_data *data);
+t_data initialize_data();
+int		check_if_empty(char *args);
+void prompt_loop(t_data *data);
+void reinitialize_data(t_data *data);
 
 #endif

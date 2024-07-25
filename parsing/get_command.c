@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 18:29:32 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/26 01:03:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ static char	*get_command(char **paths, char *cmd)
 	return (NULL);
 }
 
-char **get_cmd_path(t_list *mini_env)
+char **get_cmd_path(t_list *mini_env, t_data *data)
 {
 	char *path_str;
+	char **path;
 	
-	path_str = search_env(mini_env, "PATH");
-	//we MUST free path_str!!!!!
-	return(ft_split(path_str, ':'));
+	path_str = search_env(mini_env, "PATH", data);
+	if (path_str == NULL)
+		return (NULL);
+	path = ft_split(path_str, ':');
+	free(path_str);
+	return(path);
 }
 
 

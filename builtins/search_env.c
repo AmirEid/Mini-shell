@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 22:02:12 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 23:27:10 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:16:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char *find_path(char *curr_content, char *variable)
 	return (NULL);
 }
 
-char *search_env(t_list *mini_env, char *variable)
+char *search_env(t_list *mini_env, char *variable, t_data *data)
 {
 	t_list *current;
 	char *path;
@@ -49,7 +49,7 @@ char *search_env(t_list *mini_env, char *variable)
 		path = find_path((char *)current->content, variable); //not Mallocd
 		if (path)
 		{
-			memory_allocator((void **)&after_equal_sign, ft_strlen(path) + 1);
+			memory_allocator((void **)&after_equal_sign, ft_strlen(path) + 1, data);
 			ft_strlcpy(after_equal_sign, path, ft_strlen(path) + 1);
 			return (after_equal_sign); //needs to be freed beacuse mallocd
 		}

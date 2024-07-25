@@ -6,13 +6,13 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/22 21:20:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/25 23:18:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str)
+static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
 {
 	int i;
 	char *variable;
@@ -23,14 +23,14 @@ static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str
 	after_expand = NULL;
 	if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
 		return ;
-	memory_allocator((void **)&variable, variable_len - 1);
+	memory_allocator((void **)&variable, variable_len - 1, data);
 	while (i < variable_len)
 	{
 		variable[i] = (*tkn_str)[i + 1];
 		i++;
 	}
 	variable[i] = '\0';
-	after_expand = search_env(mini_env, variable);
+	after_expand = search_env(mini_env, variable, data);
 	free(*tkn_str);
 	free(variable);
 	if (after_expand)
@@ -39,7 +39,7 @@ static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str
 		*tkn_str = NULL;
 }
 
-static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str)
+static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
 {
 	int i;
 	int start;
@@ -64,9 +64,9 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str)
 				i++;
 				variable_len--;
 			}
-			memory_allocator((void **)&variable, i - start);
+			memory_allocator((void **)&variable, i - start, data);
 			ft_strlcpy(variable, &(*tkn_str)[start + 1], i - start);
-			var_expand = search_env(mini_env, variable);
+			var_expand = search_env(mini_env, variable, data);
 			if (var_expand)
 				new = ft_strjoin(new, var_expand);
 			else if ((*tkn_str)[i] != '\0')
@@ -92,7 +92,7 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str)
 	*tkn_str = new;
 }
 
-void expander(t_list *mini_env, t_list *tokens)
+void expander(t_list *mini_env, t_list *tokens, t_data *data)
 {
 	t_list *current;
 	t_tkn_data *tmp;
@@ -108,10 +108,10 @@ void expander(t_list *mini_env, t_list *tokens)
 		tmp = (t_tkn_data *)current->content;
 		prev_tmp = (t_tkn_data *)prev->content;
 		if (tmp->type == META_DOL && prev && prev_tmp->type != META_HEREDOC)
-			meta_dol_expander(mini_env, tmp->variable_len, &tmp->token);
+			meta_dol_expander(mini_env, tmp->variable_len, &tmp->token, data);
 		else if (tmp->type == SPECIAL_DQUOTE || tmp->type == WORD_DOL || tmp->type == WORD_WITH_DQUOTE_INSIDE)
 		{
-			dquote_expander(mini_env, tmp->variable_len, &tmp->token);
+			dquote_expander(mini_env, tmp->variable_len, &tmp->token, data);
 			if (prev_tmp->type != META_HEREDOC)
 				tmp->type = WORD;
 		}

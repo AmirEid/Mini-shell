@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 16:40:03 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/26 00:12:30 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 	t_list *args[MAX_PROCESS_NUM + 1];
 	pid_t pid;
 	
+	if (data->exit_status == -1)
+		return ;
 	tokendata = (t_tkn_data *)data->tokens->content;
 	pid = 0;
 	process_num = ft_get_process_num(tokens);
