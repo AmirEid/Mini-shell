@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/25 17:20:02 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/25 17:54:32 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int main (int argc, char **argv, char **env)
     ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
-	printTokens(data.tokens);
+	//printTokens(data.tokens);
 	//print_env(data);
     //ft_execution(data.tokens, data.mini_env, &data); 
     //waitpid(-1, NULL, 0);

@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/25 17:08:49 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:01:26 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void ft_echo(t_list *cur_token)
     t_list *curr;
     
     curr = cur_token->next;
-    if (curr && !ft_strncmp(curr->content, "-n", ft_strlen(curr->content)))
+    if (curr && !ft_strncmp(((t_tkn_data *)(curr->content))->token, "-n", ft_strlen(((t_tkn_data *)(curr->content))->token)))
     {
         nl = true;
         curr = curr->next;
@@ -93,7 +93,8 @@ void ft_echo(t_list *cur_token)
     {
         if (((t_tkn_data *)(curr->content))->type == META_DOL)
             write_no_white(((t_tkn_data *)(curr->content))->token);
-        write(STDOUT_FILENO, curr->content, ft_strlen(curr->content));
+        write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token, ft_strlen(((t_tkn_data *)(curr->content))->token));
+        write(STDOUT_FILENO, " ", 1);
         curr = curr->next;
     }
     if (nl)
