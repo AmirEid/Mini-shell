@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_append.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:06:16 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/12 22:12:44 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:56:24 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void ft_redir_append(t_list *file)
+void	ft_redir_append(t_list *file)
 {
-	t_tkn_data *tokendata;
-	int p_errno;
-	int fd;
+	t_tkn_data	*tokendata;
+	int			p_errno;
+	int			fd;
 
 	tokendata = (t_tkn_data *)file->content;
 	fd = open (tokendata->token, O_CREAT | O_RDWR | O_APPEND, 0644);

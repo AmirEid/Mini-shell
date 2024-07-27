@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 01:06:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:21:48 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ typedef struct	s_data
 	char	**env;
 }	t_data;
 
-extern t_data	g_data;
-extern int		g_exit_code;
+extern int		g_status;
 
+void	ft_exit(t_list *args);
 void	printTokens(t_list *tokens);
 void	ft_signals(void);
+void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
 

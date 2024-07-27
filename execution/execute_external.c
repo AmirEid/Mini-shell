@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 23:20:52 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:53:51 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	**ft_get_env_matrix(t_list *env, t_data *data)
 
 void print_matrix(char **matrix)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (matrix[++i] != NULL)
@@ -90,9 +90,9 @@ void print_matrix(char **matrix)
 
 void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *data)
 {
-	char **args;
-	char **envp;
-	t_tkn_data *tokendata;
+	char		**args;
+	char		**envp;
+	t_tkn_data	*tokendata;
 
 	tokendata = (t_tkn_data *)current->content;
 	args = ft_get_commands(tokens, current, data);
@@ -103,5 +103,4 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *
 	//print_matrix(envp);
 	free_null(envp);
 	free_null(args);
-	
 }

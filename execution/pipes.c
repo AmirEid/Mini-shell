@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 23:09:51 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:57:37 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void create_pipes(int pipe_fd[], int process_num)
+static void	create_pipes(int pipe_fd[], int process_num)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while(i < process_num - 1)
 	{
@@ -26,10 +26,10 @@ static void create_pipes(int pipe_fd[], int process_num)
 	}
 }
 
-void close_pipes(int pipe_fd[], int process_num)
+void	close_pipes(int pipe_fd[], int process_num)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < 2 * (process_num - 1))
 	{
@@ -38,12 +38,12 @@ void close_pipes(int pipe_fd[], int process_num)
 }
 
 // there is an issue with closing the pipes.
-void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
+void	create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
 {
-	int pipe_fd[(process_num - 1) * 2];
-	int i;
-	pid_t pid;
-	
+	int		pipe_fd[(process_num - 1) * 2];
+	int		i;
+	pid_t	pid;
+
 	i = -1;
 	pid = 0;
 	create_pipes(pipe_fd, process_num);

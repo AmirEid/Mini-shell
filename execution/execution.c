@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 00:12:30 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:55:17 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static int ft_get_process_num(t_list *tokens)
+static int	ft_get_process_num(t_list *tokens)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	int process_num;
+	t_list		*current;
+	t_tkn_data	*tokendata;
+	int			process_num;
 
 	process_num = 0;
 	current = tokens;
@@ -30,11 +30,11 @@ static int ft_get_process_num(t_list *tokens)
 	return (process_num + 1);
 }
 
-static void ft_assign_args(t_list *args[], t_list *tokens)
+static void	ft_assign_args(t_list *args[], t_list *tokens)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	int i;
+	t_list		*current;
+	t_tkn_data	*tokendata;
+	int			i;
 
 	i = 0;
 	current = tokens;
@@ -76,12 +76,12 @@ static void ft_assign_args(t_list *args[], t_list *tokens)
 
 //I changed t_list **args because there is no need to allocate memory and we already know/
 //the number of processes we have to create. We can just pass the array of pointers to the functions.
-void ft_execution(t_list *tokens, t_list *env, t_data *data)
+void	ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
-	t_tkn_data *tokendata;
-	int process_num;
-	t_list *args[MAX_PROCESS_NUM + 1];
-	pid_t pid;
+	t_tkn_data	*tokendata;
+	int			process_num;
+	t_list		*args[MAX_PROCESS_NUM + 1];
+	pid_t		pid;
 	
 	if (data->exit_status == -1)
 		return ;

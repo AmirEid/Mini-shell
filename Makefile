@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
+#    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/07/25 22:49:18 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/27 16:41:34 by anomourn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ M_SRC = ./Lexer/lexer.c \
 	./Lexer/utils.c \
 	./Lexer/word_token.c \
 	./builtins/cd.c \
-	./builtins/cd_utils.c \
 	./builtins/check_env_arg.c \
 	./builtins/echo.c \
+	./builtins/exit.c \
 	./builtins/export.c \
 	./builtins/export_utils.c \
 	./builtins/garbage_collector.c \
@@ -57,6 +57,7 @@ M_SRC = ./Lexer/lexer.c \
 	./parsing/parser.c \
 	./parsing/parsing.c \
 	./signals.c \
+	./history.c \
 	./utils/strjoin_free.c \
 	./utils/free_all.c \
 	./utils/initialization.c

@@ -16,7 +16,7 @@ void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 {
 	char	*new_entry;
 	size_t	new_entry_len;
-	t_list *current;
+	t_list	*current;
 
 	current = mini_env;
 	new_entry = NULL;
@@ -86,4 +86,3 @@ char *get_env_value(char *key)
 	}
 	return (NULL);
 }*/
-

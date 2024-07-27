@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 01:09:17 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 15:59:50 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void prompt_loop(t_data *data)
 	while (1)
 	{
         (*data).args = readline("minishell $ ");
+        if ((*data).args == NULL)
+            ft_sig_term(data);
         if (!check_if_empty((*data).args))
         {
             free((*data).args);

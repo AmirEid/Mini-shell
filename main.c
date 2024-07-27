@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/26 01:05:22 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:40:55 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 # include "./headers/minishell.h"
 
-t_data g_data;
-
-int g_status;
-
-int	g_exit_code = 0;
+int	g_status;
 
 //int main (int argc, char **argv, char **env)
 // static void printTokens(t_list *tokens) {
@@ -38,16 +34,18 @@ int	g_exit_code = 0;
     }
 }*/
 
-const char* getTypeName(t_types type) {
-    switch (type) {
-        case SPECIAL_SQUOTE: return "SPECIAL_SQUOTE";
-        case SPECIAL_DQUOTE: return "SPECIAL_DQUOTE";
-        case META_DOL: return "META_DOL";
-        case META_PIPE: return "META_PIPE";
-        case META_REDIR_IN: return "META_REDIR_IN";
-        case META_REDIR_OUT: return "META_REDIR_OUT";
-        case META_APPEND: return "META_APPEND";
-        case META_HEREDOC: return "META_HEREDOC";
+const char	*getTypeName(t_types type)
+{
+	switch (type)
+	{
+		case SPECIAL_SQUOTE: return "SPECIAL_SQUOTE";
+		case SPECIAL_DQUOTE: return "SPECIAL_DQUOTE";
+		case META_DOL: return "META_DOL";
+		case META_PIPE: return "META_PIPE";
+		case META_REDIR_IN: return "META_REDIR_IN";
+		case META_REDIR_OUT: return "META_REDIR_OUT";
+		case META_APPEND: return "META_APPEND";
+		case META_HEREDOC: return "META_HEREDOC";
 		case WORD_EXPORT: return "WORD_EXPORT";
 		case WORD_UNSET: return "WORD_UNSET";
 		case WORD_ENV: return "WORD_ENV";
@@ -56,66 +54,56 @@ const char* getTypeName(t_types type) {
 		case WORD_EXIT: return "WORD_EXIT";
 		case WORD_PWD: return "WORD_PWD";
 		case WORD_DOL: return "WORD_DOL";
-        case WORD: return "WORD";
-        case COMMAND: return "COMMAND";
-        case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
-        case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
-        default: return "UNKNOWN_TYPE";
+		case WORD: return "WORD";
+		case COMMAND: return "COMMAND";
+		case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
+		case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
+		default: return "UNKNOWN_TYPE";
     }
 }
 
-void printTokens(t_list *tokens) {
-    t_list *current = tokens;
-    while (current != NULL) {
-        t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        printf("%s - %s -- variable_len: %d\n", tokenData->token, getTypeName(tokenData->type), tokenData->variable_len);
-        current = current->next;
-    }
-}
-
-void    test_export(t_data data, t_list  *tokens)
+void	printTokens(t_list *tokens)
 {
-    t_list *current = tokens;
-    while (current != NULL) {
-        t_tkn_data *tokenData = (t_tkn_data *)current->content;
-        if (tokenData->type == WORD_EXPORT)
-            ft_export(data, current);
-        current = current->next;
-    }
+	t_list	*current = tokens;
+	while (current != NULL)
+	{
+		t_tkn_data *tokenData = (t_tkn_data *)current->content;
+		printf("%s - %s -- variable_len: %d\n", tokenData->token, getTypeName(tokenData->type), tokenData->variable_len);
+		current = current->next;
+	}
 }
 
-// void    test_cd(t_data data, t_list  *tokens)
-// {
-//     t_list *current = tokens;
-//     while (current != NULL) {
-//         t_tkn_data *tokenData = (t_tkn_data *)current->content;
-//         if (tokenData->type == WORD_CD)
-//             ft_cd(data.tokens, data.mini_env);
-//         current = current->next;
-//     }
-// }
-
-
-int main (int argc, char **argv, char **env)
+void	test_export(t_data data, t_list  *tokens)
 {
-    t_data data;
-    
-    (void)argc;
-    (void)argv;
-    data = initialize_data();
-    data.mini_env = get_env(data, env);
-    while (1)
-    {
-        prompt_loop(&data);
-        ft_lexer(&data);
-        ft_parsing(&data, data.tokens);
-        ft_execution(data.tokens, data.mini_env, &data);
-        free_all(&data);
-        reinitialize_data(&data);
-    }
-    return 0;
+	t_list	*current = tokens;
+	while (current != NULL)
+	{
+		t_tkn_data *tokenData = (t_tkn_data *)current->content;
+		if (tokenData->type == WORD_EXPORT)
+			ft_export(data, current);
+		current = current->next;
+	}
 }
 
+int	main (int argc, char **argv, char **env)
+{
+	t_data	data;
+
+	(void)argc;
+	(void)argv;
+	data = initialize_data();
+	data.mini_env = get_env(data, env);
+	ft_signals();
+	while (1)
+	{
+		prompt_loop(&data);
+		ft_lexer(&data);
+		ft_parsing(&data, data.tokens);
+		ft_execution(data.tokens, data.mini_env, &data);
+		reinitialize_data(&data);
+	}
+	return 0;
+}
 
 /*
 void       test_echo(t_list *tokens)

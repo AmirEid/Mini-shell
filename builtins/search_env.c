@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 22:02:12 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 23:16:25 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 17:51:55 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 # include "../headers/minishell.h"
 
-char *find_path(char *curr_content, char *variable)
+char	*find_path(char *curr_content, char *variable)
 {
-	char *eq;
-	char *path;
-	size_t len;
+	char	*eq;
+	char	*path;
+	size_t	len;
 
 	eq = NULL;
 	path = NULL;
@@ -35,11 +35,11 @@ char *find_path(char *curr_content, char *variable)
 	return (NULL);
 }
 
-char *search_env(t_list *mini_env, char *variable, t_data *data)
+char	*search_env(t_list *mini_env, char *variable, t_data *data)
 {
-	t_list *current;
-	char *path;
-	char *after_equal_sign;
+	t_list	*current;
+	char	*path;
+	char	*after_equal_sign;
 
 	current = mini_env;
 	path = NULL; //not mallcd
