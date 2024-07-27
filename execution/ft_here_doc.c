@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:34:54 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 21:10:54 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ static void check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 	else
 		write(fd, buffer, ft_strlen(buffer));
 }
-
+//INSERT SIGNALS IN HERE DOC
 void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
 	t_tkn_data *tokendata;
 	int p_errno;
 	char *buffer;
 	int fd;
+	int tp_fd;
 
+	tp_fd = dup(0);
 	tokendata = (t_tkn_data *)file->content;
 	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
+		dup2(data->tmp_fd, 0);
 		write(0, "> ", 2);
 		buffer = get_next_line(0);
 		//handle this properly
@@ -74,6 +77,7 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 			check_expansion(buffer, fd, env, data);
 		free(buffer);
 	}
+	dup2(tp_fd, 0);
 	get_next_line(-1);
 	free(buffer);
 	close(fd);

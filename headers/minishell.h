@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:21:48 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:12:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ typedef struct	s_data
 	int		list_size;
 	int		current;
 	int 	exit_status;
+	int		tmp_fd;
 	int		start;
+	int		here_doc;
 	//int		exit_code;
 	char	*pwd;
 	char	*old_pwd;

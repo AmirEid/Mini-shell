@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:36:24 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:55:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 22:21:16 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ int	ft_get_number_of_redir_in_or_out(t_list *tokens, t_types type1, t_types type
 
 	num_redirs = 0;
 	current = tokens;
-	while (current != NULL)
+	tokendata = (t_tkn_data *)current->content;
+	while (current != NULL && tokendata->type != META_PIPE)
 	{
-		tokendata = (t_tkn_data *)current->content;
 		if (tokendata->type == type1 || tokendata->type == type2)
 			num_redirs++;
 		current = current->next;
+		if (current != NULL)
+			tokendata = (t_tkn_data *)current->content;
 	}
 	return (num_redirs);
 }

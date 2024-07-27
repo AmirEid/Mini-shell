@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 00:39:03 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 22:09:18 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,39 @@ void close_pipes(int pipe_fd[], int process_num)
 	}
 }
 
+static bool ft_check_here_doc(t_list *list)
+{
+	t_list *current;
+	t_tkn_data *tokendata;
+	
+	current = list;
+	tokendata = (t_tkn_data *)current->content;
+	while (current != NULL && tokendata->type != META_PIPE)
+	{
+		if (tokendata->type == META_HEREDOC)
+			return (true);
+		current = current->next;
+		if (current != NULL)
+			tokendata = (t_tkn_data *)current->content;
+	}
+	return (false);
+}
+
 // there is an issue with closing the pipes.
 void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
 {
 	int pipe_fd[(process_num - 1) * 2];
 	int i;
 	pid_t pid;
+	pid_t pids[process_num];
+	bool wait_for[process_num];
 	
 	i = -1;
 	pid = 0;
+	data->tmp_fd = dup(0);
+	while (++i < process_num)
+		wait_for[i] = true;
+	i = -1;
 	create_pipes(pipe_fd, process_num);
 	while (++i < process_num)
 	{
@@ -73,10 +97,16 @@ void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 			ft_execute_routine(args[i], env, data);
 			exit(0);
 		}
+		pids[i] = pid;
+		if (ft_check_here_doc(args[i]))
+		{
+			waitpid(pid, NULL, 0);
+			wait_for[i] = false;
+		}
 	}
-	//this should be the parent process where it waits for all the children 
-	//to finish using waitpid, checking the exit status and do the free
 	close_pipes(pipe_fd, process_num);
-	while(process_num--)
-		wait(NULL);
+	i = -1;
+	while(++i < process_num)
+		if (wait_for[i])
+			waitpid(pid, NULL, 0);
 }

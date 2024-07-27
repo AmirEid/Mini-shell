@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 15:59:50 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:10:52 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_data initialize_data()
     data.old_pwd = NULL;
     data.args = NULL;
     data.env = NULL;
+    data.tmp_fd = 0;
     
     return data;
 }
@@ -72,6 +73,7 @@ void reinitialize_data(t_data *data)
     data->args = NULL;
     data->env = NULL;
     data->pwd = NULL;
+    data->tmp_fd = 0;
 }
 
         

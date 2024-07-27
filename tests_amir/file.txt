@@ -1,6 +1,11 @@
-/////
+DONE LIST:
+
 cat myfile.txt | cat << here >> myfile.txt| grep hello < myfile.txt
+
+//////
 /////
+TO BE DONE LIST: 
+
 cat << here | cat << here
 /////
 cat << ciao
@@ -23,3 +28,4 @@ free(): double free detected in tcache 2
 coucou
 command not found
 ////
+Insert signals in heredoc

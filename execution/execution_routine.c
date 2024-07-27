@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:56:19 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/27 21:14:42 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ static void	execute_redirections(t_list *token, t_list *env, t_data *data)
 
 	redi_in_num = ft_get_number_of_redir_in_or_out(token, META_REDIR_IN, META_HEREDOC);
 	redi_out_num = ft_get_number_of_redir_in_or_out(token, META_REDIR_OUT, META_APPEND);
+	printf("redi_in_num: %d\n", redi_in_num);
+	printf("redi_out_num: %d\n", redi_out_num);
 	execution_redir_in(token, env, data, &redi_in_num);
 	execution_redir_out(token, &redi_out_num);
 }
 
 //there is a mistake, execute the first redirection, then command then the rest
 // of the redirections.
+
 
 void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 {
