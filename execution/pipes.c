@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:57:37 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:39:03 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void	create_pipes(int pipe_fd[], int process_num)
+static void create_pipes(int pipe_fd[], int process_num)
 {
-	int	i;
-
+	int i;
+	
 	i = 0;
 	while(i < process_num - 1)
 	{
@@ -26,10 +26,10 @@ static void	create_pipes(int pipe_fd[], int process_num)
 	}
 }
 
-void	close_pipes(int pipe_fd[], int process_num)
+void close_pipes(int pipe_fd[], int process_num)
 {
-	int	i;
-
+	int i;
+	
 	i = -1;
 	while (++i < 2 * (process_num - 1))
 	{
@@ -38,12 +38,12 @@ void	close_pipes(int pipe_fd[], int process_num)
 }
 
 // there is an issue with closing the pipes.
-void	create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
+void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
 {
-	int		pipe_fd[(process_num - 1) * 2];
-	int		i;
-	pid_t	pid;
-
+	int pipe_fd[(process_num - 1) * 2];
+	int i;
+	pid_t pid;
+	
 	i = -1;
 	pid = 0;
 	create_pipes(pipe_fd, process_num);
@@ -69,7 +69,6 @@ void	create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 				close(pipe_fd[i * 2]);
 				dup2(pipe_fd[i * 2 + 1], 1);
 			}
-			printf("pid: %d, process_num: %d\n", getpid(), process_num);
 			close_pipes(pipe_fd, process_num);
 			ft_execute_routine(args[i], env, data);
 			exit(0);

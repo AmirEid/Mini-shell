@@ -1,0 +1,25 @@
+/////
+cat myfile.txt | cat << here >> myfile.txt| grep hello < myfile.txt
+/////
+cat << here | cat << here
+/////
+cat << ciao
+> ciao$USER
+> ciao
+ciaoaeid
+/////
+minishell $ cat << ciao
+ciaociao
+////
+minishell $ cat << here << hek << hi
+sda
+buffer: sda
+
+here
+buffer: here
+
+free(): double free detected in tcache 2
+//////
+coucou
+command not found
+////

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
+#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/07/27 16:41:34 by anomourn         ###   ########.fr        #
+#    Updated: 2024/07/27 18:31:34 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ M_SRC = ./Lexer/lexer.c \
 	./execution/ft_redir_in.c \
 	./execution/ft_redir_out.c \
 	./execution/pipes.c \
+	./execution/exec_rout_utils.c \
 	./get_next_line/get_next_line.c \
 	./get_next_line/get_next_line_utils.c \
 	./main.c \

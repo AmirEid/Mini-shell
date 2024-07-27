@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errno_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:03:03 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 17:52:34 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:12:45 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-void	open_files_errors_manager(int fd, char *file_name, int errnum)
+void open_files_errors_manager(int fd, char *file_name, int errnum)
 {
 	if (fd < 0)
 	{
@@ -20,7 +20,7 @@ void	open_files_errors_manager(int fd, char *file_name, int errnum)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(file_name, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
+			ft_putstr_fd(": No such file or haha directory\n", 2);
 		}
 		else if (errnum == EACCES)
 		{
@@ -40,7 +40,7 @@ void	open_files_errors_manager(int fd, char *file_name, int errnum)
 	}
 }
 
-void	ft_dup2_error_manager(int fd, int errnum)
+void ft_dup2_error_manager(int fd, int errnum)
 {
 	if (fd < 0)
 	{
