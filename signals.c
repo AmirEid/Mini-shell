@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/07/27 16:22:37 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:48:26 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	g_status = 130;
-	rl_on_new_line();
-	rl_replace_line("", 0);
 	write(STDOUT_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 }
 
 //anouk, possiamo usare solo un globale per l'exit code 
 /** Signal handler for the SIGINT signal inside a heredoc (ctrl+c) */
+/*
 void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
@@ -32,6 +33,7 @@ void	ft_heredoc_handler(int sig)
 	g_status = 130;
 	exit(g_status);
 }
+*/
 
 void	ft_sig_term(t_data *data)
 {

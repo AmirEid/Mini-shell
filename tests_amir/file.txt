@@ -1,21 +1,26 @@
 DONE LIST:
 
 cat myfile.txt | cat << here >> myfile.txt| grep hello < myfile.txt
+cat << here | cat << here
 
-//////
+EXPANSION HEREDOC
+cat << ciao
+>ciaociao
+> ciao$USER
+> ciao
+ciaociao
+ciaoaeid
+OTHER CASES:
+here$USER
+> $USER$USERhere here$USER
+> $USERhere$USER $USERhere
+
+coucou
+command not found
+/////
 /////
 TO BE DONE LIST: 
 
-cat << here | cat << here
-/////
-cat << ciao
-> ciao$USER
-> ciao
-ciaoaeid
-/////
-minishell $ cat << ciao
-ciaociao
-////
 minishell $ cat << here << hek << hi
 sda
 buffer: sda
@@ -25,7 +30,12 @@ buffer: here
 
 free(): double free detected in tcache 2
 //////
-coucou
-command not found
 ////
 Insert signals in heredoc
+/// 
+cd segfault
+////
+insert free in the builtins
+////
+valgrind
+check all errors(parsing, builtins,) with valgrind

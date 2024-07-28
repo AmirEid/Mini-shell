@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 22:50:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/28 19:47:44 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,23 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		execute_redirections(tokens, env, data);
 	if (tokendata->type == COMMAND)
 		ft_command_execution(tokens, env, current, data);
-	if (tokendata->type == WORD_CD)
+	else if (tokendata->type == WORD_CD)
 		ft_cd(tokens, data);
-	if (tokendata->type == WORD_PWD)
+	else if (tokendata->type == WORD_PWD)
 		ft_pwd(data);
-	if (tokendata->type == WORD_EXPORT)
+	else if (tokendata->type == WORD_EXPORT)
 		ft_export(*data, tokens);
-	if (tokendata->type == WORD_ECHO)
+	else if (tokendata->type == WORD_ECHO)
 		ft_echo(tokens);
-	// 	ft_unset(*data, tokens);
-		//add here all the builtins @razvan @anouk
+	else if (tokendata->type == WORD_EXIT)
+		ft_exit(tokens);
+	else
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(tokendata->token, 2);
+			ft_putstr_fd(": command not found\n", 2);
+			//free_all(data);
+			data->exit_status = 127;
+		}
+	//add here all the builtins @razvan @anouk
 }
