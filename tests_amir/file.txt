@@ -17,6 +17,8 @@ here$USER
 
 coucou
 command not found
+
+cd segfault
 /////
 /////
 TO BE DONE LIST: 
@@ -33,7 +35,6 @@ free(): double free detected in tcache 2
 ////
 Insert signals in heredoc
 /// 
-cd segfault
 ////
 insert free in the builtins
 ////

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 11:27:06 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/27 17:51:29 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:12:57 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_pwd(t_data *data)
 	if (getcwd(str, PATH_MAX) != NULL)
 	{
 		free(data->pwd);
-		data->pwd = strdup(str);
+		data->pwd = ft_strdup(str);
 		printf("%s\n", data->pwd);
 	}
 	else
