@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/27 17:49:20 by anomourn         ###   ########.fr       */
+/*   Created: 2024/07/29 12:19:24 by anomourn          #+#    #+#             */
+/*   Updated: 2024/07/29 12:22:36 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../headers/minishell.h"
 
@@ -21,7 +20,8 @@ static void	create_new_env_var(t_data data, char *str)
 	temp = data.mini_env;
 	while (temp)
 	{
-		if (!ft_strncmp(str, (char *)(temp->content), most_right_eq(str, (char *)(temp->content))))
+		if (!ft_strncmp(str, (char *)(temp->content),
+			most_right_eq(str, (char *)(temp->content))))
 		{
 			free((temp->content));
 			temp->content = str;
@@ -47,10 +47,11 @@ static void	maybe_create_env_var(t_data data, char *str)
 	while (temp_env)
 	{
 		l_eq = ft_strdup((char *)(temp_env->content));
-		if (temp_env->print == 0 && !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
+		if (temp_env->print == 0
+			&& !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
 			flag++ ;
-		l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0'; //il '=' diventa '\0'
-		if (!ft_strncmp(str, l_eq, biggest_strlen( str, l_eq)))
+		l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0';
+		if (!ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
 			flag++ ;
 		free(l_eq);
 		if (flag)
@@ -98,24 +99,23 @@ void	ft_export(t_data data, t_list *cur_token)
 	char	*str;
 	t_list	*actual_node;
 	int		left_side_type;
+
 	actual_node = cur_token->next;
 	if (!actual_node || ((t_tkn_data *)(actual_node->content))->type != WORD)
 		return ;
-		//return (solo_export(data), actual_node);   
 	while (actual_node && ((t_tkn_data *)(actual_node->content))->type == WORD)
-	{   
+	{
 		str = ((t_tkn_data *)(actual_node->content))->token;
 		left_side_type = -1;
 		check_left_side_export(str, &left_side_type);
 		if (left_side_type == -1)
 			maybe_create_env_var(data, str);
 		else if (left_side_type == 0)
-			ft_printf("minishell: export: `%s': not a valid identifier\n", str); //EXIT STATUS
+			ft_printf("minishell: export: `%s': not a valid identifier\n", str);
 		else if (left_side_type == 1)
 			create_new_env_var(data, str);
 		else if (left_side_type == 2)
 			update_env_var(data, str, ft_strchr(str, '='));
 		actual_node = actual_node->next;
 	}
-	//return (actual_node); //exec continua from here
 }

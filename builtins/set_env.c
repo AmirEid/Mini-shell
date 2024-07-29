@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 {
@@ -20,7 +20,7 @@ void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 
 	current = mini_env;
 	new_entry = NULL;
-	new_entry_len = ft_strlen(name) + ft_strlen(path) + 2; // for '=' and null terminator
+	new_entry_len = ft_strlen(name) + ft_strlen(path) + 2;
 	while (current)
 	{
 		if (find_path((char *)current->content, name))
@@ -35,7 +35,7 @@ void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 			printf("new_entry: %s\n", new_entry);
 			printf("current->content: %s\n", (char *)current->content);
 			current->content = new_entry;
-			return;
+			return ;
 		}
 		current = current->next;
 	}

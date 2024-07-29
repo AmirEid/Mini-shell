@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:58:33 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/27 17:50:50 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:23:06 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*get_env(t_data data, char **env)
 	i = 0;
 	if (!env)
 		return (ft_printf("no env"), NULL);
-	while(env[i])
+	while (env[i])
 	{
 		//memory_allocator((void **)&env[i], ft_strlen(env[i]) + 1);
 		env_list = ft_lstnew(ft_strdup(env[i]));

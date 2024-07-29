@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/27 16:35:24 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:01:54 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	ft_echo(t_list *cur_token)
 	t_list	*curr;
 
 	curr = cur_token->next;
-	if (curr && !ft_strncmp(((t_tkn_data *)(curr->content))->token, "-n", ft_strlen(((t_tkn_data *)(curr->content))->token)))
+	if (curr && !ft_strncmp(((t_tkn_data *)(curr->content))->token, "-n",
+		ft_strlen(((t_tkn_data *)(curr->content))->token)))
 	{
 		nl = true;
 		curr = curr->next;
@@ -84,7 +85,8 @@ void	ft_echo(t_list *cur_token)
 		if (((t_tkn_data *)(curr->content))->type == META_DOL)
 			write_no_white(((t_tkn_data *)(curr->content))->token);
 		else
-			write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token, ft_strlen(((t_tkn_data *)(curr->content))->token));
+			write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
+				ft_strlen(((t_tkn_data *)(curr->content))->token));
 		write(STDOUT_FILENO, " ", 1);
 		curr = curr->next;
 	}

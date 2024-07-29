@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:12:39 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/27 17:51:06 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:18:34 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	add_toenv_skip_plus(t_data data, char *str)
 	j = 0;
 	len = ft_strlen(str);
 	new_entry = malloc(len * sizeof(char));
-	// if (!new_entry)
-	//	 garbage_collector(data);
 	while (str[i] != '+')
 		new_entry[j++] = str[i++];
 	i++;
