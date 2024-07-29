@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 00:34:36 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:13:59 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static void	ft_organizer(t_list *tokens)
 
 //echo 1=2 < inf > out here=3 > out
 
-void	ft_parser(t_list *tokens, t_data *data)
+void	ft_parser(t_list *tokens)
 {
 	t_list		*current;
 	t_tkn_data	*string;
@@ -122,14 +122,14 @@ void	ft_parser(t_list *tokens, t_data *data)
 	if (string->type == META_PIPE)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		data->exit_status = -1;
+		exit_status = -1;
 		return;
 	}
 	while (current)
 	{
 		string = (t_tkn_data *)current->content;
-		data->exit_status = ft_check_next_token(current, string);
-		if (data->exit_status == -1)
+		exit_status = ft_check_next_token(current, string);
+		if (exit_status == -1)
 			return ;
 		current = current->next;
 	}

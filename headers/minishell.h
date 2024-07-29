@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:03:28 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:13:16 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_data
 	t_list	*tokens;
 	int		list_size;
 	int		current;
-	int 	exit_status;
+	//int 	exit_status;
 	int		tmp_fd;
 	int		start;
 	int		here_doc;
@@ -52,7 +52,7 @@ typedef struct	s_data
 	char	**env;
 }	t_data;
 
-extern int		g_status;
+extern int		exit_status;
 
 void	ft_exit(t_list *args);
 void	printTokens(t_list *tokens);

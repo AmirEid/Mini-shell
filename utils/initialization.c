@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:03:13 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:13:30 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_data	initialize_data()
 	data.mini_env = NULL;
 	data.tokens = NULL;
 	data.list_size = 0;
-	data.exit_status = 0;
+	//ata.exit_status = 0;
 	data.current = 0;
 	data.start = 0;
 	//data.exit_code = 0;
@@ -68,7 +68,7 @@ void	prompt_loop(t_data *data)
 
 void	reinitialize_data(t_data *data)
 {
-	data->exit_status = 0;
+	exit_status = 0;
 	data->current = 0;
 	data->start = 0;
 	data->list_size = 0;

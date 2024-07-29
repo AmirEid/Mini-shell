@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/29 18:04:36 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:12:11 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 # include "./headers/minishell.h"
 
-int	g_status;
+int	exit_status;
 
 //int main (int argc, char **argv, char **env)
 // static void printTokens(t_list *tokens) {

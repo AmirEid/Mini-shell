@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/07/28 17:48:26 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:12:11 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	g_status = 130;
+	exit_status = 130;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -30,8 +30,8 @@ void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
 	printf("\n");
-	g_status = 130;
-	exit(g_status);
+	exit_status = 130;
+	exit(exit_status);
 }
 */
 

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 01:13:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:14:28 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_parsing(t_data *data, t_list *tokens)
 {
 	char **path;
 	
-	if (data->exit_status == -1)
+	if (exit_status == -1)
 		return ;
 	path = get_cmd_path(data->mini_env, data);
 	data->list_size = ft_lstsize(tokens);
@@ -26,7 +26,7 @@ void ft_parsing(t_data *data, t_list *tokens)
 	define_commands(tokens, path);
 	//what is this?????????
 	//execute_command(tokens, data);
-	ft_parser(tokens, data);
+	ft_parser(tokens);
 	if (path)
 		free_mtx(path);
 }

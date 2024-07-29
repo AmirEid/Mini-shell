@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:19 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/26 00:11:21 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:13:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void ft_lexer(t_data *data)
 		skip_initial_spaces(data->args, data);
 		define_type(data->args, data->current, &type);
 		if (type == SPECIAL_SQUOTE || type == SPECIAL_DQUOTE)
-			data->exit_status = ft_special_token(data, type);
+			exit_status = ft_special_token(data, type);
 		else if (type == WORD)
-			data->exit_status = ft_word_token(data, type);	
+			exit_status = ft_word_token(data, type);	
 		else
 			ft_meta_token(data, type);
-		if (data->exit_status == -1)
+		if (exit_status == -1)
 			break ;
 	}
 }

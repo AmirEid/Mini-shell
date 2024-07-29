@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:53:21 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/26 00:32:05 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 18:14:10 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void    define_builtins(t_list *tokens);
 void    expander(t_list *mini_env, t_list *tokens, t_data *data);
 char    **get_cmd_path(t_list *mini_env, t_data *data);
 void    define_commands(t_list *tokens, char **path);
-void    ft_parser(t_list *tokens, t_data *data);
+void    ft_parser(t_list *tokens);
 
 #endif
