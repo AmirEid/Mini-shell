@@ -80,7 +80,21 @@ int	update_pwd(t_data *data)
 int	ft_cd(t_list *tokens, t_data *data)
 {
 	char	*path;
-
+    int		arg_count;
+    t_list	*temp;
+	
+	arg_count = 0;
+	temp = tokens;
+	while (temp != NULL)
+	{
+		arg_count++;
+		temp = temp->next;
+	}
+	if (arg_count > 2)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return (-1);
+	}
 	path = get_cd_path(tokens);
 	if (path == NULL)
 		return (-1);

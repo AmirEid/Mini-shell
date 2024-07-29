@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 10:41:04 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:03:28 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_signals(void);
 void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
+
 
 # include "lexer.h"
 # include "builtins.h"
