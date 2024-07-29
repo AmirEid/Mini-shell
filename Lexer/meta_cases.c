@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/10 14:27:00 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 22:40:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 			(data->current)++;
 	}
 	else if (ft_isalpha(data->args[data->current]))
-		while ((ft_isalpha(data->args[data->current]) || data->args[data->current] == '_'))
+		while ((ft_isalpha(data->args[data->current]) || data->args[data->current] == '_') || data->args[data->current] == '?' || data->args[data->current] == '$')
 			(data->current)++;
 	else if (ft_isdigit(data->args[data->current]) || data->args[data->current] == '?')
 		(data->current)++;

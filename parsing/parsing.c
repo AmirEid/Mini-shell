@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:14:28 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 21:45:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_parsing(t_data *data, t_list *tokens)
 		return ;
 	path = get_cmd_path(data->mini_env, data);
 	data->list_size = ft_lstsize(tokens);
-	expander(data->mini_env, tokens, data);
+	expander(tokens, data);
 	define_builtins(tokens);
 	define_commands(tokens, path);
 	//what is this?????????

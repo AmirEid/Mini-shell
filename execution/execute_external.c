@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 19:43:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 00:41:26 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_get_list_size(t_list *list)
 	while (current != NULL)
 	{
 		tokendata = (t_tkn_data *)current->content;
-		if (tokendata->type == COMMAND || tokendata->type == WORD)
+		if (tokendata->type != META_PIPE && tokendata->type != META_REDIR_IN && tokendata->type != META_REDIR_OUT && tokendata->type != META_APPEND && tokendata->type != META_HEREDOC)
 			size++;
 		else
 			break ;

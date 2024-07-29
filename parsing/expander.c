@@ -6,13 +6,39 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/25 23:18:06 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 01:22:19 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
+static int dollar_counter(char *tkn_str)
+{
+	int i;
+	int num_of_dollars;
+
+	i = -1;
+	num_of_dollars = 0;
+	while (tkn_str[++i] != '\0')
+	{
+		if (tkn_str[i] == '$')
+			num_of_dollars++;
+	}
+	return (num_of_dollars);
+}
+
+static void get_var_len(char *str, int *variable_len)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '$')
+		i++;
+	(*variable_len) = i;
+}
+
+
+static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str, t_data *data)
 {
 	int i;
 	char *variable;
@@ -21,22 +47,48 @@ static void meta_dol_expander(t_list *mini_env, int variable_len, char **tkn_str
 	i = 0;
 	variable = NULL;
 	after_expand = NULL;
-	if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
-		return ;
-	memory_allocator((void **)&variable, variable_len - 1, data);
+	if (variable_len == 0 || tkn_str[i] == '\0' || tkn_str[i] == ' ')
+		return ("");
+	memory_allocator((void **)&variable, variable_len + 1, data);
 	while (i < variable_len)
 	{
-		variable[i] = (*tkn_str)[i + 1];
+		variable[i] = tkn_str[i];
 		i++;
 	}
 	variable[i] = '\0';
 	after_expand = search_env(mini_env, variable, data);
-	free(*tkn_str);
+	//free(*tkn_str);
 	free(variable);
 	if (after_expand)
-		*tkn_str = after_expand;
+		return (after_expand);
 	else
-		*tkn_str = NULL;
+		return("");
+}
+
+static void meta_dol_expander_manager(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
+{
+	char *string;
+	int i;
+	char num_of_dollars;
+	char *tmp;
+
+	i = 0;
+	tmp = ft_strdup(*tkn_str);
+	string = NULL;
+	if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
+		return ;
+	num_of_dollars = dollar_counter(*tkn_str);
+	while (num_of_dollars > 0)
+	{
+		get_var_len(tmp + i + 1, &variable_len);
+		*tkn_str = meta_dol_expander(mini_env, variable_len, tmp + i + 1, data);
+		num_of_dollars--;
+		i += variable_len + 1;
+		string = ft_strjoin(string, *tkn_str);
+	}
+	free(*tkn_str);
+	*tkn_str = string;
+	free(tmp);
 }
 
 static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
@@ -92,7 +144,21 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, 
 	*tkn_str = new;
 }
 
-void expander(t_list *mini_env, t_list *tokens, t_data *data)
+static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
+{
+	if (*cur_type == META_DOL && *prev_type != META_HEREDOC)
+		meta_dol_expander_manager(data->mini_env, current->variable_len, &current->token, data);
+	else if (*cur_type == SPECIAL_DQUOTE || *cur_type == WORD_DOL || *cur_type == WORD_WITH_DQUOTE_INSIDE)
+	{
+		dquote_expander(data->mini_env, current->variable_len, &current->token, data);
+		if (*prev_type != META_HEREDOC)
+			current->type = WORD;
+	}
+	else if ((*cur_type == SPECIAL_SQUOTE || *cur_type == WORD_WITH_SQUOTE_INSIDE) && *prev_type != META_HEREDOC)
+		current->type = WORD;
+}
+
+void expander(t_list *tokens, t_data *data)
 {
 	t_list *current;
 	t_tkn_data *tmp;
@@ -107,16 +173,7 @@ void expander(t_list *mini_env, t_list *tokens, t_data *data)
 	{
 		tmp = (t_tkn_data *)current->content;
 		prev_tmp = (t_tkn_data *)prev->content;
-		if (tmp->type == META_DOL && prev && prev_tmp->type != META_HEREDOC)
-			meta_dol_expander(mini_env, tmp->variable_len, &tmp->token, data);
-		else if (tmp->type == SPECIAL_DQUOTE || tmp->type == WORD_DOL || tmp->type == WORD_WITH_DQUOTE_INSIDE)
-		{
-			dquote_expander(mini_env, tmp->variable_len, &tmp->token, data);
-			if (prev_tmp->type != META_HEREDOC)
-				tmp->type = WORD;
-		}
-		else if ((tmp->type == SPECIAL_SQUOTE || tmp->type == WORD_WITH_SQUOTE_INSIDE) && prev_tmp->type != META_HEREDOC)
-			tmp->type = WORD;
+		type_checker(&tmp->type, &prev_tmp->type, data, tmp);
 		prev = current;
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:54:12 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/25 23:22:17 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/29 22:26:47 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void ft_meta_token(t_data *data, t_types type)
 	token->variable_len = 0;
 	token->cmd_exec_path = NULL;
 	meta_token_handler(data, node, token);
-	//(data->current)--;
+	(data->current)--;
 }
 

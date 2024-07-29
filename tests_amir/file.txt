@@ -35,6 +35,7 @@ free(): double free detected in tcache 2
 ////
 Insert signals in heredoc
 /// 
+cat $USER | cat $USER
 ////
 insert free in the builtins
 ////

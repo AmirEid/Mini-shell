@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/29 18:12:11 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 00:50:39 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ int	main (int argc, char **argv, char **env)
 	{
 		prompt_loop(&data);
 		ft_lexer(&data);
+		//printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
+		//printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
 		free_all(&data);
 		reinitialize_data(&data);
