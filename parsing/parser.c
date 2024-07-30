@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 17:02:17 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 18:06:04 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ static int check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data
         ft_putstr_fd("\n", 2);
         return -1;
     }
-    if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT ||
-         string->type == META_APPEND || string->type == META_HEREDOC) &&
-        (data->exp_var == 1))
+    if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND) && (data->exp_var == 1))
     {
         ft_putstr_fd("minishell: ", 2);
         write(2, "'", 1);
@@ -196,6 +194,8 @@ static int ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
 // 	return(0);
 // }
 
+
+
 static void	ft_organizer(t_list *tokens)
 {
 	t_list		*current;
@@ -245,8 +245,6 @@ static void	ft_organizer(t_list *tokens)
 		}
 		tmp = current;
 		current = current->next;
-		//printTokens(tokens);
-		//printf("\n");
 	}
 }
 
