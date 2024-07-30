@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 12:19:24 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/29 12:22:36 by anomourn         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/30 16:34:25 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,27 @@ static void	update_env_var(t_data data, char *str, char *eq)
 }
 
 // I removed the return
-void	ft_export(t_data data, t_list *cur_token)
+t_list  	*ft_export(t_data data, t_list *cur_token)
 {
-	char	*str;
-	t_list	*actual_node;
-	int		left_side_type;
-
-	actual_node = cur_token->next;
-	if (!actual_node || ((t_tkn_data *)(actual_node->content))->type != WORD)
-		return ;
-	while (actual_node && ((t_tkn_data *)(actual_node->content))->type == WORD)
-	{
-		str = ((t_tkn_data *)(actual_node->content))->token;
-		left_side_type = -1;
-		check_left_side_export(str, &left_side_type);
-		if (left_side_type == -1)
-			maybe_create_env_var(data, str);
-		else if (left_side_type == 0)
-			ft_printf("minishell: export: `%s': not a valid identifier\n", str);
-		else if (left_side_type == 1)
-			create_new_env_var(data, str);
-		else if (left_side_type == 2)
-			update_env_var(data, str, ft_strchr(str, '='));
-		actual_node = actual_node->next;
-	}
+    char    *str;
+    t_list  *curr;
+    int     left_side_type;
+    
+    curr = cur_token->next;
+    if (!curr || ((t_tkn_data *)(curr->content))->type != WORD)
+        return (solo_export(data), curr);   
+    while (curr && till(((t_tkn_data *)(curr->content))->type))
+    {   
+        str = ((t_tkn_data *)(curr->content))->token;
+        left_side_type = -1;
+        check_left_side_export(str, &left_side_type);
+        if (left_side_type == -1)
+            maybe_create_env_var(data, str);
+        else if (left_side_type == 1)
+            create_new_env_var(data, str);
+        else if (left_side_type == 2)
+            update_env_var(data, str, ft_strchr(str, '='));
+        curr = curr->next;
+    }
+    return (curr); //exec continua from here
 }

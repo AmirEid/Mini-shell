@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 16:28:05 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 16:57:34 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ int	main (int argc, char **argv, char **env)
 	{
 		prompt_loop(&data);
 		ft_lexer(&data);
-		printTokens(data.tokens);
+		//printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
 		//printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
+		rl_on_new_line();
+		add_history(data.args);
 		free_all(&data);
 		reinitialize_data(&data);
 	}
@@ -111,7 +113,7 @@ int main (int argc, char **argv, char **env)
     data.old_pwd = NULL;
     data.env = NULL;
 	printf("You entered: %s\n", data.args);
-    ft_signals();
+    //ft_signals();
 	ft_lexer(&data);
     ft_parsing(&data, data.tokens);
 	//printTokens(data.tokens);
@@ -122,7 +124,7 @@ int main (int argc, char **argv, char **env)
     //test_echo(data.tokens);
     //test_cd(data, data.tokens);
     // printf("After export:\n");
-    //solo_export(data);
+    solo_export(data);
     //ft_printf("After export:\n");
     //print_env(data);
 	//printTokens(data.tokens);
