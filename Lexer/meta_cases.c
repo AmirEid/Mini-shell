@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 14:00:45 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 16:36:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 		data->start = data->current;
 		while (data->args[data->current] != tmp)
 			(data->current)++;
+		token->type = WORD;
 	}
 	else if (ft_isalpha(data->args[data->current]))
 		while ((ft_isalpha(data->args[data->current]) || data->args[data->current] == '_') || data->args[data->current] == '?' || data->args[data->current] == '$')
@@ -122,6 +123,8 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	else if (ft_isdigit(data->args[data->current]) || data->args[data->current] == '?')
 		(data->current)++;
 	token->token = ft_substr(data->args, data->start, data->current - data->start);
+	if (data->args[data->current] == '\"' || data->args[data->current] == '\'')
+		(data->current)++;
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
