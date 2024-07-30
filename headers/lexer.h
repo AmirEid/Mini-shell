@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/29 18:03:36 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:06:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum s_types
 	META_REDIR_OUT, // >
 	META_APPEND,    // >>
 	META_HEREDOC,   // <<
+	META_STATUS,
 	WORD_EXPORT,
 	WORD_UNSET,
 	WORD_ENV,

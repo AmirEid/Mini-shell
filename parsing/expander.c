@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 19:18:19 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 20:16:15 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,17 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, 
     free(*tkn_str);
     *tkn_str = new;
 }
+
+static void ft_handle_status(t_tkn_data *current)
+{
+    char *status;
+
+    status = ft_itoa(exit_status);
+    free(current->token);
+    current->token = status;
+    current->type = WORD;
+}
+
 static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
 {	
 	if (*cur_type == META_DOL)
@@ -265,6 +276,8 @@ static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_
 		if (*prev_type != META_HEREDOC)
 			current->type = WORD;
 	}
+    else if (*cur_type == META_STATUS)
+        ft_handle_status(current);
 	else if ((*cur_type == SPECIAL_SQUOTE || *cur_type == WORD_WITH_SQUOTE_INSIDE) && *prev_type != META_HEREDOC)
 		current->type = WORD;
 }

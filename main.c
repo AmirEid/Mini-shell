@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 19:17:22 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 19:27:44 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int	main (int argc, char **argv, char **env)
 	{
 		prompt_loop(&data);
 		ft_lexer(&data);
-		printTokens(data.tokens);
+		//printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
-		printTokens(data.tokens);
+		//printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
 		rl_on_new_line();
 		add_history(data.args);
@@ -109,6 +109,7 @@ int	main (int argc, char **argv, char **env)
 	}
 	return 0;
 }
+
 
 /*
 void       test_echo(t_list *tokens)
