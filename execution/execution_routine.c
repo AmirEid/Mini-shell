@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:13:07 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 16:42:06 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		ft_echo(tokens);
 	else if (tokendata->type == WORD_EXIT)
 		ft_exit(tokens);
+	else if (tokendata->type == WORD_ENV)
+		print_env(*data);
+	// else if (tokendata->type == WORD_UNSET)
+	// 	ft_unset(*data, tokens);
 	else
 		{
 			ft_putstr_fd("minishell: ", 2);

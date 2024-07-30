@@ -24,7 +24,7 @@ char		*search_env(t_list *mini_env, char *variable, t_data *data);
 char		*find_path(char *curr_content, char *variable);
 // void	ft_cd(t_list *tokens, t_list *mini_env);
 void		check_left_side_export(char *str, int *left_side_type);
-void		ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
+t_list  	*ft_export(t_data data, t_list *cur_token); //I will analize the next token and if OK put it in
 size_t		biggest_strlen(char *str1, char *str2);
 size_t		most_right_eq(char *str1, char *str2);
 
@@ -39,6 +39,8 @@ void		free_null(void *ptr);
 
 void		execute_command(t_list *tokens, t_data *data);
 void		ft_unset(t_data data, t_list *cur_token);
+void        error_export_unset(char flag, char *str);
 
 void		ft_echo(t_list *cur_token);
+bool	    till(int type);
 #endif
