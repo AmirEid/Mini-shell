@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 15:00:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 17:02:17 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,71 +40,161 @@ char	*getTypeName(t_types type)
     }
 }
 
-static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
+static int check_initial_conditions(t_list *current, t_tkn_data *string)
 {
-	t_tkn_data	*next;
-
-	next = NULL;
-	if (string->type == META_PIPE || string->type == META_REDIR_IN
-		|| string->type == META_REDIR_OUT || string->type == META_APPEND
-		|| string->type == META_HEREDOC)
-	{
-		if (!current->next)
-		{
-			if (string->type == META_PIPE)
-				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
-						2);
-			else
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-						2);
-			return(-1);
-		}
-		next = (t_tkn_data *)current->next->content;
-		if (string->type != META_PIPE && next->type == META_PIPE)
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			return(-1);
-		}
-		if (next->type == string->type)
-		{
-			if (string->type == META_PIPE)
-				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
-						2);
-			else
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-						2);
-			return(-1);
-		}
-		if ((next->type == META_HEREDOC && string->type == META_PIPE) || (next->type == META_PIPE && string->type == META_HEREDOC))
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			return(-1);
-		}
-		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-			|| string->type == META_APPEND || string->type == META_HEREDOC)
-			&& (next->type != WORD && next->type != META_DOL))
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
-				write (2, "'", 1);
-				write(2, next->token, ft_strlen(next->token));
-				write (2, "'", 1);
-				ft_putstr_fd("\n", 2);
-				return(-1);
-			}
-		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-			|| string->type == META_APPEND || string->type == META_HEREDOC)
-			&& (data->exp_var == 1))
-			{
-				ft_putstr_fd("minishell: ", 2);
-				write (2, "'", 1);
-				write(2, next->token, ft_strlen(next->token));
-				write (2, "'", 1);
-				ft_putstr_fd(": ambiguous redirect\n", 2);
-				return(-1);
-			}
-	}
-	return(0);
+    if (!current->next)
+    {
+        if (string->type == META_PIPE)
+            ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        else
+            ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+        return -1;
+    }
+    return 0;
 }
+
+static int check_next_token_conditions(t_tkn_data *string, t_tkn_data *next)
+{
+    if (string->type != META_PIPE && next->type == META_PIPE)
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        return -1;
+    }
+    if (next->type == string->type)
+    {
+        if (string->type == META_PIPE)
+            ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        else
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+			write(2, next->token, ft_strlen(next->token));
+			ft_putstr_fd("'\n", 2);
+		}
+        return -1;
+    }
+    if ((next->type == META_HEREDOC && string->type == META_PIPE) || 
+        (next->type == META_PIPE && string->type == META_HEREDOC))
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        return -1;
+    }
+    return 0;
+}
+
+static int check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data *data)
+{
+    if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT ||
+         string->type == META_APPEND || string->type == META_HEREDOC) &&
+        (next->type != WORD && next->type != META_DOL))
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+        write(2, "'", 1);
+        write(2, next->token, ft_strlen(next->token));
+        write(2, "'", 1);
+        ft_putstr_fd("\n", 2);
+        return -1;
+    }
+    if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT ||
+         string->type == META_APPEND || string->type == META_HEREDOC) &&
+        (data->exp_var == 1))
+    {
+        ft_putstr_fd("minishell: ", 2);
+        write(2, "'", 1);
+        write(2, next->token, ft_strlen(next->token));
+        write(2, "'", 1);
+        ft_putstr_fd(": ambiguous redirect\n", 2);
+        return -1;
+    }
+    return 0;
+}
+
+static int ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
+{
+    t_tkn_data *next;
+
+    next = NULL;
+    if (string->type == META_PIPE || string->type == META_REDIR_IN ||
+        string->type == META_REDIR_OUT || string->type == META_APPEND ||
+        string->type == META_HEREDOC)
+    {
+        if (check_initial_conditions(current, string) == -1)
+            return -1;
+
+        next = (t_tkn_data *)current->next->content;
+
+        if (check_next_token_conditions(string, next) == -1)
+            return -1;
+
+        if (check_ambiguous_redirect(string, next, data) == -1)
+            return -1;
+    }
+    return 0;
+}
+// static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
+// {
+// 	t_tkn_data	*next;
+
+// 	next = NULL;
+// 	if (string->type == META_PIPE || string->type == META_REDIR_IN
+// 		|| string->type == META_REDIR_OUT || string->type == META_APPEND
+// 		|| string->type == META_HEREDOC)
+// 	{
+// 		if (!current->next)
+// 		{
+// 			if (string->type == META_PIPE)
+// 				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
+// 						2);
+// 			else
+// 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
+// 						2);
+// 			return(-1);
+// 		}
+// 		next = (t_tkn_data *)current->next->content;
+// 		if (string->type != META_PIPE && next->type == META_PIPE)
+// 		{
+// 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+// 			return(-1);
+// 		}
+// 		if (next->type == string->type)
+// 		{
+// 			if (string->type == META_PIPE)
+// 				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
+// 						2);
+// 			else
+// 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
+// 						2);
+// 			return(-1);
+// 		}
+// 		if ((next->type == META_HEREDOC && string->type == META_PIPE) || (next->type == META_PIPE && string->type == META_HEREDOC))
+// 		{
+// 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+// 			return(-1);
+// 		}
+// 		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
+// 			|| string->type == META_APPEND || string->type == META_HEREDOC)
+// 			&& (next->type != WORD && next->type != META_DOL))
+// 			{
+// 				ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+// 				write (2, "'", 1);
+// 				write(2, next->token, ft_strlen(next->token));
+// 				write (2, "'", 1);
+// 				ft_putstr_fd("\n", 2);
+// 				return(-1);
+// 			}
+// 		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
+// 			|| string->type == META_APPEND || string->type == META_HEREDOC)
+// 			&& (data->exp_var == 1))
+// 			{
+// 				ft_putstr_fd("minishell: ", 2);
+// 				write (2, "'", 1);
+// 				write(2, next->token, ft_strlen(next->token));
+// 				write (2, "'", 1);
+// 				ft_putstr_fd(": ambiguous redirect\n", 2);
+// 				return(-1);
+// 			}
+// 	}
+// 	return(0);
+// }
 
 static void	ft_organizer(t_list *tokens)
 {
