@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 22:40:53 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 13:11:15 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
+	(data->current)--;
 }
