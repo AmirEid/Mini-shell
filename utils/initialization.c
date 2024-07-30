@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:13:30 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 14:25:56 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_data	initialize_data()
 	data.mini_env = NULL;
 	data.tokens = NULL;
 	data.list_size = 0;
+	data.exp_var = 0;
 	//ata.exit_status = 0;
 	data.current = 0;
 	data.start = 0;
@@ -70,6 +71,7 @@ void	reinitialize_data(t_data *data)
 {
 	exit_status = 0;
 	data->current = 0;
+	data->exp_var = 0;
 	data->start = 0;
 	data->list_size = 0;
 	data->tokens = NULL;

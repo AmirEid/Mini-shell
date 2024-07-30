@@ -19,6 +19,25 @@ coucou
 command not found
 
 cd segfault
+IMPORTANT
+aeid@c2r5p13:~$ cat kldja >>> file
+bash: syntax error near unexpected token `>'
+aeid@c2r5p13:~$ echo $?
+2
+aeid@c2r5p13:~$ cat dlfka >>file
+cat: dlfka: No such file or directory
+aeid@c2r5p13:~$ cat dlfka >>32
+cat: dlfka: No such file or directory
+aeid@c2r5p13:~$ cat dlfka >><
+bash: syntax error near unexpected token `<'
+aeid@c2r5p13:~$ cat dlfka >>$home
+bash: $home: ambiguous redirect
+aeid@c2r5p13:~$ cat dlfka >>$HOME
+bash: /nfs/homes/aeid: Is a directory
+aeid@c2r5p13:~$ cat dlfka >>$USER
+cat: dlfka: No such file or directory
+aeid@c2r5p13:~$ cat dlfka >>$nblasda
+bash: $nblasda: ambiguous redirect
 /////
 /////
 TO BE DONE LIST: 
@@ -41,3 +60,5 @@ insert free in the builtins
 ////
 valgrind
 check all errors(parsing, builtins,) with valgrind
+////
+///

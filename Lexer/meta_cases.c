@@ -6,11 +6,34 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 13:11:15 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 14:00:45 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
+/*
+void redi_out_parser(t_data *data, t_list *node, t_tkn_data *token)
+{
+	int counter;
+
+	counter = 0;
+	while (data->args[data->current] == '>')
+		(data->current)++;
+	if (counter > 2 || data->args[data->current] == '<')
+	{
+		if (data->args[data->current] == '<')
+			ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
+		else
+			ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+		
+	}
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+		exit_status = 2;
+	}
+	else if (data->args[data->current] == '<')
+	
+}*/
 
 void redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
 {
@@ -32,8 +55,29 @@ void redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
-	(data->current)--;
 }
+
+// void redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
+// {
+// 	if (data->args[data->current] == '>')
+// 	{
+// 		(data->current)++;
+// 		if (data->args[data->current] == '>')
+// 			(data->current)++;	
+// 	}
+// 	else if (data->args[data->current] == '<')
+// 	{
+// 		(data->current)++;
+// 		if (data->args[data->current] == '<')
+// 			(data->current)++;
+// 	}
+// 	else 
+// 		(data->current)++;
+// 	token->token = ft_substr(data->args, data->start, data->current - data->start);
+// 	node->content = token;
+// 	node->next = NULL;
+// 	ft_lstadd_back(&data->tokens, node);
+// }
 
 void pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
 {
@@ -42,7 +86,6 @@ void pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
-	(data->current)--;
 }
 
 //$ sign can be followed by alpha and _
@@ -82,5 +125,4 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
-	(data->current)--;
 }

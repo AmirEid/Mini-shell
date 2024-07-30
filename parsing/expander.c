@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 01:22:19 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 15:36:40 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str
 	i = 0;
 	variable = NULL;
 	after_expand = NULL;
-	if (variable_len == 0 || tkn_str[i] == '\0' || tkn_str[i] == ' ')
-		return ("");
+	// if (variable_len == 0 || tkn_str[i] == '\0' || tkn_str[i] == ' ')
+	// 	return ("");
 	memory_allocator((void **)&variable, variable_len + 1, data);
 	while (i < variable_len)
 	{
@@ -61,11 +61,11 @@ static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str
 	free(variable);
 	if (after_expand)
 		return (after_expand);
-	else
-		return("");
+	data->exp_var = 1;
+	return(NULL);
 }
 
-static void meta_dol_expander_manager(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
+static void meta_dol_expander_manager(t_list *mini_env, int variable_len, char **tkn_str, t_data *data, t_types type)
 {
 	char *string;
 	int i;
@@ -84,11 +84,25 @@ static void meta_dol_expander_manager(t_list *mini_env, int variable_len, char *
 		*tkn_str = meta_dol_expander(mini_env, variable_len, tmp + i + 1, data);
 		num_of_dollars--;
 		i += variable_len + 1;
-		string = ft_strjoin(string, *tkn_str);
+		if (*tkn_str)
+			string = ft_strjoin(string, *tkn_str);
 	}
-	free(*tkn_str);
-	*tkn_str = string;
-	free(tmp);
+	if (*tkn_str)
+	{
+		free(*tkn_str);
+		*tkn_str = NULL;
+	}
+	if ((type == META_HEREDOC || type == META_REDIR_IN || type == META_REDIR_OUT || type == META_APPEND) && data->exp_var)
+	{
+		*tkn_str = tmp;
+		free(string);
+	}
+	else
+	{
+		*tkn_str = string;
+		free(tmp);
+	}
+	
 }
 
 static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
@@ -145,9 +159,9 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, 
 }
 
 static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
-{
-	if (*cur_type == META_DOL && *prev_type != META_HEREDOC)
-		meta_dol_expander_manager(data->mini_env, current->variable_len, &current->token, data);
+{	
+	if (*cur_type == META_DOL)
+		meta_dol_expander_manager(data->mini_env, current->variable_len, &current->token, data, *prev_type);
 	else if (*cur_type == SPECIAL_DQUOTE || *cur_type == WORD_DOL || *cur_type == WORD_WITH_DQUOTE_INSIDE)
 	{
 		dquote_expander(data->mini_env, current->variable_len, &current->token, data);

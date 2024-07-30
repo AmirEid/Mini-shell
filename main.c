@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 13:12:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 14:59:34 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,7 @@ int	exit_status;
     }
 }*/
 
-const char	*getTypeName(t_types type)
-{
-	switch (type)
-	{
-		case SPECIAL_SQUOTE: return "SPECIAL_SQUOTE";
-		case SPECIAL_DQUOTE: return "SPECIAL_DQUOTE";
-		case META_DOL: return "META_DOL";
-		case META_PIPE: return "META_PIPE";
-		case META_REDIR_IN: return "META_REDIR_IN";
-		case META_REDIR_OUT: return "META_REDIR_OUT";
-		case META_APPEND: return "META_APPEND";
-		case META_HEREDOC: return "META_HEREDOC";
-		case WORD_EXPORT: return "WORD_EXPORT";
-		case WORD_UNSET: return "WORD_UNSET";
-		case WORD_ENV: return "WORD_ENV";
-		case WORD_ECHO: return "WORD_ECHO";
-		case WORD_CD: return "WORD_CD";
-		case WORD_EXIT: return "WORD_EXIT";
-		case WORD_PWD: return "WORD_PWD";
-		case WORD_DOL: return "WORD_DOL";
-		case WORD: return "WORD";
-		case COMMAND: return "COMMAND";
-		case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
-		case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
-		default: return "UNKNOWN_TYPE";
-    }
-}
+
 
 void	printTokens(t_list *tokens)
 {

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 18:13:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 14:54:26 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_data
 	//int 	exit_status;
 	int		tmp_fd;
 	int		start;
+	int 	exp_var;
 	int		here_doc;
 	//int		exit_code;
 	char	*pwd;
