@@ -6,39 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 18:06:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 19:18:59 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-char	*getTypeName(t_types type)
-{
-	switch (type)
-	{
-		case SPECIAL_SQUOTE: return "SPECIAL_SQUOTE";
-		case SPECIAL_DQUOTE: return "SPECIAL_DQUOTE";
-		case META_DOL: return "META_DOL";
-		case META_PIPE: return "META_PIPE";
-		case META_REDIR_IN: return "META_REDIR_IN";
-		case META_REDIR_OUT: return "META_REDIR_OUT";
-		case META_APPEND: return "META_APPEND";
-		case META_HEREDOC: return "META_HEREDOC";
-		case WORD_EXPORT: return "WORD_EXPORT";
-		case WORD_UNSET: return "WORD_UNSET";
-		case WORD_ENV: return "WORD_ENV";
-		case WORD_ECHO: return "WORD_ECHO";
-		case WORD_CD: return "WORD_CD";
-		case WORD_EXIT: return "WORD_EXIT";
-		case WORD_PWD: return "WORD_PWD";
-		case WORD_DOL: return "WORD_DOL";
-		case WORD: return "WORD";
-		case COMMAND: return "COMMAND";
-		case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
-		case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
-		default: return "UNKNOWN_TYPE";
-    }
-}
 
 static int check_initial_conditions(t_list *current, t_tkn_data *string)
 {
@@ -128,6 +100,7 @@ static int ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
     }
     return 0;
 }
+
 // static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
 // {
 // 	t_tkn_data	*next;
@@ -194,7 +167,39 @@ static int ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
 // 	return(0);
 // }
 
+static void ft_organizer_2(t_list **current, t_list **tmp, t_list **tmp2, t_list **redir_tmp, t_tkn_data *string)
+{
+    *redir_tmp = *current;
+    string = (t_tkn_data *)(*current)->content;
+    while (*current)
+    {
+		string = (t_tkn_data *)(*current)->content;
+        if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
+        {
+            (*current) = (*current)->next;
+            *tmp2 = *current;
+            *current = (*current)->next;
+        }
+        if (!*current || string->type == META_PIPE)
+            return;
+        if (string->type == WORD || string->type == COMMAND)
+        {
+            (*tmp)->next = *current;
+            (*tmp2)->next = (*current)->next;
+            (*current)->next = *redir_tmp;
+            *current = (*redir_tmp)->next;
+            break;
+        }
+    }
+}
 
+static void ft_set_null(t_tkn_data **string, t_list **tmp, t_list **tmp2, t_list **redir_tmp)
+{
+	*string = NULL;
+	*tmp = NULL;
+	*tmp2 = NULL;
+	*redir_tmp = NULL;
+}
 
 static void	ft_organizer(t_list *tokens)
 {
@@ -205,41 +210,16 @@ static void	ft_organizer(t_list *tokens)
 	t_tkn_data	*string;
 
 	current = tokens;
-	string = NULL;
-	tmp2 = NULL;
-	redir_tmp = NULL;
-	tmp = NULL;
+	ft_set_null(&string, &tmp, &tmp2, &redir_tmp);
 	while (current)
 	{
 		string = (t_tkn_data *)current->content;
 		while (string->type != META_PIPE)
 		{
-			if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-				|| string->type == META_APPEND || string->type == META_HEREDOC)
-			{
-				redir_tmp = current;
-				while (current)
-				{
-					string = (t_tkn_data *)current->content;
-					if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-						|| string->type == META_APPEND || string->type == META_HEREDOC)
-						{
-							current = current->next;
-							tmp2 = current;
-							current = current->next;
-						}
-					if (!current || string->type == META_PIPE)
-						return ;
-					if (string->type == WORD || string->type == COMMAND)
-					{
-						tmp->next = current;
-						tmp2->next = current->next;
-						current->next = redir_tmp;
-						current = redir_tmp->next;
-						break ;
-					}
-				}
-			}
+			if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
+				ft_organizer_2(&current, &tmp, &tmp2, &redir_tmp, string);
+			if (!current || string->type == META_PIPE)
+				return;
 			else
 				break ;
 		}

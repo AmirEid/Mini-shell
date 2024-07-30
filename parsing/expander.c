@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 16:39:36 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/30 19:18:19 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,9 +249,7 @@ static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, 
             i++;
         }
         else
-        {
             append_non_dollar_characters(tkn_str, &i, &start, &new);
-        }
         start = i;
     }
     free(*tkn_str);
