@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 14:54:26 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 21:40:21 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ typedef struct	s_data
 	t_list	*tokens;
 	int		list_size;
 	int		current;
-	//int 	exit_status;
+	int 	exit_code;
 	int		tmp_fd;
 	int		start;
 	int 	exp_var;
 	int		here_doc;
-	//int		exit_code;
+	int 	process_num;
 	char	*pwd;
 	char	*old_pwd;
 	char	*args; //needs to be freed, result of readline//

@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 16:11:30 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/31 22:01:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
-
-static int ft_get_process_num(t_list *tokens)
-{
-	t_list *current;
-	t_tkn_data *tokendata;
-	int process_num;
-
-	process_num = 0;
-	current = tokens;
-	while (current != NULL)
-	{
-		tokendata = (t_tkn_data *)current->content;
-		if (tokendata->type == META_PIPE)
-			process_num++;
-		current = current->next;
-	}
-	return (process_num + 1);
-}
 
 static void ft_assign_args(t_list *args[], t_list *tokens)
 {
@@ -86,12 +68,20 @@ static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 	{
 		pid = fork();
 		if (pid == 0)
+		{
+			data->process_num++;
 			ft_execute_routine(tokens, env, data);
-		else
-			waitpid(pid, NULL, 0);
+		}
 	}
 	else
 		ft_execute_routine(tokens, env, data);
+	if (data->process_num > 0)
+	{
+		waitpid(pid, &exit_status, 0);
+		
+	}
+		
+	//check status here
 }
 
 // static void clear_args(t_list *args[], int size) {
@@ -100,25 +90,25 @@ static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 //     }
 // }
 
+//TO do list: add the process number in the data struct, so we can use it in the waitpid or not wait pid;
+
 
 void ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
 	t_tkn_data *tokendata;
-	int process_num;
-	t_list *args[MAX_PROCESS_NUM + 1];
+	t_list *args[data->process_num + 1];
 	
 	//clear_args(args, MAX_PROCESS_NUM + 1);
-	if (exit_status == -1)
+	if (data->exit_code == -1)
 		return ;
 	tokendata = (t_tkn_data *)data->tokens->content;
-	process_num = ft_get_process_num(tokens);
-	if (process_num < 1 || process_num > MAX_PROCESS_NUM)
+	if (data->process_num < 1)
 		return ;
-	args[process_num] = NULL;
-	if (process_num > 1)
+	args[data->process_num] = NULL;
+	if (data->process_num > 1)
 	{
 		ft_assign_args(args, tokens);
-		create_pipes_and_execution(args, process_num, env, data);
+		create_pipes_and_execution(args, env, data);
 	}
 	else
 		execute_signle_command_line(tokens, env, data, tokendata->type);

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 13:53:18 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 21:57:08 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,23 @@ static bool ft_check_here_doc(t_list *list)
 }
 
 // there is an issue with closing the pipes.
-void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_data *data)
+void create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 {
-	int pipe_fd[(process_num - 1) * 2];
+	int pipe_fd[(data->process_num - 1) * 2];
 	int i;
 	pid_t pid;
-	pid_t pids[process_num];
-	bool wait_for[process_num];
+	pid_t pids[data->process_num];
+	bool wait_for[data->process_num];
 	
 	i = -1;
 	pid = 0;
 	//maybe put this in the intialization of the data struct
 	data->tmp_fd = dup(0);
-	while (++i < process_num)
+	while (++i < data->process_num)
 		wait_for[i] = true;
 	i = -1;
-	create_pipes(pipe_fd, process_num);
-	while (++i < process_num)
+	create_pipes(pipe_fd, data->process_num);
+	while (++i < data->process_num)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -82,7 +82,7 @@ void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 				close(pipe_fd[0]);
 				dup2(pipe_fd[1], 1);
 			}
-			else if (i == process_num - 1)
+			else if (i == data->process_num - 1)
 			{
 				close(pipe_fd[(i - 1) * 2 + 1]);
 				dup2(pipe_fd[(i - 1) * 2], 0);
@@ -94,7 +94,7 @@ void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 				close(pipe_fd[i * 2]);
 				dup2(pipe_fd[i * 2 + 1], 1);
 			}
-			close_pipes(pipe_fd, process_num);
+			close_pipes(pipe_fd, data->process_num);
 			ft_execute_routine(args[i], env, data);
 			exit(0);
 		}
@@ -105,10 +105,11 @@ void create_pipes_and_execution(t_list *args[], int process_num, t_list *env, t_
 			wait_for[i] = false;
 		}
 	}
-	close_pipes(pipe_fd, process_num);
+	close_pipes(pipe_fd, data->process_num);
 	i = -1;
-	while(++i < process_num)
+	while(++i < data->process_num)
 		if (wait_for[i])
 			waitpid(pids[i], NULL, 0);
+			//check status here
 			
 }
