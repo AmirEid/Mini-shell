@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 16:42:06 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/31 14:50:53 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 			ft_putstr_fd(tokendata->token, 2);
 			ft_putstr_fd(": command not found\n", 2);
 			//free_all(data);
-			exit_status = 127;
+			exit_status = 127; //ok
 		}
 	//add here all the builtins @razvan @anouk
 }

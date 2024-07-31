@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_env_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:25:05 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/30 16:24:32 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:00:11 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void   error_export_unset(char flag, char *str)
     ft_putstr_fd(": not a valid identifier\n", 2);
     exit_status = 1;
 }
+
 static int    str_type(char *str)
 {
 	if (ft_isalpha(str[0]) == 0 && str[0] != '_')
