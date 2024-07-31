@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 23:11:41 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 01:24:56 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,16 @@ static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			data->process_num++;
 			ft_execute_routine(tokens, env, data);
 		}
+		else
+			waitpid(pid, NULL, 0);
 	}
 	else
 		ft_execute_routine(tokens, env, data);
-	if (data->process_num > 1)
-	{
-		waitpid(pid, NULL, 0);
+	// if (data->process_num > 1)
+	// {
+	// 	waitpid(pid, NULL, 0);
 		
-	}
+	// }
 		
 	//check status here
 }

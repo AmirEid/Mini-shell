@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 23:18:48 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 01:25:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 		free(buffer);
 	}
 	dup2(tp_fd, 0);
-	get_next_line(-1);
+	//get_next_line(-1);
 	free(buffer);
 	close(fd);
 	if ((*redi_num) - 1 == 0)
