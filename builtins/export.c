@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 16:34:25 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/07/30 19:45:05 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ static void	maybe_create_env_var(t_data data, char *str)
 	while (temp_env)
 	{
 		l_eq = ft_strdup((char *)(temp_env->content));
-		if (temp_env->print == 0
-			&& !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
+		if (!temp_env->print && !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
 			flag++ ;
-		l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0';
-		if (!ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
-			flag++ ;
+		else
+		{
+			if (ft_strchr(l_eq, '='))
+				l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0';
+			if (!ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
+				flag++ ;
+		}
 		free(l_eq);
 		if (flag)
 			return ;
 		temp_env = temp_env->next;
 	}
 	new_node = ft_lstnew(ft_strdup(str));
-	// if (!new_node)
-	//	 garbage_collector(data);
 	ft_lstadd_back(&data.mini_env, new_node);
 }
 
@@ -93,7 +94,11 @@ static void	update_env_var(t_data data, char *str, char *eq)
 	add_toenv_skip_plus(data, str);
 }
 
-// I removed the return
+// TO FIX
+//export a=b a+=c
+//declare -x a="a"
+//minishell $ export a=123
+//double free or corruption (fasttop)
 t_list  	*ft_export(t_data data, t_list *cur_token)
 {
     char    *str;
@@ -101,7 +106,7 @@ t_list  	*ft_export(t_data data, t_list *cur_token)
     int     left_side_type;
     
     curr = cur_token->next;
-    if (!curr || ((t_tkn_data *)(curr->content))->type != WORD)
+    if (!curr || !till(((t_tkn_data *)(curr->content))->type))
         return (solo_export(data), curr);   
     while (curr && till(((t_tkn_data *)(curr->content))->type))
     {   

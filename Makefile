@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/07/27 18:31:34 by aeid             ###   ########.fr        #
+#    Updated: 2024/07/31 16:44:59 by rpaic            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,6 @@ M_SRC = ./Lexer/lexer.c \
 	./parsing/parser.c \
 	./parsing/parsing.c \
 	./signals.c \
-	./history.c \
 	./utils/strjoin_free.c \
 	./utils/free_all.c \
 	./utils/initialization.c
