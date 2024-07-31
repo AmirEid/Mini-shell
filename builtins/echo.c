@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/31 18:21:27 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 22:23:33 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	till(int type)
 
 static bool	is_white(char c)
 {
-	if (c >= 9 && c <= 13)
+	if ((c >= 9 && c <= 13) || c == ' ')
 		return (true);
 	return (false);
 }
@@ -72,14 +72,13 @@ void	ft_echo(t_list *cur_token)
 	t_list	*curr;
 
 	curr = cur_token->next;
+	nl = true;
 	if (curr && !ft_strncmp(((t_tkn_data *)(curr->content))->token, "-n",
 		ft_strlen(((t_tkn_data *)(curr->content))->token)))
 	{
-		nl = true;
+		nl = false;
 		curr = curr->next;
 	}
-	else
-		nl = false;
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
 		if (((t_tkn_data *)(curr->content))->type == META_DOL)
@@ -87,8 +86,9 @@ void	ft_echo(t_list *cur_token)
 		else
 			write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
 				ft_strlen(((t_tkn_data *)(curr->content))->token));
-		write(STDOUT_FILENO, " ", 1);
 		curr = curr->next;
+		if (curr && till(((t_tkn_data *)(curr->content))->type))
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (nl)
 		write(STDOUT_FILENO, "\n", 1);
