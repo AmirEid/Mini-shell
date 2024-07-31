@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/31 22:23:15 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/01 00:18:44 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ int	main (int argc, char **argv, char **env)
 	{
 		prompt_loop(&data);
 		ft_lexer(&data);
-		printTokens(data.tokens);
+		//printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
-		printTokens(data.tokens);
+		//printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
 		rl_on_new_line();
 		add_history(data.args);
 		free_all(&data);
 		reinitialize_data(&data);
 	}
-	return 1000;
+	return 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 17:25:09 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 23:45:59 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static int check_next_token_conditions(t_tkn_data *string, t_tkn_data *next)
 		}
         return -1;
     }
-    if ((next->type == META_HEREDOC && string->type == META_PIPE) || 
-        (next->type == META_PIPE && string->type == META_HEREDOC))
+    if (next->type == META_PIPE && string->type == META_HEREDOC)
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
         return -1;

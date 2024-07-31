@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 21:40:21 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 23:58:28 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_data
 	int		current;
 	int 	exit_code;
 	int		tmp_fd;
+	int 	tmp_fd2;
 	int		start;
 	int 	exp_var;
 	int		here_doc;
