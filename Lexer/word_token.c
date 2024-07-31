@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 17:28:08 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 00:48:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,7 @@ static int qflag_word_token_handler(t_data **data, int *q_flag, t_tkn_data **tok
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		((*data)->current)--;
 		(*data)->exit_code = -1;
+		exit_status = -1;
 		return (-1);
 	}
 	if (!((*q_flag) % 2) && *q_flag != 0)
