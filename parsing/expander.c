@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 22:16:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 22:30:13 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void get_var_len(char *str, int *variable_len)
 	(*variable_len) = i;
 }
 
-
+//ciaaaoo
 static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str, t_data *data)
 {
 	int i;
