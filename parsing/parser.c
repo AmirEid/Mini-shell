@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 14:50:47 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:25:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,14 @@ static int ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
         string->type == META_HEREDOC)
     {
         if (check_initial_conditions(current, string) == -1)
-            return -1;
-
+            return 1;
         next = (t_tkn_data *)current->next->content;
-
         if (check_next_token_conditions(string, next) == -1)
-            return -1;
-
+            return 2;
         if (check_ambiguous_redirect(string, next, data) == -1)
-            return -1;
+            return 1;
     }
-    return 0;
+    return (0);
 }
 
 // static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
@@ -234,21 +231,27 @@ void	ft_parser(t_list *tokens, t_data *data)
 {
 	t_list		*current;
 	t_tkn_data	*string;
+    int status;
 
 	current = tokens;
 	string = (t_tkn_data *)current->content;
 	if (string->type == META_PIPE)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+        data->exit_code = -1;
 		exit_status = 2; //ok
 		return;
 	}
 	while (current)
 	{
 		string = (t_tkn_data *)current->content;
-		exit_status = ft_check_next_token(current, string, data);
-		if (exit_status == -1)
+		status = ft_check_next_token(current, string, data);
+		if (status != 0)
+        {
+            data->exit_code = -1;
+            exit_status = status;
 			return ;
+        }
 		current = current->next;
 	}
 	ft_organizer(tokens);

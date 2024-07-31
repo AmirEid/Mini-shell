@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:03:51 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/27 16:52:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 18:21:49 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void ft_redir_in(t_list *file, int *redi_num)
 	{
 		p_errno = errno;
 		open_files_errors_manager(fd, tokendata->token, p_errno);
+		exit(1);
 	}
 	if ((*redi_num) - 1 == 0)
 	{
@@ -32,6 +33,9 @@ void ft_redir_in(t_list *file, int *redi_num)
 		{
 			p_errno = errno;
 			ft_dup2_error_manager(fd, p_errno);
+			exit(1);
+			// exit_status = 1;
+			// return ;
 		}
 	}
 	(*redi_num)--;

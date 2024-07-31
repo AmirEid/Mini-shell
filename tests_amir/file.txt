@@ -38,9 +38,6 @@ aeid@c2r5p13:~$ cat dlfka >>$USER
 cat: dlfka: No such file or directory
 aeid@c2r5p13:~$ cat dlfka >>$nblasda
 bash: $nblasda: ambiguous redirect
-/////
-/////
-TO BE DONE LIST: 
 
 minishell $ cat << here << hek << hi
 sda
@@ -50,6 +47,10 @@ here
 buffer: here
 
 free(): double free detected in tcache 2
+/////
+/////
+TO BE DONE LIST: 
+
 //////
 ////
 Insert signals in heredoc

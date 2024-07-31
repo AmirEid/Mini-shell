@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/30 14:25:56 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 21:41:54 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_data	initialize_data()
 	data.tokens = NULL;
 	data.list_size = 0;
 	data.exp_var = 0;
+	data.process_num = 0;
 	//ata.exit_status = 0;
 	data.current = 0;
 	data.start = 0;
@@ -69,8 +70,9 @@ void	prompt_loop(t_data *data)
 
 void	reinitialize_data(t_data *data)
 {
-	exit_status = 0;
+	data->exit_code = 0;
 	data->current = 0;
+	data->process_num = 0;
 	data->exp_var = 0;
 	data->start = 0;
 	data->list_size = 0;
