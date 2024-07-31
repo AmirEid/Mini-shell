@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/28 17:45:41 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 15:18:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 		dup2(data->tmp_fd, 0);
 		write(0, "> ", 2);
 		buffer = get_next_line(0);
+		if (!buffer)
+			break ;
 		//handle this properly
 		if (ft_strncmp(tokendata->token, buffer, ft_strlen(buffer) - 1) == 0 || buffer == NULL)
 			break ;

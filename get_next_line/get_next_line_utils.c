@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:00:34 by amireid           #+#    #+#             */
-/*   Updated: 2024/07/11 23:09:07 by aeid             ###   ########.fr       */
+/*   Updated: 2024/07/31 15:33:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*ft_join(char *s1, char *s2)
 	while (s2[m] != '\0')
 		p[l++] = s2[m++];
 	p[ft_strln(s1) + ft_strln(s2)] = '\0';
-	free(s1);
+	// if (s1)
+	// 	free(s1);
 	return (p);
 }
 
@@ -57,7 +58,7 @@ char	*ft_strchar(char *str, int c)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || str[i] == '\0')
 		return (0);
 	if (c == '\0')
 		return ((char *)&str[ft_strln(str)]);
