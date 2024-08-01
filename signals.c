@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/01 17:59:32 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 18:50:55 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
+
+
 
 //anouk, possiamo usare solo un globale per l'exit code 
 /** Signal handler for the SIGINT signal inside a heredoc (ctrl+c) */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 15:34:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 18:53:34 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	prompt_loop(t_data *data)
 void	reinitialize_data(t_data *data)
 {
 	data->exit_code = 0;
+	data->old_pwd = NULL;
 	data->current = 0;
 	data->process_num = 0;
 	data->exp_var = 0;
