@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:12:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:30:12 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 static char	*get_command(char **paths, char *cmd)
 {
-	int		i;
 	char	*p;
 	char	*command;
 
-	i = 0;
-	while (paths && paths[i])
+	while (*paths)
 	{
-		p = ft_strjoin(paths[i], "/");
+		p = ft_strjoin(*paths, "/");
 		command = ft_strjoin(p, cmd);
 		free(p);
 		if (access(command, F_OK) == 0)
 			return (command);
 		free(command);
-		i++;
+		paths++;
 	}
 	return (NULL);
 }

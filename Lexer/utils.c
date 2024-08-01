@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:58 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/01 18:58:38 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:27:05 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	memory_allocator(void **ptr, size_t size, t_data *data)
 	{
 		perror("malloc");
 		free_all(data);
-		exit(1);
 		return ;
 	}
 	// list_add_front_node(&g_data->garbage, *ptr);

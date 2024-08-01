@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/01 18:53:59 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:29:05 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void free_all(t_data *data)
 	int	i;
 
 	i = 0;
-	free_env_list(&data->mini_env);
+	// free_env_list(&data->mini_env);
 	if (data->tokens)
 		free_list(data->tokens);
 	if (data->pwd)
