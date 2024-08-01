@@ -126,12 +126,12 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (p);
 }
 
-void memory_allocator(void **ptr, size_t size)
-{
-	*ptr = malloc(size);
-	if (!*ptr)
-		return ;
-}
+// void memory_allocator(void **ptr, size_t size)
+// {
+// 	*ptr = malloc(size);
+// 	if (!*ptr)
+// 		return ;
+// }
 
 int ft_isquote(int c)
 {

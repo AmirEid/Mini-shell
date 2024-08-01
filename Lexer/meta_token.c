@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 20:15:14 by aeid              #+#    #+#             */
-/*   Updated: 2024/06/20 17:13:11 by aeid             ###   ########.fr       */
+/*   Created: 2024/06/25 15:54:12 by anomourn          #+#    #+#             */
+/*   Updated: 2024/07/30 13:37:01 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void meta_token_handler(t_data *data, t_list *node, t_tkn_data *token)
 {
 	if (data->args[data->current] == '$')
 		dollar_meta(data, node, token);
+		
 	else if (data->args[data->current] == '|')
 		pipe_meta(data, node, token);
 	else if (data->args[data->current] == '>' || data->args[data->current] == '<')
@@ -27,37 +28,12 @@ void ft_meta_token(t_data *data, t_types type)
 	t_list *node;
 	t_tkn_data *token;
 
-	memory_allocator((void **)&node, sizeof(t_list));
-	memory_allocator((void **)&token, sizeof(t_tkn_data));
+	memory_allocator((void **)&node, sizeof(t_list), data);
+	memory_allocator((void **)&token, sizeof(t_tkn_data), data);
 	token->type = type;
+	token->variable_len = 0;
+	token->cmd_exec_path = NULL;
 	meta_token_handler(data, node, token);
 	(data->current)--;
 }
 
-/*
-	if (data->args[*current] == '|' || data->args[*current] == '>' || data->args[*current] == '<')
-	{
-		string = ft_substr(data->args, *current, 1);
-		token->token = string;
-		token->type = type;
-		node->content = token;
-		node->next = NULL;
-		ft_lstadd_back(&data->tokens, node);
-		(*current)++;
-		*start = *current;
-	}
-	else if (data->args[*current] == '$')
-	{
-		(*current)++;
-		while (data->args[*current] && data->args[*current] != ' ' && data->args[*current] != '\t' && data->args[*current] != '\n')
-			(*current)++;
-		string = ft_substr(data->args, *start, *current - *start);
-		token->token = string;
-		token->type = type;
-		node->content = token;
-		node->next = NULL;
-		ft_lstadd_back(&data->tokens, node);
-		*start = *current;
-	}
-}
-*/
