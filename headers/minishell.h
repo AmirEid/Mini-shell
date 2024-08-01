@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 23:58:28 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 17:54:26 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_signals(void);
 void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
+void	ft_heredoc_handler(int sig);
 
 
 # include "lexer.h"

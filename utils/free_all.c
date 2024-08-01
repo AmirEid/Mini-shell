@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/29 16:15:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 17:27:28 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void free_all(t_data *data)
 
 	i = 0;
 	//free_env_list(&data->mini_env);
-	free_list(data->tokens);
+	if (data->tokens)
+		free_list(data->tokens);
 	if (data->pwd)
 		free(data->pwd);
 	// if (data->old_pwd)

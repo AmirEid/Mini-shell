@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/01 17:12:26 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 17:28:45 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	main (int argc, char **argv, char **env)
 		free_all(&data);
 		reinitialize_data(&data);
 	}
+	// if (data.args || data.tokens || data.mini_env || data.pwd || data.args || data.env) 
+	// 	free_all(&data);
 	close(data.tmp_fd2);
 	close(data.tmp_fd);
 	return (0);

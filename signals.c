@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/07/29 18:12:11 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 17:59:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sigint_handler(int sig)
 
 //anouk, possiamo usare solo un globale per l'exit code 
 /** Signal handler for the SIGINT signal inside a heredoc (ctrl+c) */
-/*
+
 void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
@@ -33,11 +33,13 @@ void	ft_heredoc_handler(int sig)
 	exit_status = 130;
 	exit(exit_status);
 }
-*/
 
 void	ft_sig_term(t_data *data)
 {
+	//(void)data;
 	//ft_clear_history(data);
+	close(data->tmp_fd2);
+	close(data->tmp_fd);
 	write(STDOUT_FILENO, "exit\n", 5);
 	free_all(data);
 	exit(0);

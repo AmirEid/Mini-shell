@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 19:53:42 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 01:07:02 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 17:39:48 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void ft_redir_out(t_list *file, int *redi_num, t_data *data)
 			p_errno = errno;
 			ft_dup2_error_manager(fd, p_errno);
 			data->exit_code = -1;
+			close(fd);
 			//exit(1);
 			// exit_status = 1;
 			return ;
