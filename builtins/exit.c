@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/29 12:14:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:33:07 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ void	check_too_many_arguments(int list_size)
 {
 	if (list_size > 2)
 	{
+		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("exit\n", 1);
 		exit(1);
 	}
 }
@@ -45,6 +50,7 @@ void	check_numeric_argument(char *token)
 	{
 		if (!ft_isdigit(token[i]))
 		{
+			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("bash: exit: ", 2);
 			ft_putstr_fd(token, 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
@@ -65,9 +71,13 @@ void	ft_exit_handler(t_list *current)
 	{
 		next = current->next;
 		next_string = (t_tkn_data *)next->content;
+		check_numeric_argument(next_string->token);
 		check_too_many_arguments(list_size);
-		if (list_size == 2)
-			check_numeric_argument(next_string->token);
+	}
+	else 
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit(0);
 	}
 	return ;
 }
@@ -84,6 +94,6 @@ void	ft_exit(t_list *args)
 		arg_data = (t_tkn_data *)args->next->content;
 		exit_code = ft_atoi(arg_data->token);
 	}
-	ft_putstr_fd("exit\n", 1);
-	exit(exit_code);
+	//ft_putstr_fd("exit\n", 1);
+	//exit(exit_code);
 }
