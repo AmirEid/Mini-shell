@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 15:07:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 20:42:58 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,12 @@ void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	if (ft_isquote(data->args[data->current]))
 		ft_quote_handler_meta(&data, &token);
 	else if (ft_isalpha(data->args[data->current]))
-		while ((ft_isprint(data->args[data->current]) || data->args[data->current] == '_') || data->args[data->current] == '?' || data->args[data->current] == '$')
+		while ((ft_isprint(data->args[data->current] || data->args[data->current] == '_' || data->args[data->current] == '?' || data->args[data->current] == '$')))
+		{
+			if (ft_ismeta(data->args[data->current]))
+				break ;
 			(data->current)++;
+		}
 	else if (ft_isdigit(data->args[data->current]) || data->args[data->current] == '?')
 	{
 		if (data->args[data->current] == '?')

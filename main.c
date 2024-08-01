@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:16:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:40:09 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:21:11 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	main (int argc, char **argv, char **env)
 	{
 		prompt_loop(&data);
 		ft_lexer(&data);
-		//printTokens(data.tokens);
+		printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
-		//printTokens(data.tokens);
+		printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
 		rl_on_new_line();
 		add_history(data.args);
@@ -82,3 +82,4 @@ int	main (int argc, char **argv, char **env)
 	return (0);
 }
 
+//organizer and echo $a|cat -e
