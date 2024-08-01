@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 19:45:05 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/01 17:11:18 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	create_new_env_var(t_data data, char *str)
 	temp = data.mini_env;
 	while (temp)
 	{
+		if (str)
+		{
 		if (!ft_strncmp(str, (char *)(temp->content),
 			most_right_eq(str, (char *)(temp->content))))
 		{
@@ -28,6 +30,7 @@ static void	create_new_env_var(t_data data, char *str)
 			return ;
 		}
 		temp = temp->next;
+		}
 	}
 	new_node = ft_lstnew(ft_strdup(str));
 	// if (!new_node)			<-----
