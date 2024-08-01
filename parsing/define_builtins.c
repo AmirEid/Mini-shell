@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:44:06 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/29 21:36:32 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 18:42:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	iteration_check(char *str, t_types *type)
 		*type = WORD_EXIT;
 	else if ((!ft_strncmp(str, "pwd", 4)))
 		*type = WORD_PWD;
+	else if (!ft_strncmp(str, "/", 1))
+		*type = COMMAND;
 }
 
 void	define_builtins(t_list *token)
