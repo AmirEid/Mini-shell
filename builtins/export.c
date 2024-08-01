@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/01 17:11:18 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 20:04:34 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static void	create_new_env_var(t_data data, char *str)
 	{
 		if (str)
 		{
-		if (!ft_strncmp(str, (char *)(temp->content),
-			most_right_eq(str, (char *)(temp->content))))
-		{
-			free((temp->content));
-			temp->content = str;
-			return ;
-		}
-		temp = temp->next;
+			if (!ft_strncmp(str, (char *)(temp->content),
+				most_right_eq(str, (char *)(temp->content))))
+			{
+				free((temp->content));
+				temp->content = ft_strdup(str);
+				return ;
+			}
+			temp = temp->next;
 		}
 	}
 	new_node = ft_lstnew(ft_strdup(str));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:12:39 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/29 12:18:34 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:56:47 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ size_t	most_right_eq(char *str1, char *str2)
 
 	i = 0;
 	j = 0;
-	while (str1[i] != '\0' && str1[i] != '=')
+	while (str1 && str1[i] != '\0' && str1[i] != '=')
 		i++;
-	while (str2[j] != '\0' && str2[j] != '=')
+	while (str2 && str2[j] != '\0' && str2[j] != '=')
 		j++;
 	if (i > j)
 		return (i);

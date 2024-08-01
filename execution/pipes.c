@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 15:51:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 19:51:44 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 			}
 			close_pipes(pipe_fd, data->process_num);
 			ft_execute_routine(args[i], env, data);
+			free_all(data);
+			free_env_list(&env);
 			exit(exit_status);
 		}
 		pids[i] = pid;
@@ -113,11 +115,7 @@ void create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 		if (wait_for[i])
 		{
 			waitpid(pids[i], &exit_status, 0);
-			printf("exit status: %d\n", exit_status);
 			exit_status = exit_status / 256;
-		}
-		
-	}
-			//check status here
-			
+		}	
+	}			
 }
