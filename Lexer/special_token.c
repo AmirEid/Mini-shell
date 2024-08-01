@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 00:47:11 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 16:06:34 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int ft_special_token(t_data *data, t_types type)
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
-	return (0);
+	return (exit_status);
 }
 
 

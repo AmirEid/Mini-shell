@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 00:48:07 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 16:06:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ int ft_word_token(t_data *data, t_types type)
 	}
 	if (qflag_word_token_handler(&data, &quote_flag, &token, &node, &string) == -1)
 		return (-1);
-	return (0);
+	return (exit_status);
 }
 
 // int ft_word_token(t_data *data, t_types type)

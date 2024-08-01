@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 00:27:55 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 15:34:04 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ t_data	initialize_data()
 	data.list_size = 0;
 	data.exp_var = 0;
 	data.process_num = 0;
-	//ata.exit_status = 0;
 	data.current = 0;
 	data.start = 0;
-	//data.exit_code = 0;
+	data.exit_code = 0;
 	data.pwd = NULL;
 	data.old_pwd = NULL;
 	data.args = NULL;

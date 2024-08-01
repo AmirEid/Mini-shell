@@ -22,6 +22,7 @@ char	*get_cd_path(t_list *tokens)
 		if (!home)
 		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			exit_status = 1;
 			return (NULL);
 		}
 		return (home);
@@ -53,6 +54,7 @@ int	change_directory(const char *path)
 	if (chdir(path) != 0)
 	{
 		perror("cd error");
+		exit_status = 1;
 		return (-1);
 	}
 	return (0);
@@ -93,6 +95,7 @@ int	ft_cd(t_list *tokens, t_data *data)
 	if (arg_count > 2)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		exit_status = 1;
 		return (-1);
 	}
 	path = get_cd_path(tokens);

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:19 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/31 22:12:56 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/01 16:12:46 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void ft_lexer(t_data *data)
 			exit_status = ft_word_token(data, type);	
 		else
 			ft_meta_token(data, type);
-		if (exit_status != 0)
+		if (data->exit_code != 0)
 			break ;
 	}
 }
