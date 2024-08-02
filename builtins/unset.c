@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:57:21 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/30 16:28:36 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/02 13:28:56 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	unset_if_found(t_data data, char *str)
 		l_eq = ft_strdup((char *)((*temp_env)->content));
 		if ((*temp_env)->print == 0 && !ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
 			flag++;
-		l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0'; // il '=' diventa '\0'
+		if (ft_strchr(l_eq, '='))
+			l_eq[ft_strchr(l_eq, '=') - l_eq] = '\0'; // il '=' diventa '\0'
 		if (!ft_strncmp(str, l_eq, biggest_strlen(str, l_eq)))
 			flag++;
 		free(l_eq);

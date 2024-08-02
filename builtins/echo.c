@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/31 22:23:33 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/02 16:52:22 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ static bool	is_white(char c)
 	return (false);
 }
 
-static void	write_no_white(char *str)
+static int	write_no_white(char *str)
 {
 	char	*now;
 	int		flag;
+	int 	res;
 
 	flag = 0;
+	res = 0;
 	if (!str)
-		return ;
+		return (0);
 	now = str;
 	while (*now && is_white(*now))
 		now++;
@@ -58,37 +60,64 @@ static void	write_no_white(char *str)
 		if (ft_isprint(*now))
 		{
 			if (flag)
-				write(STDOUT_FILENO, " ", 1);
+				res += write(STDOUT_FILENO, " ", 1);
 			flag = 0;
-			write(STDOUT_FILENO, now, 1);
+			res += write(STDOUT_FILENO, now, 1);
 		}
 		now++;
 	}
+	return (res);
+}
+
+static t_list	*check_nl_flag(t_list *cur_token)
+{
+	t_list	*curr;
+	char 	*token_str;
+	int 	i;
+
+	curr = cur_token->next;
+	while (curr && till(((t_tkn_data *)(curr->content))->type))
+	{
+		token_str = ((t_tkn_data *)(curr->content))->token;
+		i = 0;
+		if (token_str)
+		{
+			if (token_str[i] == '-')
+			{
+				while (token_str[++i])
+					if (token_str[i] != 'n')
+						return (curr);
+				curr = curr->next;
+			}
+			else
+				return (curr);
+		}
+		else
+			curr = curr->next;
+	}
+	return (curr);
 }
 
 void	ft_echo(t_list *cur_token)
 {
 	bool	nl;
 	t_list	*curr;
+	int		space;
 
-	curr = cur_token->next;
 	nl = true;
-	if (curr && !ft_strncmp(((t_tkn_data *)(curr->content))->token, "-n",
-		ft_strlen(((t_tkn_data *)(curr->content))->token)))
-	{
+	curr = check_nl_flag(cur_token);
+	if (curr == cur_token)
 		nl = false;
-		curr = curr->next;
-	}
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
 		if (((t_tkn_data *)(curr->content))->type == META_DOL)
-			write_no_white(((t_tkn_data *)(curr->content))->token);
+				space = write_no_white(((t_tkn_data *)(curr->content))->token);
 		else
-			write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
+				space = write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
 				ft_strlen(((t_tkn_data *)(curr->content))->token));
 		curr = curr->next;
-		if (curr && till(((t_tkn_data *)(curr->content))->type))
-			write(STDOUT_FILENO, " ", 1);
+		if (space && curr && ((t_tkn_data *)(curr->content))->token && till(((t_tkn_data *)(curr->content))->type))
+				write(STDOUT_FILENO, " ", 1);
 	}
 	if (nl)
 		write(STDOUT_FILENO, "\n", 1);

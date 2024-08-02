@@ -1,0 +1,6 @@
+$ export x=-n
+minishell $ echo $x asa
+asaminishell $ echo $xnnn asa
+asaminishell $ echo $x -nnn asa
+asaminishell $ echo $x -nnn $x  asa
+asaminishell $ echo $xmmmm  -nnn $x  asa
