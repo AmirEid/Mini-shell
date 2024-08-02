@@ -6,7 +6,7 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/02 16:52:22 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/02 17:27:32 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,11 @@ static int	write_no_white(char *str)
 	return (res);
 }
 
-static t_list	*check_nl_flag(t_list *cur_token)
+static t_list	*check_nl_flag(t_list *curr)
 {
-	t_list	*curr;
 	char 	*token_str;
 	int 	i;
 
-	curr = cur_token->next;
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
 		token_str = ((t_tkn_data *)(curr->content))->token;
@@ -102,12 +100,17 @@ void	ft_echo(t_list *cur_token)
 {
 	bool	nl;
 	t_list	*curr;
+	t_list	*start;
 	int		space;
 
-	nl = true;
-	curr = check_nl_flag(cur_token);
-	if (curr == cur_token)
-		nl = false;
+	nl = false;
+	cur_token = cur_token->next;
+	while(!((t_tkn_data *)(cur_token->content))->token)
+		cur_token = cur_token->next;
+	start = cur_token;
+	curr = check_nl_flag(start);
+	if (curr == start)
+		nl = true;
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
 		if (((t_tkn_data *)(curr->content))->type == META_DOL)
