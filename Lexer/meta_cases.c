@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 11:53:05 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 12:03:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ static void ft_quote_handler_meta(t_data **data, t_tkn_data **token)
 	(*data)->start = (*data)->current;
 	while ((*data)->args[(*data)->current] != tmp)
 		(*data)->current++;
-	(*token)->type = WORD;
+	if ((*token)->variable_len > 0)
+		(*token)->type = META_DOL;
+	else
+		(*token)->type = WORD;
 }
 
 void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
