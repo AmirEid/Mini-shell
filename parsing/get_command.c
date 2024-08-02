@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:30:12 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:25:24 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static char	*get_command(char **paths, char *cmd)
 {
 	char	*p;
 	char	*command;
-
+	
+	if (!paths)
+		return (NULL);
 	while (*paths)
 	{
 		p = ft_strjoin(*paths, "/");

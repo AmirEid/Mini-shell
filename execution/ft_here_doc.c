@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 12:27:33 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 13:02:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 	char *expand_value;
 	t_list *tmp;
 
-	i = -1;
+	i = 0;
 	var_env = NULL;
 	tmp = env;
 	expand_value = NULL;
-	while (buffer[++i])
+	while (buffer[i++])
 	{
 		if (buffer[i] == '$')
 		{
@@ -88,6 +88,7 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	int fd;
 	int tp_fd;
 
+	ft_signals();
 	tp_fd = dup(0);
 	tokendata = (t_tkn_data *)file->content;
 	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
