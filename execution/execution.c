@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 12:10:50 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 15:57:54 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 		pid = fork();
 		if (pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			data->process_num++;
 			ft_execute_routine(tokens, env, data);
 		}
@@ -103,6 +104,7 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 	if (data->process_num < 1)
 		return ;
 	//args[data->process_num] = NULL;
+	signal(SIGINT, sigint_exec);
 	if (data->process_num > 1)
 	{
 		ft_assign_args(args, tokens);

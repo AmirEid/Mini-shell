@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:15:23 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:00:48 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <stdbool.h>
 #include <termios.h>
 #include <limits.h>
@@ -64,6 +65,7 @@ int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
 void	ft_heredoc_handler(int sig);
 void    free_env_list(t_list **env_list);
+void	sigint_exec(int sig);
 
 # include "lexer.h"
 # include "builtins.h"

@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/01 19:32:04 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:01:47 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,20 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	exit_status = 130;
-	write(STDOUT_FILENO, "\n", 1);
+	ioctl(STDIN_FILENO, TIOCSTI,"\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	rl_redisplay();
+	//rl_redisplay();
 }
 
-
-
-//anouk, possiamo usare solo un globale per l'exit code 
-/** Signal handler for the SIGINT signal inside a heredoc (ctrl+c) */
+void sigint_exec(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit_status = 130;
+	}
+}
 
 void	ft_heredoc_handler(int sig)
 {
