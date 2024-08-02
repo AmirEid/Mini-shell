@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 18:48:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 12:10:50 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void ft_execution(t_list *tokens, t_list *env, t_data *data)
 	tokendata = (t_tkn_data *)data->tokens->content;
 	if (data->process_num < 1)
 		return ;
-	args[data->process_num] = NULL;
+	//args[data->process_num] = NULL;
 	if (data->process_num > 1)
 	{
 		ft_assign_args(args, tokens);
