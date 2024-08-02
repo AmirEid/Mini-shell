@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:59:12 by amireid           #+#    #+#             */
-/*   Updated: 2024/08/02 12:15:03 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 12:26:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ char	*get_next_line(int fd)
 	static char	*str;
 	char		*tmp;
 
-	// if (fd < 0 || BUFFER_SIZE <= 0)
-	// {
-	// 	if (str)
-	// 		free(str);
-	// 	return (NULL);
-	// }
+	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		if (str)
+			free(str);
+		return (NULL);
+	}
 	tmp = ft_left_string(fd, str);
 	if (!tmp)
 	{

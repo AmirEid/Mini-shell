@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 12:18:01 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/02 12:27:33 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
-		//write(0, "> ", 2);
-		buffer = readline("> ");
-		buffer = ft_strjoin(buffer, "\n");
-		//buffer = get_next_line(0);
+		write(0, "> ", 2);
+		//buffer = readline("> ");
+		//buffer = ft_strjoin(buffer, "\n");
+		buffer = get_next_line(0);
 		//handle this properly
-		if (ft_strncmp(tokendata->token, buffer, ft_strlen(buffer) - 1) == 0 || buffer == NULL)
+		if (ft_strncmp(tokendata->token, buffer, ft_strlen(tokendata->token)) == 0)
 			break ;
 		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)
 			write(fd, buffer, ft_strlen(buffer));
@@ -111,7 +111,6 @@ void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	//get_next_line(-1);
 	if (buffer)
 		 free(buffer);
-	close(fd);
 	if ((*redi_num) - 1 == 0)
 	{
 		fd = open(".heredoc", O_RDONLY);
