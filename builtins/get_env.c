@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:58:33 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/29 12:23:06 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:14:43 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ t_list	*get_env(t_data data, char **env)
 		return (ft_printf("no env"), NULL);
 	while (env[i])
 	{
-		//memory_allocator((void **)&env[i], ft_strlen(env[i]) + 1);
 		env_list = ft_lstnew(ft_strdup(env[i]));
-		if (!env_list) //garbge_collector
+		if (!env_list)
 			return (NULL);
 		ft_lstadd_back(&data.mini_env, env_list);
 		i++;

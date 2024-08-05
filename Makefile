@@ -6,7 +6,7 @@
 #    By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/07/31 22:24:12 by rpaic            ###   ########.fr        #
+#    Updated: 2024/08/05 18:13:02 by rpaic            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ M_SRC = ./Lexer/lexer.c \
 	./builtins/cd.c \
 	./builtins/check_env_arg.c \
 	./builtins/echo.c \
+	./builtins/echo_utils.c \
 	./builtins/exit.c \
 	./builtins/export.c \
 	./builtins/export_utils.c \

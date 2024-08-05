@@ -12,6 +12,8 @@
 
 #include "../headers/minishell.h"
 
+//QUESTO FILE SERVE?????
+
 void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 {
 	char	*new_entry;

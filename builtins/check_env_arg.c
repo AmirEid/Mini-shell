@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_env_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:25:05 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/05 11:05:04 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/05 19:24:03 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	str_type(char *str)
 	{
 		if (*(ft_strchr(str, '+') + 1) == '=')
 			return (2);
+		else
+			return (0);
 	}
 	else if (ft_strchr(str, '='))
 		return (1);
@@ -40,7 +42,7 @@ static int	str_type(char *str)
 static void	check_left_side(char *str, int *left_side_type)
 {
 	char	*end;
-		
+
 	end = NULL;
 	if (*left_side_type == 0)
 	{
@@ -48,12 +50,12 @@ static void	check_left_side(char *str, int *left_side_type)
 		return ;
 	}
 	else if (*left_side_type == 1)
-		end = ft_strchr(str, '='); //=
+		end = ft_strchr(str, '=');
 	else if (*left_side_type == 2)
-		end = ft_strchr(str, '+'); //+=
+		end = ft_strchr(str, '+');
 	else
-		end = str + ft_strlen(str);  //no = or +=
-	while(++str != end)
+		end = str + ft_strlen(str);
+	while (++str != end)
 	{
 		if ((ft_isalnum(*str) == 0) && *str != '_')
 		{

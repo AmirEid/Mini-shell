@@ -42,5 +42,7 @@ void		ft_unset(t_data data, t_list *cur_token);
 void		error_export_unset(char flag, char *str);
 
 void		ft_echo(t_list *cur_token);
+void	    skip_null_tokens(t_list **cur_token);
+void		check_nl(bool nl);
 bool		till(int type);
 #endif

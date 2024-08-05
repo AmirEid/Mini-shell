@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:12:48 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/05 19:10:42 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		print_env(*data);
 	else if (tokendata->type == WORD_UNSET)
 		ft_unset(*data, tokens);
-	else if (tokendata->type == WORD || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE || tokendata->type == WORD_DOL || tokendata->type == META_DOL)
+	else if (tokendata->token && (tokendata->type == WORD || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE || tokendata->type == WORD_DOL || tokendata->type == META_DOL))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(tokendata->token, 2);

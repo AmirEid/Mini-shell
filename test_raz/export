@@ -1,0 +1,4 @@
+export a+ should give error
+
+export b+=123 b+= CHECK it
+

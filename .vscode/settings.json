@@ -18,5 +18,8 @@
         "string_view": "c",
         "ranges": "c",
         "stdbool.h": "c"
-    }
+    },
+    "[c]" : {
+    "editor.defaultFormatter": "keyhr.42-c-format"
+  }
 }

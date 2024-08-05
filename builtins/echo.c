@@ -6,21 +6,9 @@
 /*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:54:51 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/02 17:27:32 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/05 20:47:22 by rpaic            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//!!!! FIX THIS !!!! check if type is meta_dol print by skipping spaces 
-//export c="   4 6   "
-//export
-//....
-//...
-//declare -x c="   4 6   "$
-//rpaic@c2r3p9:~$ echo $c | cat -e
-//4 6$
-
-//rpaic@c2r3p9:~$ echo "    4 6   " | cat -e
-//    4 6   $
 
 #include "../headers/minishell.h"
 
@@ -44,7 +32,7 @@ static int	write_no_white(char *str)
 {
 	char	*now;
 	int		flag;
-	int 	res;
+	int		res;
 
 	flag = 0;
 	res = 0;
@@ -71,8 +59,8 @@ static int	write_no_white(char *str)
 
 static t_list	*check_nl_flag(t_list *curr)
 {
-	char 	*token_str;
-	int 	i;
+	char	*token_str;
+	int		i;
 
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
@@ -80,7 +68,7 @@ static t_list	*check_nl_flag(t_list *curr)
 		i = 0;
 		if (token_str)
 		{
-			if (token_str[i] == '-')
+			if (token_str[i] == '-' && token_str[i + 1] == 'n')
 			{
 				while (token_str[++i])
 					if (token_str[i] != 'n')
@@ -104,9 +92,7 @@ void	ft_echo(t_list *cur_token)
 	int		space;
 
 	nl = false;
-	cur_token = cur_token->next;
-	while(!((t_tkn_data *)(cur_token->content))->token)
-		cur_token = cur_token->next;
+	skip_null_tokens(&cur_token);
 	start = cur_token;
 	curr = check_nl_flag(start);
 	if (curr == start)
@@ -114,14 +100,14 @@ void	ft_echo(t_list *cur_token)
 	while (curr && till(((t_tkn_data *)(curr->content))->type))
 	{
 		if (((t_tkn_data *)(curr->content))->type == META_DOL)
-				space = write_no_white(((t_tkn_data *)(curr->content))->token);
+			space = write_no_white(((t_tkn_data *)(curr->content))->token);
 		else
-				space = write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
-				ft_strlen(((t_tkn_data *)(curr->content))->token));
-		curr = curr->next;
-		if (space && curr && ((t_tkn_data *)(curr->content))->token && till(((t_tkn_data *)(curr->content))->type))
-				write(STDOUT_FILENO, " ", 1);
+			space = write(STDOUT_FILENO, ((t_tkn_data *)(curr->content))->token,
+					ft_strlen(((t_tkn_data *)(curr->content))->token));
+		skip_null_tokens(&curr);
+		if (space && curr && ((t_tkn_data *)(curr->content))->token
+			&& till(((t_tkn_data *)(curr->content))->type))
+			write(STDOUT_FILENO, " ", 1);
 	}
-	if (nl)
-		write(STDOUT_FILENO, "\n", 1);
+	check_nl(nl);
 }
