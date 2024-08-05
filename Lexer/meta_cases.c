@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta_cases.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 12:03:36 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:24:18 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void redi_out_parser(t_data *data, t_list *node, t_tkn_data *token)
 	
 }*/
 
-void redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
+void	redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
 {
 	if (data->args[data->current] == '>')
 	{
@@ -79,7 +79,7 @@ void redirect_meta(t_data *data, t_list *node, t_tkn_data *token)
 // 	ft_lstadd_back(&data->tokens, node);
 // }
 
-void pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
+void	pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
 {
 	(data->current)++;
 	token->token = ft_substr(data->args, data->start, data->current - data->start);
@@ -93,7 +93,7 @@ void pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
 // ? sign
 // else take only $ sign
 
-static int handle_dollar_meta(t_data **data, t_tkn_data **token)
+static int	handle_dollar_meta(t_data **data, t_tkn_data **token)
 {
 	(*data)->current++;
 	if (ft_isdigit((*data)->args[(*data)->current]))
@@ -104,9 +104,9 @@ static int handle_dollar_meta(t_data **data, t_tkn_data **token)
 	return (0);
 }
 
-static void ft_quote_handler_meta(t_data **data, t_tkn_data **token)
+static void	ft_quote_handler_meta(t_data **data, t_tkn_data **token)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = (*data)->args[(*data)->current];
 	(*data)->current++;
@@ -121,7 +121,7 @@ static void ft_quote_handler_meta(t_data **data, t_tkn_data **token)
 		(*token)->type = WORD;
 }
 
-void dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
+void	dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 {
 	if (data->args[data->current] == '$')
 	{

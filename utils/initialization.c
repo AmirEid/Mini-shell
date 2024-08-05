@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 16:36:06 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:42:28 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_data	initialize_data()
 {
 	t_data	data;
-		
+
 	data.mini_env = NULL;
 	data.tokens = NULL;
 	data.list_size = 0;
@@ -30,7 +30,6 @@ t_data	initialize_data()
 	data.env = NULL;
 	data.tmp_fd = dup(0);
 	data.tmp_fd2 = dup(1);
-
 	return (data);
 }
 
@@ -64,7 +63,7 @@ void	prompt_loop(t_data *data)
 			(*data).args = NULL;
 		}
 		else
-			break;
+			break ;
 	}
 }
 

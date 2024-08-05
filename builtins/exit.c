@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/01 17:54:23 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:06:18 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	ft_exit_handler(t_list *current)
 	else 
 	{
 		ft_putstr_fd("exit\n", 1);
-		// close(data->tmp_fd2);
-		// close(data->tmp_fd);
 		exit(0);
 	}
 	return ;

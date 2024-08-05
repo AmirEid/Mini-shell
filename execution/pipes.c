@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:51:44 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:18:25 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void create_pipes(int pipe_fd[], int process_num)
+static void	create_pipes(int pipe_fd[], int process_num)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while(i < process_num - 1)
 	{
@@ -26,10 +26,10 @@ static void create_pipes(int pipe_fd[], int process_num)
 	}
 }
 
-void close_pipes(int pipe_fd[], int process_num)
+void	close_pipes(int pipe_fd[], int process_num)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < 2 * (process_num - 1))
 	{
@@ -37,11 +37,11 @@ void close_pipes(int pipe_fd[], int process_num)
 	}
 }
 
-static bool ft_check_here_doc(t_list *list)
+static bool	ft_check_here_doc(t_list *list)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	
+	t_list	*current;
+	t_tkn_data	*tokendata;
+
 	current = list;
 	tokendata = (t_tkn_data *)current->content;
 	while (current != NULL && tokendata->type != META_PIPE)
@@ -56,14 +56,14 @@ static bool ft_check_here_doc(t_list *list)
 }
 
 // there is an issue with closing the pipes.
-void create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
+void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 {
-	int pipe_fd[(data->process_num - 1) * 2];
-	int i;
-	pid_t pid;
-	pid_t pids[data->process_num];
-	bool wait_for[data->process_num];
-	
+	int		pipe_fd[(data->process_num - 1) * 2];
+	int		i;
+	pid_t	pid;
+	pid_t	pids[data->process_num];
+	bool	wait_for[data->process_num];
+
 	i = -1;
 	pid = 0;
 	//maybe put this in the intialization of the data struct

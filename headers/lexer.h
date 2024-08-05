@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/30 20:06:53 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:21:38 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void		memory_allocator(void **ptr, size_t size, t_data *data);
 void		ft_meta_token(t_data *data, t_types type);
 int			ft_isquote(int c);
 int			ft_ismeta(int c);
-int		ft_special_token(t_data *data, t_types type);
-int		ft_word_token(t_data *data, t_types type);
+int			ft_special_token(t_data *data, t_types type);
+int			ft_word_token(t_data *data, t_types type);
 void		dollar_meta(t_data *data, t_list *node, t_tkn_data *token);
 void		pipe_meta(t_data *data, t_list *node, t_tkn_data *token);
 void		redirect_meta(t_data *data, t_list *node, t_tkn_data *token);

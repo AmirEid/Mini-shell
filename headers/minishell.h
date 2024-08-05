@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 16:00:48 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:21:55 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
 void	ft_heredoc_handler(int sig);
-void    free_env_list(t_list **env_list);
+void	free_env_list(t_list **env_list);
 void	sigint_exec(int sig);
 
 # include "lexer.h"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/01 19:29:05 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:41:59 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	free_list(t_list *list)
 {
-	t_list	*tmp;
+	t_list		*tmp;
 	t_tkn_data	*tkn_data;
-	
+
 	tmp = NULL;
 	tkn_data = NULL;
 	while (list)
@@ -32,23 +32,23 @@ void	free_list(t_list *list)
 	}
 }
 
-void    free_env_list(t_list **env_list) // for get_env
+void	free_env_list(t_list **env_list) // for get_env
 {
-    t_list *tmp;
-    t_list *next;
+	t_list	*tmp;
+	t_list	*next;
 
-    tmp = *env_list;
-    while (tmp != NULL)
-    {
-        next = tmp->next;
-        free(tmp->content);
-        free(tmp);
-        tmp = next;
-    }
-    *env_list = NULL;
+	tmp = *env_list;
+	while (tmp != NULL)
+	{
+		next = tmp->next;
+		free(tmp->content);
+		free(tmp);
+		tmp = next;
+	}
+	*env_list = NULL;
 }
 
-void free_all(t_data *data)
+void	free_all(t_data *data)
 {
 	int	i;
 

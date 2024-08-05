@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   meta_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:54:12 by anomourn          #+#    #+#             */
-/*   Updated: 2024/07/30 13:37:01 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:24:38 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h" 
 
-static void meta_token_handler(t_data *data, t_list *node, t_tkn_data *token)
+static void	meta_token_handler(t_data *data, t_list *node, t_tkn_data *token)
 {
 	if (data->args[data->current] == '$')
 		dollar_meta(data, node, token);
@@ -23,10 +23,10 @@ static void meta_token_handler(t_data *data, t_list *node, t_tkn_data *token)
 		redirect_meta(data, node, token);
 }
 
-void ft_meta_token(t_data *data, t_types type)
+void	ft_meta_token(t_data *data, t_types type)
 {
-	t_list *node;
-	t_tkn_data *token;
+	t_list		*node;
+	t_tkn_data	*token;
 
 	memory_allocator((void **)&node, sizeof(t_list), data);
 	memory_allocator((void **)&token, sizeof(t_tkn_data), data);

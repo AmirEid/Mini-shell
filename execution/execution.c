@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 15:57:54 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:13:37 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static void ft_assign_args(t_list *args[], t_list *tokens)
+static void	ft_assign_args(t_list *args[], t_list *tokens)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	int i;
+	t_list		*current;
+	t_tkn_data	*tokendata;
+	int			i;
 
 	i = 0;
 	current = tokens;
@@ -59,9 +59,9 @@ static void ft_assign_args(t_list *args[], t_list *tokens)
 //I changed t_list **args because there is no need to allocate memory and we already know/
 //the number of processes we have to create. We can just pass the array of pointers to the functions.
 
-static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *data, t_types type)
+static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *data, t_types type)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = 0;
 	if (type == COMMAND)
@@ -92,10 +92,10 @@ static void execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 //TO do list: add the process number in the data struct, so we can use it in the waitpid or not wait pid;
 
 
-void ft_execution(t_list *tokens, t_list *env, t_data *data)
+void	ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
-	t_tkn_data *tokendata;
-	t_list *args[data->process_num + 1];
+	t_tkn_data	*tokendata;
+	t_list		*args[data->process_num + 1];
 	
 	//clear_args(args, MAX_PROCESS_NUM + 1);
 	if (data->exit_code == -1)

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 19:08:37 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:41:02 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-int ft_get_process_num(t_list *tokens)
+int	ft_get_process_num(t_list *tokens)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	int process_num;
+	t_list		*current;
+	t_tkn_data	*tokendata;
+	int			process_num;
 
 	process_num = 0;
 	current = tokens;
@@ -30,10 +30,10 @@ int ft_get_process_num(t_list *tokens)
 	return (process_num + 1);
 }
 
-void ft_parsing(t_data *data, t_list *tokens)
+void	ft_parsing(t_data *data, t_list *tokens)
 {
-	char **path;
-	
+	char	**path;
+
 	if (data->exit_code == -1)
 		return ;
 	path = get_cmd_path(data->mini_env, data);

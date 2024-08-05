@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 16:32:10 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:14:38 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 // 	return (variable);
 // }
 
-static char *get_env_vars(char *env_line)
+static char	*get_env_vars(char *env_line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (env_line[++i] != '=' && env_line[i])
@@ -40,12 +40,12 @@ static char *get_env_vars(char *env_line)
 	return (ft_substr(env_line, 0, i));
 }
 
-static void check_expansion(char *buffer, int fd, t_list *env, t_data *data)
+static void	check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 {
-	int i;
-	char *var_env;
-	char *expand_value;
-	t_list *tmp;
+	int		i;
+	char	*var_env;
+	char	*expand_value;
+	t_list	*tmp;
 
 	i = -1;
 	var_env = NULL;
@@ -81,13 +81,13 @@ static void check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 }
 
 //INSERT SIGNALS IN HERE DOC
-void ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
+void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
-	t_tkn_data *tokendata;
-	int p_errno;
-	char *buffer;
-	int fd;
-	int tp_fd;
+	t_tkn_data	*tokendata;
+	int			p_errno;
+	char		*buffer;
+	int			fd;
+	int			tp_fd;
 
 	tp_fd = dup(0);
 	tokendata = (t_tkn_data *)file->content;

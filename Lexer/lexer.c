@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:19 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/01 18:39:33 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:23:41 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-void skip_initial_spaces(char *args, t_data *data)
+void	skip_initial_spaces(char *args, t_data *data)
 {
 	while (!(ft_isprint(args[data->current])) && args[data->current] != '\0')
 	{
@@ -21,7 +21,7 @@ void skip_initial_spaces(char *args, t_data *data)
 	}
 }
 
-static void define_type(char *args, int cur, t_types *type)
+static void	define_type(char *args, int cur, t_types *type)
 {
 	if (args[cur] == '\'')
 		*type = SPECIAL_SQUOTE;
@@ -49,9 +49,9 @@ static void define_type(char *args, int cur, t_types *type)
 		*type = WORD;
 }
 
-void ft_lexer(t_data *data)
+void	ft_lexer(t_data *data)
 {
-	t_types type;
+	t_types	type;
 
 	data->current = -1;
 	data->start = 0;

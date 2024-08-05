@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 17:01:16 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/05 11:12:48 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-static void execution_redir_in(t_list *token, t_list *env, t_data *data, int *redi_num)
+static void	execution_redir_in(t_list *token, t_list *env, t_data *data, int *redi_num)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
+	t_list		*current;
+	t_tkn_data	*tokendata;
 	
 	current = token;
 	tokendata = (t_tkn_data *)current->content;
@@ -33,10 +33,10 @@ static void execution_redir_in(t_list *token, t_list *env, t_data *data, int *re
 	}
 }
 
-static void execution_redir_out(t_list *token, int *redi_num, t_data *data)
+static void	execution_redir_out(t_list *token, int *redi_num, t_data *data)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
+	t_list		*current;
+	t_tkn_data	*tokendata;
 	
 	current = token;
 	tokendata = (t_tkn_data *)current->content;
@@ -56,8 +56,8 @@ static void execution_redir_out(t_list *token, int *redi_num, t_data *data)
 
 static void	execute_redirections(t_list *token, t_list *env, t_data *data)
 {
-	int redi_in_num;
-	int redi_out_num;
+	int	redi_in_num;
+	int	redi_out_num;
 
 	redi_in_num = ft_get_number_of_redir_in_or_out(token, META_REDIR_IN, META_HEREDOC);
 	redi_out_num = ft_get_number_of_redir_in_or_out(token, META_REDIR_OUT, META_APPEND);
@@ -71,9 +71,9 @@ static void	execute_redirections(t_list *token, t_list *env, t_data *data)
 
 void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 {
-	t_list *current;
-	t_tkn_data *tokendata;
-	size_t num_redirs;
+	t_list		*current;
+	t_tkn_data	*tokendata;
+	size_t		num_redirs;
 	//THIS IS WORK IN PROGRESS
 	//in this function i should iterate over the list, until pipe or null..
 	//the function will call different functions depending on the type of the token. >> > < << external,

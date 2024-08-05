@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errno_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:03:03 by aeid              #+#    #+#             */
-/*   Updated: 2024/07/31 18:27:41 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:10:55 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-void open_files_errors_manager(int fd, char *file_name, int errnum)
+void	open_files_errors_manager(int fd, char *file_name, int errnum)
 {
 	if (fd < 0)
 	{
@@ -40,7 +40,7 @@ void open_files_errors_manager(int fd, char *file_name, int errnum)
 	}
 }
 
-void ft_dup2_error_manager(int fd, int errnum)
+void	ft_dup2_error_manager(int fd, int errnum)
 {
 	if (fd < 0)
 	{

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*		                                                                    */
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:03:20 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 15:47:46 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:34:48 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static int dollar_counter(char *tkn_str)
+static int	dollar_counter(char *tkn_str)
 {
-	int i;
-	int num_of_dollars;
+	int	i;
+	int	num_of_dollars;
 
 	i = -1;
 	num_of_dollars = 0;
@@ -27,9 +27,9 @@ static int dollar_counter(char *tkn_str)
 	return (num_of_dollars);
 }
 
-static void get_var_len(char *str, int *variable_len)
+static void	get_var_len(char *str, int *variable_len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0' && str[i] != '$')
@@ -38,11 +38,11 @@ static void get_var_len(char *str, int *variable_len)
 }
 
 //ciaaaoo
-static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str, t_data *data)
+static char	*meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str, t_data *data)
 {
-	int i;
-	char *variable;
-	char *after_expand;
+	int		i;
+	char	*variable;
+	char	*after_expand;
 
 	i = 0;
 	variable = NULL;
@@ -65,47 +65,51 @@ static char *meta_dol_expander(t_list *mini_env, int variable_len, char *tkn_str
 	return(NULL);
 }
 
-static void process_dollar_expansion(int variable_len, char **tkn_str, t_data *data, char *tmp, char **string)
+static void	process_dollar_expansion(int variable_len, char **tkn_str, t_data *data, char *tmp, char **string)
 {
-    int i = 0;
-    char num_of_dollars = dollar_counter(*tkn_str);
+	int		i;
+	char	num_of_dollars;
 
-    while (num_of_dollars > 0)
-    {
-        get_var_len(tmp + i + 1, &variable_len);
-        *tkn_str = meta_dol_expander(data->mini_env, variable_len, tmp + i + 1, data);
-        num_of_dollars--;
-        i += variable_len + 1;
-        if (*tkn_str)
-            *string = ft_strjoin(*string, *tkn_str);
-    }
+	i = 0;
+	num_of_dollars = dollar_counter(*tkn_str);
+	while (num_of_dollars > 0)
+	{
+		get_var_len(tmp + i + 1, &variable_len);
+		*tkn_str = meta_dol_expander(data->mini_env, variable_len, tmp + i + 1, data);
+		num_of_dollars--;
+		i += variable_len + 1;
+		if (*tkn_str)
+			*string = ft_strjoin(*string, *tkn_str);
+	}
 }
 
-static void meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *data, t_types type)
+static void	meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *data, t_types type)
 {
-    char *string = NULL;
-    char *tmp = ft_strdup(*tkn_str);
+	char	*string;
+	char	*tmp;
 
-    if (variable_len == 0 || (*tkn_str)[1] == '\0' || (*tkn_str)[1] == ' ')
-        return;
+	string = NULL;
+	tmp = ft_strdup(*tkn_str);
+	if (variable_len == 0 || (*tkn_str)[1] == '\0' || (*tkn_str)[1] == ' ')
+		return ;
 
-    process_dollar_expansion(variable_len, tkn_str, data, tmp, &string);
+	process_dollar_expansion(variable_len, tkn_str, data, tmp, &string);
 
-    if (*tkn_str)
-    {
-        free(*tkn_str);
-        *tkn_str = NULL;
-    }
-    if ((type == META_HEREDOC || type == META_REDIR_IN || type == META_REDIR_OUT || type == META_APPEND) && data->exp_var)
-    {
-        *tkn_str = tmp;
-        free(string);
-    }
-    else
-    {
-        *tkn_str = string;
-        free(tmp);
-    }
+	if (*tkn_str)
+	{
+		free(*tkn_str);
+		*tkn_str = NULL;
+	}
+	if ((type == META_HEREDOC || type == META_REDIR_IN || type == META_REDIR_OUT || type == META_APPEND) && data->exp_var)
+	{
+		*tkn_str = tmp;
+		free(string);
+	}
+	else
+	{
+		*tkn_str = string;
+		free(tmp);
+	}
 }
 
 // static void meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *data, t_types type)
@@ -199,74 +203,79 @@ static void meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *
 // 	free(*tkn_str);
 // 	*tkn_str = new;
 // }
-static void expand_variable(t_list *mini_env, int *variable_len, char **tkn_str, t_data *data, int *i, int *start, char **new)
+static void	expand_variable(t_list *mini_env, int *variable_len, char **tkn_str, t_data *data, int *i, int *start, char **new)
 {
-    char *variable = NULL;
-    char *var_expand = NULL;
+	char	*variable;
+	char	*var_expand;
 
-    (*i)++;
-    while (ft_isprint((*tkn_str)[*i]) && (*tkn_str)[*i] != '\0' && !ft_ismeta((*tkn_str)[*i]) && *variable_len > 0 && (*tkn_str)[*i] != '$')
-    {
-        (*i)++;
-        (*variable_len)--;
-    }
-    memory_allocator((void **)&variable, *i - *start, data);
-    ft_strlcpy(variable, &(*tkn_str)[*start + 1], *i - *start);
-    var_expand = search_env(mini_env, variable, data);
-    if (var_expand)
-        *new = ft_strjoin(*new, var_expand);
-    else if ((*tkn_str)[*i] != '\0')
-        *new = ft_strjoin(*new, "");
-    free(variable);
-    if (var_expand)
-        free(var_expand);
+	variable = NULL;
+	var_expand = NULL;
+	(*i)++;
+	while (ft_isprint((*tkn_str)[*i]) && (*tkn_str)[*i] != '\0' && !ft_ismeta((*tkn_str)[*i]) && *variable_len > 0 && (*tkn_str)[*i] != '$')
+	{
+		(*i)++;
+		(*variable_len)--;
+	}
+	memory_allocator((void **)&variable, *i - *start, data);
+	ft_strlcpy(variable, &(*tkn_str)[*start + 1], *i - *start);
+	var_expand = search_env(mini_env, variable, data);
+	if (var_expand)
+		*new = ft_strjoin(*new, var_expand);
+	else if ((*tkn_str)[*i] != '\0')
+		*new = ft_strjoin(*new, "");
+	free(variable);
+	if (var_expand)
+		free(var_expand);
 }
 
-static void append_non_dollar_characters(char **tkn_str, int *i, int *start, char **new)
+static void	append_non_dollar_characters(char **tkn_str, int *i, int *start, char **new)
 {
-    while ((*tkn_str)[*i] != '\0' && !ft_ismeta((*tkn_str)[*i]) && (*tkn_str)[*i] != '$')
-        (*i)++;
-    *new = ft_strjoin(*new, ft_substr(*tkn_str, *start, *i - *start));
+	while ((*tkn_str)[*i] != '\0' && !ft_ismeta((*tkn_str)[*i]) && (*tkn_str)[*i] != '$')
+		(*i)++;
+	*new = ft_strjoin(*new, ft_substr(*tkn_str, *start, *i - *start));
 }
 
-static void dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
+static void	dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
 {
-    int i = 0;
-    int start = 0;
-    char *new = NULL;
+	int		i;
+	int		start;
+	char	*new;
 
-    if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
-        return;
-    while ((*tkn_str)[i] != '\0')
-    {
-        if ((*tkn_str)[i] == '$' && (*tkn_str)[i + 1] != '\0' && (*tkn_str)[i + 1] != ' ')
-        {
-            expand_variable(mini_env, &variable_len, tkn_str, data, &i, &start, &new);
-        }
-        else if ((*tkn_str)[i] == '$')
-        {
-            new = ft_strjoin(new, "$");
-            i++;
-        }
-        else
-            append_non_dollar_characters(tkn_str, &i, &start, &new);
-        start = i;
-    }
-    free(*tkn_str);
-    *tkn_str = new;
+	i = 0;
+	start = 0;
+	new = NULL;
+	if (variable_len == 0 || (*tkn_str)[i + 1] == '\0' || (*tkn_str)[i + 1] == ' ')
+		return;
+	while ((*tkn_str)[i] != '\0')
+	{
+		if ((*tkn_str)[i] == '$' && (*tkn_str)[i + 1] != '\0' && (*tkn_str)[i + 1] != ' ')
+		{
+			expand_variable(mini_env, &variable_len, tkn_str, data, &i, &start, &new);
+		}
+		else if ((*tkn_str)[i] == '$')
+		{
+			new = ft_strjoin(new, "$");
+			i++;
+		}
+		else
+			append_non_dollar_characters(tkn_str, &i, &start, &new);
+		start = i;
+	}
+	free(*tkn_str);
+	*tkn_str = new;
 }
 
-static void ft_handle_status(t_tkn_data *current)
+static void	ft_handle_status(t_tkn_data *current)
 {
-    char *status;
+	char	*status;
 
-    status = ft_itoa(exit_status);
-    free(current->token);
-    current->token = status;
-    current->type = WORD;
+	status = ft_itoa(exit_status);
+	free(current->token);
+	current->token = status;
+	current->type = WORD;
 }
 
-static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
+static void	type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
 {	
 	if (*cur_type == META_DOL)
 		meta_dol_expander_manager(current->variable_len, &current->token, data, *prev_type);
@@ -276,18 +285,18 @@ static void type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_
 		if (*prev_type != META_HEREDOC)
 			current->type = WORD;
 	}
-    else if (*cur_type == META_STATUS)
-        ft_handle_status(current);
+	else if (*cur_type == META_STATUS)
+		ft_handle_status(current);
 	else if ((*cur_type == SPECIAL_SQUOTE || *cur_type == WORD_WITH_SQUOTE_INSIDE) && *prev_type != META_HEREDOC)
 		current->type = WORD;
 }
 
-void expander(t_list *tokens, t_data *data)
+void	expander(t_list *tokens, t_data *data)
 {
-	t_list *current;
-	t_tkn_data *tmp;
-	t_list *prev;
-	t_tkn_data *prev_tmp;
+	t_list		*current;
+	t_tkn_data	*tmp;
+	t_list		*prev;
+	t_tkn_data 	*prev_tmp;
 
 	current = tokens;
 	prev = current;

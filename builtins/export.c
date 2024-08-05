@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/01 20:04:34 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:07:42 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,27 +102,27 @@ static void	update_env_var(t_data data, char *str, char *eq)
 //declare -x a="a"
 //minishell $ export a=123
 //double free or corruption (fasttop)
-t_list  	*ft_export(t_data data, t_list *cur_token)
+t_list	*ft_export(t_data data, t_list *cur_token)
 {
-    char    *str;
-    t_list  *curr;
-    int     left_side_type;
-    
-    curr = cur_token->next;
-    if (!curr || !till(((t_tkn_data *)(curr->content))->type))
-        return (solo_export(data), curr);   
-    while (curr && till(((t_tkn_data *)(curr->content))->type))
-    {   
-        str = ((t_tkn_data *)(curr->content))->token;
-        left_side_type = -1;
-        check_left_side_export(str, &left_side_type);
-        if (left_side_type == -1)
-            maybe_create_env_var(data, str);
-        else if (left_side_type == 1)
-            create_new_env_var(data, str);
-        else if (left_side_type == 2)
-            update_env_var(data, str, ft_strchr(str, '='));
-        curr = curr->next;
-    }
-    return (curr); //exec continua from here
+	char	*str;
+	t_list	*curr;
+	int		left_side_type;
+
+	curr = cur_token->next;
+	if (!curr || !till(((t_tkn_data *)(curr->content))->type))
+		return (solo_export(data), curr);   
+	while (curr && till(((t_tkn_data *)(curr->content))->type))
+	{   
+		str = ((t_tkn_data *)(curr->content))->token;
+		left_side_type = -1;
+		check_left_side_export(str, &left_side_type);
+		if (left_side_type == -1)
+			maybe_create_env_var(data, str);
+		else if (left_side_type == 1)
+			create_new_env_var(data, str);
+		else if (left_side_type == 2)
+			update_env_var(data, str, ft_strchr(str, '='));
+		curr = curr->next;
+	}
+	return (curr); //exec continua from here
 }

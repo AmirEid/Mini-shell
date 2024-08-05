@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*			                                                                */
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:57:21 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/02 13:28:56 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/05 11:08:51 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_arg_of_unset(char *str)
 static void	unset_if_found(t_data data, char *str)
 {
 	t_list	**temp_env;
-    t_list  *temp_node;
+    t_list	*temp_node;
 	char	*l_eq;
 	int		flag;
 
@@ -55,14 +55,15 @@ static void	unset_if_found(t_data data, char *str)
 		if (flag)
 		{
 			temp_node = *temp_env;
-            *temp_env = temp_node->next;
-            free_null(temp_node->content);
-            free_null(temp_node);
-            return ;
+			*temp_env = temp_node->next;
+			free_null(temp_node->content);
+			free_null(temp_node);
+			return ;
 		}
 		temp_env = &(*temp_env)->next;
 	}
 }
+
 // EXAMPLE :   unset a b c
 // will unset a b c if founded and return a pointer to
 // the next token after the last unsetted token
@@ -81,7 +82,7 @@ void 	ft_unset(t_data data, t_list *cur_token)
 		str = ((t_tkn_data *)(curr->content))->token;
 		if (check_arg_of_unset(str))
 			unset_if_found(data, str);
-        //prev = actual_node;
+		//prev = actual_node;
 		curr = curr->next;
 	}
 }

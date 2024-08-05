@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   special_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/01 16:56:54 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/05 11:25:27 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static char *special_token_handler(t_data *data, t_tkn_data *token, int *quote_flag)
+static char	*special_token_handler(t_data *data, t_tkn_data *token, int *quote_flag)
 {
 	if (data->args[data->start] == '\'')
 	{
@@ -37,7 +37,7 @@ static char *special_token_handler(t_data *data, t_tkn_data *token, int *quote_f
 	return (ft_substr(data->args, data->start + 1, data->current - data->start - 2));
 }
 
-static void ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
+static void	ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
 {
 	(*token)->type = type;
 	(*token)->token = NULL;
@@ -46,14 +46,14 @@ static void ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
 	(*quote_flag) = 0;
 }
 
-static void ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag, char **tmp)
+static void	ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag, char **tmp)
 {
 	(*quote_flag)++;
 	((*data)->current)++;
 	(*tmp) = special_token_handler(*data, *token, quote_flag);
 }
 
-static void else_handler(t_data **data, t_tkn_data **token, char **tmp)
+static void	else_handler(t_data **data, t_tkn_data **token, char **tmp)
 {
 	while (ft_isprint((*data)->args[(*data)->current]) && !ft_isquote((*data)->args[(*data)->current]))
 	{
@@ -64,7 +64,7 @@ static void else_handler(t_data **data, t_tkn_data **token, char **tmp)
 	(*tmp) = ft_substr((*data)->args, (*data)->start, (*data)->current - (*data)->start);
 }
 
-static int ft_unclosed_quote_error(int quote_flag, t_data **data)
+static int	ft_unclosed_quote_error(int quote_flag, t_data **data)
 {
 	if (quote_flag % 2 != 0)
 	{
@@ -77,12 +77,12 @@ static int ft_unclosed_quote_error(int quote_flag, t_data **data)
 }
 
 
-int ft_special_token(t_data *data, t_types type)
+int	ft_special_token(t_data *data, t_types type)
 {
-	t_list *node;
-	t_tkn_data *token;
-	char *tmp;
-	int quote_flag;
+	t_list		*node;
+	t_tkn_data	*token;
+	char		*tmp;
+	int			quote_flag;
 
 	memory_allocator((void **)&node, sizeof(t_list), data);
 	memory_allocator((void **)&token, sizeof(t_tkn_data), data);

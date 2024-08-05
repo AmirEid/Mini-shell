@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 17:02:03 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/05 11:36:30 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*get_command(char **paths, char *cmd)
 {
 	char	*p;
 	char	*command;
-	
+
 	if (!paths)
 		return (NULL);
 	while (*paths)
@@ -32,25 +32,25 @@ static char	*get_command(char **paths, char *cmd)
 	return (NULL);
 }
 
-char **get_cmd_path(t_list *mini_env, t_data *data)
+char	**get_cmd_path(t_list *mini_env, t_data *data)
 {
-	char *path_str;
-	char **path;
-	
+	char	*path_str;
+	char	**path;
+
 	path_str = search_env(mini_env, "PATH", data);
 	if (path_str == NULL)
 		return (NULL);
 	path = ft_split(path_str, ':');
 	free(path_str);
-	return(path);
+	return (path);
 }
 
 
-void define_commands(t_list *tokens, char **path)
+void	define_commands(t_list *tokens, char **path)
 {
-	t_list *current;
-	t_tkn_data *string;
-	
+	t_list		*current;
+	t_tkn_data	*string;
+
 	current = tokens;
 	string = NULL;
 	while (current)
@@ -65,4 +65,3 @@ void define_commands(t_list *tokens, char **path)
 		current = current->next;
 	}
 }
-

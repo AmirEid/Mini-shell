@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:16:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/02 17:01:33 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/05 11:43:43 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ char	*getTypeName(t_types type)
 		case WORD_WITH_DQUOTE_INSIDE: return "WORD_WITH_DQUOTE_INSIDE";
 		case WORD_WITH_SQUOTE_INSIDE: return "WORD_WITH_SQUOTE_INSIDE";
 		default: return "UNKNOWN_TYPE";
-    }
+	}
 }
 
 void	printTokens(t_list *tokens)
 {
-	t_list	*current = tokens;
+	t_list	*current;
+
+	current = tokens;
 	while (current != NULL)
 	{
 		t_tkn_data *tokenData = (t_tkn_data *)current->content;
