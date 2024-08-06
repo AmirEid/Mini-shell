@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 16:02:38 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:43:14 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,23 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	tokendata = (t_tkn_data *)file->content;
 	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	signal(SIGINT, ft_heredoc_handler);
+	exit_status = 0;
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
-		data->buffer_heredoc = readline("> ");
+		//data->buffer_heredoc = readline("> ");
+		write(0, "> ", 2);
+		data->buffer_heredoc = get_next_line(0);
+		if (exit_status == 130)
+		{
+			free_all(data);
+			free_env_list(&env);
+			close(fd);
+			free(data->buffer_heredoc);
+			unlink(".heredoc");
+			exit(exit_status);
+		}
 		data->buffer_heredoc = ft_strjoin(data->buffer_heredoc, "\n");
-
 		if (ft_strncmp(tokendata->token, data->buffer_heredoc, ft_strlen(tokendata->token)) == 0)
 			break ;
 		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)

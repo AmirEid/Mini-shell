@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/06 16:31:33 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:17:08 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	free_all(t_data *data)
 	i = 0;
 	if (data->tokens)
 		free_list(data->tokens);
-	if (data->buffer_heredoc)
-		free(data->buffer_heredoc);
 	if (data->pwd)
 		free(data->pwd);
 	if (data->old_pwd)
@@ -64,13 +62,13 @@ void	free_all(t_data *data)
 	if (data->args)
 		free(data->args);
 	if (data->env)
-	// {
-	// 	while (data->env[i] != NULL)
-	// 	{
-	// 		free(data->env[i]);
-	// 		i++;
-	// 	}
-	// 	free(data->env);
-	// }
-	free(data);
+	{
+		while (data->env[i] != NULL)
+		{
+			free(data->env[i]);
+			i++;
+		}
+		free(data->env);
+	}
+	//free(data);
 }

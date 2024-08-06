@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 16:43:41 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:51:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,19 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			signal(SIGINT, SIG_DFL);
 			data->process_num++;
 			ft_execute_routine(tokens, env, data);
+			free_all(data);
+			free_env_list(&env);
+			exit(exit_status);
 		}
 		else
 		{
 			waitpid(pid, &exit_status, 0);
-			if (exit_status != 0)
-			{
-				free_all(data);
-				free_env_list(&data->mini_env);
-			}
+			// if (exit_status != 0)
+			// {
+			// 	free_all(data, -1);
+			// 	free_env_list(&data->mini_env);
+			// 	data->free = false;
+			// }
 			exit_status = exit_status / 256;
 		}	
 	}

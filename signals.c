@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/06 15:47:46 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:11:12 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void	sigint_exec(int sig)
 void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
-	printf("\n");
 	exit_status = 130;
-	exit(exit_status);
+	ioctl(STDIN_FILENO, TIOCSTI,"\n");
+	// return ;
+	//exit(exit_status);
 }
 
 void	ft_sig_term(t_data *data)
