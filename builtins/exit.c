@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/05 11:06:18 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/06 15:24:28 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	check_too_many_arguments(int list_size)
 	{
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
+		exit_status = 1;
 	}
 	else
 	{
@@ -84,16 +85,16 @@ void	ft_exit_handler(t_list *current)
 
 void	ft_exit(t_list *args)
 {
-	int			exit_code;
+	//int			exit_status;
 	t_tkn_data	*arg_data;
 
-	exit_code = 0;
+	//exit_code = 0;
 	ft_exit_handler(args);
 	if (args->next != NULL)
 	{
 		arg_data = (t_tkn_data *)args->next->content;
-		exit_code = ft_atoi(arg_data->token);
+		exit_status = ft_atoi(arg_data->token);
 	}
 	//ft_putstr_fd("exit\n", 1);
-	//exit(exit_code);
+	//exit(exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:16:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 17:31:46 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/06 16:35:18 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ int	main (int argc, char **argv, char **env)
 	data.mini_env = get_env(data, env);
 	while (1)
 	{
-		ft_signals();
+		ft_signals(&data);
 		prompt_loop(&data);
 		ft_lexer(&data);
 		//printTokens(data.tokens);
 		ft_parsing(&data, data.tokens);
 		//printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
+		
 		rl_on_new_line();
 		add_history(data.args);
 		free_all(&data);

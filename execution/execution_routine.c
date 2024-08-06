@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 19:10:42 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/06 16:36:12 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,11 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		execute_redirections(tokens, env, data);
 	if (data->exit_code == -1)
 		return ;
-	if (tokendata->type == COMMAND)
+	if (tokendata->type == COMMAND){
+		
 		ft_command_execution(tokens, env, current, data);
+		printf("ciao\n");
+	}
 	else if (tokendata->type == WORD_CD)
 		ft_cd(tokens, data);
 	else if (tokendata->type == WORD_PWD)

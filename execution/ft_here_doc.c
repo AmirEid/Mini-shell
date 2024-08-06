@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:14:38 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/06 16:02:38 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
 	t_tkn_data	*tokendata;
 	int			p_errno;
-	char		*buffer;
+	//char		*buffer;
 	int			fd;
 	int			tp_fd;
 
@@ -96,28 +96,21 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
-		buffer = readline("> ");
-		buffer = ft_strjoin(buffer, "\n");
-		if (exit_status == 130)
-		{
-			free(buffer);
-			close(fd);
-			unlink(".heredoc");
-			exit(exit_status);
-		}
-		//handle this properly
-		if (ft_strncmp(tokendata->token, buffer, ft_strlen(tokendata->token)) == 0)
+		data->buffer_heredoc = readline("> ");
+		data->buffer_heredoc = ft_strjoin(data->buffer_heredoc, "\n");
+
+		if (ft_strncmp(tokendata->token, data->buffer_heredoc, ft_strlen(tokendata->token)) == 0)
 			break ;
 		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)
-			write(fd, buffer, ft_strlen(buffer));
+			write(fd, data->buffer_heredoc, ft_strlen(data->buffer_heredoc));
 		else
-			check_expansion(buffer, fd, env, data);
-		free(buffer);
+			check_expansion(data->buffer_heredoc, fd, env, data);
+		free(data->buffer_heredoc);
 	}
 	dup2(tp_fd, 0);
 	//get_next_line(-1);
-	if (buffer)
-		 free(buffer);
+	if (data->buffer_heredoc)
+		 free(data->buffer_heredoc);
 	if ((*redi_num) - 1 == 0)
 	{
 		fd = open(".heredoc", O_RDONLY);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:21:55 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/06 16:31:50 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_data
 	int 	tmp_fd2;
 	int		start;
 	int 	exp_var;
+	char 	*buffer_heredoc;
 	int		here_doc;
 	int 	process_num;
 	char	*pwd;
@@ -59,13 +60,14 @@ extern int		exit_status;
 
 void	ft_exit(t_list *args);
 void	printTokens(t_list *tokens);
-void	ft_signals(void);
+void	ft_signals();
 void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
 int		ft_cd(t_list *tokens, t_data *data);
 void	ft_heredoc_handler(int sig);
 void	free_env_list(t_list **env_list);
 void	sigint_exec(int sig);
+void	free_env_list(t_list **env_list);
 
 # include "lexer.h"
 # include "builtins.h"

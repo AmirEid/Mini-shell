@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/05 11:44:05 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/06 15:47:46 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	exit_status = 130;
+	
 	ioctl(STDIN_FILENO, TIOCSTI,"\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	//rl_redisplay();
 }
+
 
 void	sigint_exec(int sig)
 {
@@ -53,8 +55,9 @@ void	ft_sig_term(t_data *data)
 }
 
 /** Uses signal function associate to handlers */
-void	ft_signals(void)
+void	ft_signals()
 {
+	
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 }
