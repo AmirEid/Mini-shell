@@ -75,6 +75,7 @@ static void	process_dollar_expansion(int variable_len, char **tkn_str, t_data *d
 	while (num_of_dollars > 0)
 	{
 		get_var_len(tmp + i + 1, &variable_len);
+		free(*tkn_str);
 		*tkn_str = meta_dol_expander(data->mini_env, variable_len, tmp + i + 1, data);
 		num_of_dollars--;
 		i += variable_len + 1;
@@ -92,9 +93,7 @@ static void	meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *
 	tmp = ft_strdup(*tkn_str);
 	if (variable_len == 0 || (*tkn_str)[1] == '\0' || (*tkn_str)[1] == ' ')
 		return ;
-
 	process_dollar_expansion(variable_len, tkn_str, data, tmp, &string);
-
 	if (*tkn_str)
 	{
 		free(*tkn_str);
