@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 12:16:34 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:48:15 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 	{
 		close(data->tmp_fd2);
 		close(data->tmp_fd);
-		ft_exit(tokens);
+		ft_exit(tokens, data);
 	}
 	else if (tokendata->type == WORD_ENV)
 		print_env(*data);

@@ -37,6 +37,12 @@ size_t		idx_of_eq_or_plus(char *str_plus, char *str_eq);
 void		free_mtx(char **path);
 void		free_null(void *ptr);
 
+//exit utils
+void		exit_numeric_argument_required(char *token);
+long long int	ft_atoll(char *str, int i, t_data *data);
+void		check_exit_argument(char *str, int *begin, t_data *data);
+int			ft_iswhite(char c);
+
 void		execute_command(t_list *tokens, t_data *data);
 void		ft_unset(t_data data, t_list *cur_token);
 void		error_export_unset(char flag, char *str);

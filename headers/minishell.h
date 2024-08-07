@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 15:07:20 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:48:00 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_data
 
 extern int		exit_status;
 
-void	ft_exit(t_list *args);
+void	ft_exit(t_list *args, t_data *data);
 void	printTokens(t_list *tokens);
 void	ft_signals();
 void	ft_sig_term(t_data *data);

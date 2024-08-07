@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
+#    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/08/07 17:54:30 by aeid             ###   ########.fr        #
+#    Updated: 2024/08/07 18:46:11 by anomourn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ M_SRC = ./Lexer/lexer.c \
 	./builtins/check_env_arg.c \
 	./builtins/echo.c \
 	./builtins/echo_utils.c \
-	./builtins/exit.c \
+	./builtins/exit_utils.c \
+	./builtins/exit_exit.c \
 	./builtins/export.c \
 	./builtins/export_utils.c \
 	./builtins/garbage_collector.c \
