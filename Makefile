@@ -6,7 +6,7 @@
 #    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/08/06 15:12:30 by anomourn         ###   ########.fr        #
+#    Updated: 2024/08/07 17:23:59 by anomourn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,13 @@ fclean: clean
 	make clean -C $(PRINT_DIR)
 	
 re: fclean all
+
+VALGRIND=@valgrind --suppressions=suppression.supp --leak-check=full --track-fds=yes --show-leak-kinds=all --track-origins=yes --quiet --tool=memcheck --keep-debuginfo=yes
+# FOR FD 		TRACKING: --track-fds=yes
+# FOR CHILDREN	TRACKING: --trace-children=yes
+valgrind: all
+	clear
+	$(VALGRIND) ./$(NAME)
 
 .PHONY: all clean fclean re
 

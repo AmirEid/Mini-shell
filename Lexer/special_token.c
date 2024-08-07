@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:25:27 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/07 17:23:24 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_unclosed_quote_error(int quote_flag, t_data **data)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		(*data)->exit_code = -1;
-		exit_status = -1;
+		exit_status = 1;
 		return (-1);
 	}
 	return (0);
@@ -93,17 +93,17 @@ int	ft_special_token(t_data *data, t_types type)
 			ft_quote_handler(&data, &token, &quote_flag, &tmp);
 		else
 			else_handler(&data, &token, &tmp);
-		token->token = ft_strjoin(token->token, tmp);
+		token->token = ft_join(token->token, tmp);
 		free(tmp);
 		data->start = data->current;
 	}
-	if (ft_unclosed_quote_error(quote_flag, &data) == -1)
-		return (-1);
 	node->content = token;
 	node->next = NULL;
 	ft_lstadd_back(&data->tokens, node);
 	if (data->args[data->current] == '\0')
 		data->current--;
+	if (ft_unclosed_quote_error(quote_flag, &data) == -1)
+		return (-1);
 	return (exit_status);
 }
 

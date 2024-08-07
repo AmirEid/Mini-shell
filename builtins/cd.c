@@ -81,14 +81,18 @@ int	update_pwd(t_data *data)
 
 int	ft_cd(t_list *tokens, t_data *data)
 {
-	char	*path;
-    int		arg_count;
-    t_list	*temp;
+	char		*path;
+    int			arg_count;
+    t_list		*temp;
+	t_tkn_data	*token_data;
 	
 	arg_count = 0;
 	temp = tokens;
-	while (temp != NULL)
+	while (temp)
 	{
+		token_data = (t_tkn_data *)temp->content;
+		if (token_data->type != META_PIPE && token_data->type != META_REDIR_IN && token_data->type != META_REDIR_OUT && token_data->type != META_APPEND && token_data->type != META_HEREDOC)
+			break ;
 		arg_count++;
 		temp = temp->next;
 	}

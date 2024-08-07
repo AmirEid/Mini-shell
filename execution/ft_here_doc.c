@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 15:35:58 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:16:49 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 			{
 				expand_value = search_env(env, var_env, data);
 				i += ft_strlen(var_env);
-				write(fd, expand_value, ft_strlen(var_env));
+				write(fd, expand_value, ft_strlen(expand_value));
 				free(var_env);
 				free(expand_value);
 			}
@@ -97,18 +97,23 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
-		data->buffer_heredoc = readline("> ");
-		//write(0, "> ", 2);
-		//data->buffer_heredoc = get_next_line(0);
+		// data->buffer_heredoc = readline("> ");
+		write(0, "> ", 2);
+		data->buffer_heredoc = get_next_line(0);
 		//printf("%d\n", exit_status);
 		if (exit_status == 130)
 		{
-			free_all(data);
-			free_env_list(&env);
+			get_next_line(-1);
+			unlink(".heredoc");
 			close(fd);
 			free(data->buffer_heredoc);
-			unlink(".heredoc");
-			exit(exit_status);
+			if (data->process_num > 1)
+			{
+				free_all(data);
+				free_env_list(&env);
+				exit(exit_status);
+			}
+			return ;
 		}
 		if (!data->buffer_heredoc)
 		{

@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/07 12:46:23 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:11:45 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_exit_handler(t_list *current)
 	else 
 	{
 		ft_putstr_fd("exit\n", 1);
+		//insert free and change exit code
 		exit(0);
 	}
 	return ;
