@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 16:36:12 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:16:34 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 	if (tokendata->type == COMMAND){
 		
 		ft_command_execution(tokens, env, current, data);
-		printf("ciao\n");
+		// printf("ciao\n");
 	}
 	else if (tokendata->type == WORD_CD)
 		ft_cd(tokens, data);

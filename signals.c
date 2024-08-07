@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/06 19:11:12 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/07 15:20:17 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	ft_heredoc_handler(int sig)
 	//exit(exit_status);
 }
 
+void ft_sign_back_slash(int sig)
+{
+	(void)sig;
+	exit_status = 131;
+}
+
 void	ft_sig_term(t_data *data)
 {
 	//(void)data;
@@ -58,7 +64,6 @@ void	ft_sig_term(t_data *data)
 /** Uses signal function associate to handlers */
 void	ft_signals()
 {
-	
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 }

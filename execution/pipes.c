@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 19:35:45 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/07 15:11:12 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,13 @@ void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 	{
 		if (wait_for[i])
 		{
+			signal(SIGINT, sigint_exec);
+			signal(SIGQUIT, ft_sign_back_slash);
 			waitpid(pids[i], &exit_status, 0);
-			exit_status = exit_status / 256;
+			//exit_status = exit_status / 256;
+			if (exit_status == 131)
+				WEXITSTATUS(exit_status);  
+			exit_status = exit_status / 256;      
 		}	
 	}			
 }

@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/06 15:24:28 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:46:23 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_exit(t_list *args)
 	if (args->next != NULL)
 	{
 		arg_data = (t_tkn_data *)args->next->content;
-		exit_status = ft_atoi(arg_data->token);
+		exit_status = ft_atoi(arg_data->token) % 256;
 	}
 	//ft_putstr_fd("exit\n", 1);
 	//exit(exit_status);

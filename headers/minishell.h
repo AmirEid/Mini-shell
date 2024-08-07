@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 18:37:27 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/07 15:07:20 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	ft_heredoc_handler(int sig);
 void	free_env_list(t_list **env_list);
 void	sigint_exec(int sig);
 void	free_env_list(t_list **env_list);
+void	ft_sign_back_slash(int sig);
+void	sigint_handler(int sig);
 
 # include "lexer.h"
 # include "builtins.h"
