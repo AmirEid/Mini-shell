@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 18:13:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/07 18:59:16 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,17 +163,7 @@ static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
 // 	return(0);
 // }
 
-static bool head_checker(t_list *tokens)
-{
-	t_list *current;
-	t_tkn_data *string;
-	
-	current = tokens;
-	string = (t_tkn_data *)current->content;
-	if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
-		return (true);
-	return (false);
-}
+
 
 //echo 1=2 < inf > out here=3 > out
 
@@ -204,7 +194,4 @@ void	ft_parser(t_list *tokens, t_data *data)
 		}
 		current = current->next;
 	}
-	if (head_checker(tokens))
-		ft_organizer1(&data->tokens);
-	ft_organizer(tokens);
 }
