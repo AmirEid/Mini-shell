@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:36:30 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/07 17:50:04 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	define_commands(t_list *tokens, char **path)
 		string = (t_tkn_data *)current->content;
 		if (string->type == WORD)
 			string->cmd_exec_path = get_command(path, string->token);
-		if (!string->cmd_exec_path && !ft_strncmp(string->token, "/", 1))
+		if (!string->cmd_exec_path)
 			string->cmd_exec_path = ft_strdup(string->token);
 		if (string->cmd_exec_path != NULL)
 			string->type = COMMAND;

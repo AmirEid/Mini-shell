@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:44:06 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:28:14 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/07 17:51:52 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	iteration_check(char *str, t_types *type)
 		*type = WORD_EXIT;
 	else if ((!ft_strncmp(str, "pwd", 4)))
 		*type = WORD_PWD;
-	else if (!ft_strncmp(str, "/", 1))
+	else if (!ft_strncmp(str, "/", 1) || !ft_strncmp(str, "./", 2))
 		*type = COMMAND;
 }
 
