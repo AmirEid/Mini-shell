@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:40:33 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/07 18:13:40 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,65 +163,16 @@ static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
 // 	return(0);
 // }
 
-static void	ft_organizer_2(t_list **current, t_list **tmp, t_list **tmp2, t_list **redir_tmp, t_tkn_data *string)
+static bool head_checker(t_list *tokens)
 {
-	*redir_tmp = *current;
-	string = (t_tkn_data *)(*current)->content;
-	while (*current)
-	{
-		string = (t_tkn_data *)(*current)->content;
-		if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
-		{
-			(*current) = (*current)->next;
-			*tmp2 = *current;
-			*current = (*current)->next;
-		}
-		if (!*current || string->type == META_PIPE)
-			return ;
-		if (string->type == WORD || string->type == COMMAND)
-		{
-			(*tmp)->next = *current;
-			(*tmp2)->next = (*current)->next;
-			(*current)->next = *redir_tmp;
-			*current = (*redir_tmp)->next;
-			break ;
-		}
-	}
-}
-
-static void	ft_set_null(t_tkn_data **string, t_list **tmp, t_list **tmp2, t_list **redir_tmp)
-{
-	*string = NULL;
-	*tmp = NULL;
-	*tmp2 = NULL;
-	*redir_tmp = NULL;
-}
-
-static void	ft_organizer(t_list *tokens)
-{
-	t_list		*current;
-	t_list		*tmp;
-	t_list		*tmp2;
-	t_list		*redir_tmp;
-	t_tkn_data	*string;
-
+	t_list *current;
+	t_tkn_data *string;
+	
 	current = tokens;
-	ft_set_null(&string, &tmp, &tmp2, &redir_tmp);
-	while (current)
-	{
-		string = (t_tkn_data *)current->content;
-		while (string->type != META_PIPE)
-		{
-			if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
-				ft_organizer_2(&current, &tmp, &tmp2, &redir_tmp, string);
-			if (!current || string->type == META_PIPE)
-				return ;
-			else
-				break ;
-		}
-		tmp = current;
-		current = current->next;
-	}
+	string = (t_tkn_data *)current->content;
+	if (string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND || string->type == META_HEREDOC)
+		return (true);
+	return (false);
 }
 
 //echo 1=2 < inf > out here=3 > out
@@ -253,5 +204,7 @@ void	ft_parser(t_list *tokens, t_data *data)
 		}
 		current = current->next;
 	}
+	if (head_checker(tokens))
+		ft_organizer1(&data->tokens);
 	ft_organizer(tokens);
 }
