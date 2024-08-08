@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:35:22 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/08 18:41:37 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 22:18:05 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_list	*control_first_arg(t_list *args, int *begin, t_data *data)
 		exit_status = 0;
 		free_all(data);
 		free_env_list(&data->mini_env);
+		get_next_line(-1);
 		exit(exit_status);
 	}
 	else
@@ -76,13 +77,15 @@ void	ft_exit(t_list *args, t_data *data)
 		exit_status = 0;
 		free_all(data);
 		free_env_list(&data->mini_env);
+		get_next_line(-1);
 		exit(exit_status);
 	}
 	else
 		return ;
-	exit_status = exit_atoll % 256;
+	exit_status = exit_atoll / 256;
 	ft_putstr_fd("exit\n", 1);
 	free_all(data);
 	free_env_list(&data->mini_env);
+	get_next_line(-1);
 	exit(exit_status);
 }

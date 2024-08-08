@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 21:18:20 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 22:43:14 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,17 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			signal(SIGINT, sigint_exec);
 			signal(SIGQUIT, ft_sign_back_slash);
 			waitpid(pid, &exit_status, 0);
+			printf("exit status child: %d\n", exit_status);
 			if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGQUIT)
+			{
 				write(1, "Quit (core dumped)\n", 19);
-			exit_status = 131;
+				exit_status = 131;	
+			}
+			if (exit_status == SIGINT)
+				exit_status = 130;
+
+			else
+				exit_status = exit_status / 256;
 		}	
 	}
 	else

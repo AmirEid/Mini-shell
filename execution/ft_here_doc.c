@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 20:24:17 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 22:09:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
 	t_tkn_data	*tokendata;
 	int			p_errno;
-	//char		*buffer;
 	int			fd;
 	int			tp_fd;
 
@@ -97,14 +96,10 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
-		// data->buffer_heredoc = readline("> ");
 		write(0, "> ", 2);
 		data->buffer_heredoc = get_next_line(0);
-		//printf("%d\n", exit_status);
 		if (exit_status == 130)
 		{
-			printf("here\n");
-			//get_next_line(-1);
 			unlink(".heredoc");
 			close(tp_fd);
 			close(fd);
@@ -122,7 +117,6 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 			write(2, "minishell: warning: here-document at line 5 delimited by end-of-file\n", 70);
 			break ;
 		}
-		//data->buffer_heredoc = ft_strjoin(data->buffer_heredoc, "\n");
 		if (ft_strncmp(tokendata->token, data->buffer_heredoc, ft_strlen(tokendata->token)) == 0)
 				break ;
 		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)
@@ -132,7 +126,7 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 		free(data->buffer_heredoc);
 	}
 	dup2(tp_fd, 0);
-	//get_next_line(-1);
+	close(fd);
 	if (data->buffer_heredoc)
 		 free(data->buffer_heredoc);
 	if ((*redi_num) - 1 == 0)
@@ -149,4 +143,5 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	}
 	(*redi_num)--;
 	unlink(".heredoc");
+	close(tp_fd);
 }

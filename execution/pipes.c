@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 21:29:24 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 22:44:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,14 @@ void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 			signal(SIGQUIT, ft_sign_back_slash);
 			waitpid(pids[i], &exit_status, 0);
 			if ((i == data->process_num - 1) && WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGQUIT)
+			{
 				write(1, "Quit (core dumped)\n", 19);
-			exit_status = 131;
+				exit_status = 131;
+			}
+			if (exit_status == SIGINT)
+				exit_status = 130;
+			else
+				exit_status = exit_status / 256;
         }	
 	}			
 }

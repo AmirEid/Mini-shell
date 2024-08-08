@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 18:17:40 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 22:50:34 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *
 	write(2, "minishell: '", 12);
 	write(2, tokendata->token, ft_strlen(tokendata->token));
 	write(2, "': command not found\n", 22);
+	exit_status = 127;
 	//exit(0);
 	//print_matrix(envp);
 	//adjust this two free

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:58:55 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/08 17:16:31 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 22:05:04 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	numeric_arg_required(char *str, t_data *data)
 	exit_status = 2;
 	free_all(data);
 	free_env_list(&data->mini_env);
+	get_next_line(-1);
 	exit(exit_status);
 }
 

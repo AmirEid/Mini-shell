@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:16:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 20:39:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 22:22:39 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int	main (int argc, char **argv, char **env)
 		ft_signals(&data);
 		prompt_loop(&data);
 		ft_lexer(&data);
-		//printTokens(data.tokens);
+		printTokens(data.tokens);
 		ft_parsing(&data);
-		//printTokens(data.tokens);
+		printTokens(data.tokens);
 		ft_execution(data.tokens, data.mini_env, &data);
+		printf("exit_status: %d\n", exit_status);
 		rl_on_new_line();
 		if (data.args)
 			add_history(data.args);
@@ -82,3 +83,5 @@ int	main (int argc, char **argv, char **env)
 	close(data.tmp_fd);
 	return (0);
 }
+
+
