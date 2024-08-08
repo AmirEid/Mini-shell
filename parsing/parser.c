@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 18:59:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 13:34:01 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data
 {
 	if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT ||
 		 string->type == META_APPEND || string->type == META_HEREDOC) &&
-		(next->type != WORD && next->type != META_DOL))
+		(next->type != WORD && next->type != META_DOL && next->type != WORD_WITH_DQUOTE_INSIDE && next->type != WORD_WITH_SQUOTE_INSIDE && next->type != SPECIAL_DQUOTE && next->type != SPECIAL_SQUOTE))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
 		write(2, "'", 1);

@@ -276,7 +276,7 @@ static void	ft_handle_status(t_tkn_data *current)
 
 static void	type_checker(t_types *cur_type, t_types *prev_type, t_data *data, t_tkn_data *current)
 {	
-	if (*cur_type == META_DOL)
+	if (*cur_type == META_DOL && *prev_type != META_HEREDOC)
 		meta_dol_expander_manager(current->variable_len, &current->token, data, *prev_type);
 	else if (*cur_type == SPECIAL_DQUOTE || *cur_type == WORD_DOL || *cur_type == WORD_WITH_DQUOTE_INSIDE)
 	{
