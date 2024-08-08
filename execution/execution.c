@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 22:43:14 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 00:46:53 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,6 @@ static void	ft_assign_args(t_list *args[], t_list *tokens)
 		}
 	}
 }
-
-	// static void printargs(t_list *args[], int process_num) 
-	// {
-	// 	int i;
-	// 	t_tkn_data *tokendata;
-
-	// 	i = 0;
-	// 	tokendata = NULL;
-	// 	while (i < process_num)
-	// 	{
-	// 		tokendata = (t_tkn_data *)args[i]->content;
-	// 		printf("args[%d]: %s\n", i, tokendata->token);
-	// 		i++;
-	// 	}
-	// }
-
-//I changed t_list **args because there is no need to allocate memory and we already know/
-//the number of processes we have to create. We can just pass the array of pointers to the functions.
 
 static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *data, t_types type)
 {
@@ -101,27 +83,17 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 		ft_execute_routine(tokens, env, data);
 }
 
-// static void clear_args(t_list *args[], int size) {
-//     for (int i = 0; i < size; i++) {
-//         args[i] = NULL; // Reset pointers to NULL
-//     }
-// }
-
-//TO do list: add the process number in the data struct, so we can use it in the waitpid or not wait pid;
-
 
 void	ft_execution(t_list *tokens, t_list *env, t_data *data)
 {
 	t_tkn_data	*tokendata;
 	t_list		*args[data->process_num + 1];
 	
-	//clear_args(args, MAX_PROCESS_NUM + 1);
 	if (data->exit_code == -1)
 		return ;
 	tokendata = (t_tkn_data *)data->tokens->content;
 	if (data->process_num < 1)
 		return ;
-	//args[data->process_num] = NULL;
 	signal(SIGINT, sigint_exec);
 	if (data->process_num > 1)
 	{

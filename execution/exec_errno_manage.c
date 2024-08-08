@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errno_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:03:03 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:10:55 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/09 00:49:24 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	open_files_errors_manager(int fd, char *file_name, int errnum)
 {

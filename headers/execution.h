@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:21:03 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/09 01:13:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data);
 void	close_pipes(int pipe_fd[], int process_num);
 int		ft_get_number_of_redir_in_or_out(t_list *tokens, t_types type1, t_types type2);
 int		ft_get_number_of_redirections(t_list *tokens);
+bool	is_redirection(t_tkn_data *tokendata, int flag);
+bool	check_type(t_tkn_data *tokendata, int flag);
 
 
 #endif

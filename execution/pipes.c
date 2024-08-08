@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 22:44:07 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 00:44:47 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 
 	i = -1;
 	pid = 0;
-	//maybe put this in the intialization of the data struct
-	//data->tmp_fd = dup(0);
 	while (++i < data->process_num)
 		wait_for[i] = true;
 	i = -1;

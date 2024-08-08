@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 18:48:15 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/09 01:12:12 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,12 @@ static void	execute_redirections(t_list *token, t_list *env, t_data *data)
 	execution_redir_out(token, &redi_out_num, data);
 }
 
-//there is a mistake, execute the first redirection, then command then the rest
-// of the redirections.
-
-
 void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 {
 	t_list		*current;
 	t_tkn_data	*tokendata;
 	size_t		num_redirs;
-	//THIS IS WORK IN PROGRESS
-	//in this function i should iterate over the list, until pipe or null..
-	//the function will call different functions depending on the type of the token. >> > < << external,
-		//builtin
-	//make sure to do invoke execve in the end of the function,
-		//execute first all builtins and redirections first, then
-	//execute the external command.
-	// a process can only hand one command (external or builtin) at a time,
-		//with redirections.
+
 	current = tokens;
 	num_redirs = ft_get_number_of_redirections(tokens);
 	tokendata = (t_tkn_data *)current->content;
@@ -90,11 +78,8 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		execute_redirections(tokens, env, data);
 	if (data->exit_code == -1)
 		return ;
-	if (tokendata->type == COMMAND){
-		
+	if (tokendata->type == COMMAND)	
 		ft_command_execution(tokens, env, current, data);
-		// printf("ciao\n");
-	}
 	else if (tokendata->type == WORD_CD)
 		ft_cd(tokens, data);
 	else if (tokendata->type == WORD_PWD)
@@ -113,13 +98,11 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 		print_env(*data);
 	else if (tokendata->type == WORD_UNSET)
 		ft_unset(*data, tokens);
-	else if (tokendata->token && (tokendata->type == WORD || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE || tokendata->type == WORD_DOL || tokendata->type == META_DOL))
+	else if (tokendata->token && check_type(tokendata, 0))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(tokendata->token, 2);
 			ft_putstr_fd(": command not found\n", 2);
-			//free_all(data);
 			exit_status = 127;
 		}
-	//add here all the builtins @razvan @anouk
 }

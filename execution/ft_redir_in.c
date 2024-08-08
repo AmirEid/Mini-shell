@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:03:51 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 11:15:24 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/09 00:45:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_redir_in(t_list *file, int *redi_num, t_data *data)
 			p_errno = errno;
 			ft_dup2_error_manager(fd, p_errno);
 			data->exit_code = -1;
-			// exit_status = 1;
 			return ;
 		}
 	}

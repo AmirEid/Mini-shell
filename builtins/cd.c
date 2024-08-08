@@ -95,7 +95,7 @@ int	ft_cd(t_list *tokens, t_data *data)
 	while (temp)
 	{
 		token_data = (t_tkn_data *)temp->content;
-		if (token_data->type != META_PIPE && token_data->type != META_REDIR_IN && token_data->type != META_REDIR_OUT && token_data->type != META_APPEND && token_data->type != META_HEREDOC)
+		if (!is_redirection(token_data, 1))
 			break ;
 		temp = temp->next;
 	}

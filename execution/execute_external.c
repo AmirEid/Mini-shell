@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 22:50:34 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 01:08:37 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_get_list_size(t_list *list)
 	while (current != NULL)
 	{
 		tokendata = (t_tkn_data *)current->content;
-		if (tokendata->type != META_PIPE && tokendata->type != META_REDIR_IN && tokendata->type != META_REDIR_OUT && tokendata->type != META_APPEND && tokendata->type != META_HEREDOC)
+		if (!is_redirection(tokendata, 1))
 			size++;
 		else
 			break ;
@@ -48,11 +48,7 @@ static char	**ft_get_commands(t_list *tokens, t_list *current, t_data *data)
 	while (temp != NULL && ++i < len)
 	{
 		tokendata = (t_tkn_data *)temp->content;
-		//double check this
-		if (tokendata->type != META_PIPE && tokendata->type != META_REDIR_IN
-			&& tokendata->type != META_REDIR_OUT
-			&& tokendata->type != META_APPEND
-			&& tokendata->type != META_HEREDOC)
+		if (!is_redirection(tokendata, 1))
 			args[i] = (tokendata->token);
 		temp = temp->next;
 	}
@@ -109,14 +105,10 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *
 	}
 	// print_matrix(args);
 	execve(tokendata->cmd_exec_path, args, envp);
-		// perror("EXECVE ERROR\n");
 	write(2, "minishell: '", 12);
 	write(2, tokendata->token, ft_strlen(tokendata->token));
 	write(2, "': command not found\n", 22);
 	exit_status = 127;
-	//exit(0);
-	//print_matrix(envp);
-	//adjust this two free
 	free_null(envp);
 	free_null(args);
 }

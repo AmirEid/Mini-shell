@@ -6,27 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 22:09:06 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 01:11:15 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
-
-// static char *get_variable(char *string, t_data *data)
-// {
-// 	int i;
-// 	int j;
-// 	char *variable;
-	
-// 	i = ft_strlen(string);
-// 	memory_allocator((void **)&variable, i - 2, data);
-// 	i = 0;
-// 	j = -1;
-// 	while (string[++i] != '\n')
-// 		variable[++j] = string[i];
-// 	variable[++j] = '\0';
-// 	return (variable);
-// }
 
 static char	*get_env_vars(char *env_line)
 {
@@ -80,7 +64,7 @@ static void	check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 	}
 }
 
-//INSERT SIGNALS IN HERE DOC
+
 void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
 	t_tkn_data	*tokendata;
@@ -119,7 +103,7 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 		}
 		if (ft_strncmp(tokendata->token, data->buffer_heredoc, ft_strlen(tokendata->token)) == 0)
 				break ;
-		if (tokendata->type == SPECIAL_DQUOTE || tokendata->type == SPECIAL_SQUOTE || tokendata->type == WORD_WITH_DQUOTE_INSIDE || tokendata->type == WORD_WITH_SQUOTE_INSIDE)
+		if (check_type(tokendata, 1))
 			write(fd, data->buffer_heredoc, ft_strlen(data->buffer_heredoc));
 		else
 			check_expansion(data->buffer_heredoc, fd, env, data);
