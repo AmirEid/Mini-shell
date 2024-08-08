@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 19:01:06 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 21:18:20 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 		if (pid == 0)
 		{
 			signal(SIGINT, sigint_exec);
+			signal(SIGQUIT, SIG_DFL);
 			data->process_num++;
 			ft_execute_routine(tokens, env, data);
 			free_all(data);
@@ -83,18 +84,9 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			signal(SIGINT, sigint_exec);
 			signal(SIGQUIT, ft_sign_back_slash);
 			waitpid(pid, &exit_status, 0);
-			//exit_status = exit_status / 256;
-			//printf("exit status: %d\n", exit_status);
-			if (exit_status == 131)
-				WEXITSTATUS(exit_status);
-			//waitpid(pid, &exit_status, 0);
-			// if (exit_status != 0)
-			// {
-			// 	free_all(data, -1);
-			// 	free_env_list(&data->mini_env);
-			// 	data->free = false;
-			// }
-			exit_status = exit_status / 256;
+			if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGQUIT)
+				write(1, "Quit (core dumped)\n", 19);
+			exit_status = 131;
 		}	
 	}
 	else
