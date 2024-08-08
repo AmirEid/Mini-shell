@@ -6,13 +6,12 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/08 20:22:00 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 00:37:56 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./headers/minishell.h"
 
-/** Signal handler for the SIGINT signal (ctrl+c) */
 void	sigint_handler(int sig)
 {
 	(void)sig;

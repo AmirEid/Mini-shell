@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/05 11:21:38 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/08/09 00:21:18 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 typedef enum s_types
 {
-	SPECIAL_SQUOTE, //in parsing check for escape chars
-	SPECIAL_DQUOTE, //in parsing check for escape chars
-	META_DOL,       // check for $ | > < >> <<
+	SPECIAL_SQUOTE,
+	SPECIAL_DQUOTE,
+	META_DOL,
 	META_PIPE,
-	META_REDIR_IN,  // <
-	META_REDIR_OUT, // >
-	META_APPEND,    // >>
-	META_HEREDOC,   // <<
+	META_REDIR_IN,
+	META_REDIR_OUT,
+	META_APPEND,
+	META_HEREDOC,
 	META_STATUS,
 	WORD_EXPORT,
 	WORD_UNSET,
@@ -33,11 +33,11 @@ typedef enum s_types
 	WORD_CD,
 	WORD_EXIT,
 	WORD_PWD,
-	WORD_DOL, //ec$"ho" vs ec"$ho"
+	WORD_DOL,
 	WORD,
 	WORD_WITH_DQUOTE_INSIDE,
 	WORD_WITH_SQUOTE_INSIDE,
-	COMMAND, //check for $
+	COMMAND,
 }			t_types;
 
 typedef struct s_tkn_data
@@ -59,5 +59,20 @@ void		dollar_meta(t_data *data, t_list *node, t_tkn_data *token);
 void		pipe_meta(t_data *data, t_list *node, t_tkn_data *token);
 void		redirect_meta(t_data *data, t_list *node, t_tkn_data *token);
 void		get_variable_len(t_data *data, int dol_position, int *variable_len);
+void		assign_nodes(t_list *node, t_tkn_data *token, t_data *data);
+char		*special_token_handler(t_data *data, t_tkn_data *token,
+				int *quote_flag, int prev);
+int			dollar_counter_lexer(char *args, int current);
+void		copy_assign(char *string, t_data *data, t_tkn_data *token,
+				t_list *node);
+void		quote_removal_copy(char *string, t_data *data, t_tkn_data *token,
+				t_list *node, int quote_flag);
+void		ft_copier(int *i, int c, char *string, t_data *data,
+				int *quote_flag);
+void		ft_assign_word_token(int *q_flag, t_tkn_data **token, char **string,
+				t_types type);
+void		ft_copier_dol(int *i, int c, char *string, t_data *data,
+				int *quote_flag);
+void		handle_meta_status(t_data *data, t_tkn_data *token);
 
 #endif

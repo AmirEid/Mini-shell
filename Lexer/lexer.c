@@ -6,11 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:19 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/08 17:34:44 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 00:19:03 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	skip_initial_spaces(char *args, t_data *data)
 {
@@ -32,19 +32,19 @@ static void	define_type(char *args, int cur, t_types *type)
 	else if (args[cur] == '|')
 		*type = META_PIPE;
 	else if (args[cur] == '>')
-		{
-			if (args[cur + 1] == '>')
-				*type = META_APPEND;
-			else
-				*type = META_REDIR_OUT;
-		}
+	{
+		if (args[cur + 1] == '>')
+			*type = META_APPEND;
+		else
+			*type = META_REDIR_OUT;
+	}
 	else if (args[cur] == '<')
-		{
-			if (args[cur + 1] == '<')
-				*type = META_HEREDOC;
-			else
-				*type = META_REDIR_IN;
-		}
+	{
+		if (args[cur + 1] == '<')
+			*type = META_HEREDOC;
+		else
+			*type = META_REDIR_IN;
+	}
 	else
 		*type = WORD;
 }
@@ -65,7 +65,7 @@ void	ft_lexer(t_data *data)
 		if (type == SPECIAL_SQUOTE || type == SPECIAL_DQUOTE)
 			exit_status = ft_special_token(data, type);
 		else if (type == WORD)
-			exit_status = ft_word_token(data, type);	
+			exit_status = ft_word_token(data, type);
 		else
 			ft_meta_token(data, type);
 		if (data->exit_code != 0 || data->args[data->current] == '\0')

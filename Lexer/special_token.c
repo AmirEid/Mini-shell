@@ -6,45 +6,11 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 20:35:31 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 00:14:58 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
-
-static char	*special_token_handler(t_data *data, t_tkn_data *token, int *quote_flag, int prev)
-{
-	int tmp;
-
-	tmp = 0;
-	if (data->args[data->start] == '\'' && prev != '\"')
-	{
-		while (data->args[data->current] && data->args[data->current] != '\'')
-			(data->current)++;
-		if (data->args[data->current] == '\'')
-			(*quote_flag)++;
-	}
-	else
-	{
-		while (data->args[data->current] && data->args[data->current] != '\"')
-		{
-			if (data->args[data->current] == '$')
-			{
-				if (tmp == 39 && prev != '\"')
-					token->variable_len = token->variable_len;
-				else
-					get_variable_len(data, data->current, &token->variable_len);
-			}
-			tmp = data->args[data->current];
-			(data->current)++;
-		}
-		if (data->args[data->current] == '\"')
-			(*quote_flag)++;
-	}
-	if (data->args[data->current])
-		(data->current)++;
-	return (ft_substr(data->args, data->start + 1, data->current - data->start - 2));
-}
+#include "../headers/minishell.h"
 
 static void	ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
 {
@@ -55,10 +21,11 @@ static void	ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
 	(*quote_flag) = 0;
 }
 
-static void	ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag, char **tmp)
+static void	ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag,
+		char **tmp)
 {
-	int prev;
-	
+	int	prev;
+
 	prev = 0;
 	(*quote_flag)++;
 	prev = (*data)->args[((*data)->current)];
@@ -68,13 +35,15 @@ static void	ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag,
 
 static void	else_handler(t_data **data, t_tkn_data **token, char **tmp)
 {
-	while (ft_isprint((*data)->args[(*data)->current]) && !ft_isquote((*data)->args[(*data)->current]))
+	while (ft_isprint((*data)->args[(*data)->current])
+		&& !ft_isquote((*data)->args[(*data)->current]))
 	{
 		if ((*data)->args[(*data)->current] == '$')
 			get_variable_len(*data, (*data)->current, &(*token)->variable_len);
 		((*data)->current)++;
 	}
-	(*tmp) = ft_substr((*data)->args, (*data)->start, (*data)->current - (*data)->start);
+	(*tmp) = ft_substr((*data)->args, (*data)->start, (*data)->current
+			- (*data)->start);
 }
 
 static int	ft_unclosed_quote_error(int quote_flag, t_data **data)
@@ -88,7 +57,6 @@ static int	ft_unclosed_quote_error(int quote_flag, t_data **data)
 	}
 	return (0);
 }
-
 
 int	ft_special_token(t_data *data, t_types type)
 {
@@ -110,60 +78,10 @@ int	ft_special_token(t_data *data, t_types type)
 		free(tmp);
 		data->start = data->current;
 	}
-	node->content = token;
-	node->next = NULL;
-	ft_lstadd_back(&data->tokens, node);
+	assign_nodes(node, token, data);
 	if (data->args[data->current] == '\0')
 		data->current--;
 	if (ft_unclosed_quote_error(quote_flag, &data) == -1)
 		return (-1);
 	return (exit_status);
 }
-
-
-// int ft_special_token(t_data *data, t_types type)
-// {
-// 	t_list *node;
-// 	t_tkn_data *token;
-// 	char *tmp;
-// 	int quote_flag;
-
-// 	memory_allocator((void **)&node, sizeof(t_list), data);
-// 	memory_allocator((void **)&token, sizeof(t_tkn_data), data);
-// 	token->type = type;
-// 	token->token = NULL;
-// 	token->variable_len = 0;
-// 	token->cmd_exec_path = NULL;
-// 	quote_flag = 0;
-// 	while (data->args[data->current] && ft_isprint(data->args[data->current]))
-// 	{
-// 		if (ft_isquote(data->args[data->start]))
-// 		{
-// 			quote_flag++;
-// 			(data->current)++;
-// 			tmp = special_token_handler(data, token, &quote_flag);	
-// 		}
-// 		else
-// 		{
-// 			while (ft_isprint(data->args[data->current]) && !ft_isquote(data->args[data->current]))
-// 			{
-// 				if (data->args[data->current] == '$')
-// 					get_variable_len(data, data->current, &token->variable_len);
-// 				(data->current)++;
-// 			}
-// 			tmp = ft_substr(data->args, data->start, data->current - data->start);
-// 		}
-// 		token->token = ft_strjoin(token->token, tmp);
-// 		free(tmp);
-// 		data->start = data->current;
-// 	}
-// 	if (quote_flag % 2 != 0)
-// 	{
-// 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-// 		return (-1);
-// 	}
-// 	node->content = token;
-// 	node->next = NULL;
-// 	ft_lstadd_back(&data->tokens, node);
-// 	return (0);
-// }

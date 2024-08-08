@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:58 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/06 18:34:43 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 23:49:28 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,12 @@ void	get_variable_len(t_data *data, int dol_position, int *variable_len)
 		dol_position++;
 		(*variable_len)++;
 	}
+}
+
+void assign_nodes(t_list *node, t_tkn_data *token, t_data *data)
+{
+    node->content = token;
+    node->next = NULL;
+    ft_lstadd_back(&data->tokens, node);
 }
 

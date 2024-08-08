@@ -6,7 +6,7 @@
 #    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/08/08 14:16:02 by aeid             ###   ########.fr        #
+#    Updated: 2024/08/09 00:32:03 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,14 @@ LIBFT_DIR = ./Libft
 #main
 M_SRC = ./Lexer/lexer.c \
 	./Lexer/meta_cases.c \
+	./Lexer/meta_cases_two.c \
 	./Lexer/meta_token.c \
 	./Lexer/special_token.c \
+	./Lexer/special_tkn_two.c \
 	./Lexer/utils.c \
 	./Lexer/word_token.c \
+	./Lexer/word_tkn_one.c \
+	./Lexer/word_tkn_utils.c \
 	./builtins/cd.c \
 	./builtins/check_env_arg.c \
 	./builtins/echo.c \
@@ -56,6 +60,8 @@ M_SRC = ./Lexer/lexer.c \
 	./main.c \
 	./parsing/define_builtins.c \
 	./parsing/expander.c \
+	./parsing/expander_one.c \
+	./parsing/expander_dquote.c \
 	./parsing/get_command.c \
 	./parsing/parser.c \
 	./parsing/parsing.c \
