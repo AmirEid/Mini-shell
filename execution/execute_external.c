@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 16:55:18 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:17:40 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,17 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *
 	tokendata = (t_tkn_data *)current->content;
 	args = ft_get_commands(tokens, current, data);
 	envp = ft_get_env_matrix(env, data);
-	//print_matrix(args);
+	if (tokendata->cmd_exec_path == NULL)
+	{
+		write(2, "minishell: ", 11);
+		write(2, tokendata->token, ft_strlen(tokendata->token));
+		write(2, ": command not found\n", 21);
+		exit_status = 127;
+		free_null(envp);
+		free_null(args);
+		return ;
+	}
+	// print_matrix(args);
 	execve(tokendata->cmd_exec_path, args, envp);
 		// perror("EXECVE ERROR\n");
 	write(2, "minishell: '", 12);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 17:16:49 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 20:24:17 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 		//printf("%d\n", exit_status);
 		if (exit_status == 130)
 		{
-			get_next_line(-1);
+			printf("here\n");
+			//get_next_line(-1);
 			unlink(".heredoc");
+			close(tp_fd);
 			close(fd);
 			free(data->buffer_heredoc);
 			if (data->process_num > 1)

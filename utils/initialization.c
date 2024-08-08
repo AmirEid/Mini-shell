@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 21:25:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/06 18:37:35 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 19:01:48 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	check_if_empty(char *args)
 void	prompt_loop(t_data *data)
 {
 	//char	*str;
-
 	while (1)
 	{
 		(*data).args = readline("minishell $ ");
@@ -83,8 +82,12 @@ void	reinitialize_data(t_data *data)
 	data->env = NULL;
 	data->pwd = NULL;
 	//exit_status = 0;
+	// close(data->tmp_fd);
+	// close(data->tmp_fd2);
 	dup2(data->tmp_fd, 0);
-	//close(data->tmp_fd);
+	// //close(data->tmp_fd);
 	dup2(data->tmp_fd2, 1);
+	// close(data->tmp_fd2);
+	// close(data->tmp_fd);
 	//close(data->tmp_fd2);
 }

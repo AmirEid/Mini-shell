@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:25:02 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 15:11:12 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:04:05 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	create_pipes_and_execution(t_list *args[], t_list *env, t_data *data)
 			ft_execute_routine(args[i], env, data);
 			free_all(data);
 			free_env_list(&env);
+			close(data->tmp_fd);
+			close(data->tmp_fd2);
 			exit(exit_status);
 		}
 		pids[i] = pid;

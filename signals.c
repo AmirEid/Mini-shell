@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/07 15:20:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 20:22:00 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
 	exit_status = 130;
+	
 	ioctl(STDIN_FILENO, TIOCSTI,"\n");
 	// return ;
 	//exit(exit_status);
@@ -55,6 +56,7 @@ void	ft_sig_term(t_data *data)
 	//ft_clear_history(data);
 	close(data->tmp_fd2);
 	close(data->tmp_fd);
+	get_next_line(-1);
 	write(STDOUT_FILENO, "exit\n", 5);
 	free_all(data);
 	free_env_list(&data->mini_env);

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 18:34:48 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 18:12:24 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,31 @@ static char	*get_command(char **paths, char *cmd)
 {
 	char	*p;
 	char	*command;
+	char *slash;
 
 	if (!paths)
 		return (NULL);
+	slash = ft_strchr(cmd, '/');
 	while (*paths)
 	{
-		p = ft_strjoin(*paths, "/");
-		command = ft_strjoin(p, cmd);
-		free(p);
-		if (access(command, F_OK) == 0)
-			return (command);
-		free(command);
-		paths++;
+		if (slash)
+		{
+			command = ft_strdup(cmd);
+			if (access(command, F_OK) == 0)
+				return (command);
+			free(command);
+			return (NULL);
+		}
+		else
+		{
+			p = ft_strjoin(*paths, "/");
+			command = ft_strjoin(p, cmd);
+			free(p);
+			if (access(command, F_OK) == 0)
+				return (command);
+			free(command);
+			paths++;
+		}
 	}
 	return (NULL);
 }
@@ -58,8 +71,6 @@ void	define_commands(t_list *tokens, char **path)
 		string = (t_tkn_data *)current->content;
 		if (string->type == WORD)
 			string->cmd_exec_path = get_command(path, string->token);
-		// if (!string->cmd_exec_path)
-		// 	string->cmd_exec_path = ft_strdup(string->token);
 		if (string->cmd_exec_path != NULL)
 			string->type = COMMAND;
 		current = current->next;

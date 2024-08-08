@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:57:47 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 19:16:44 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 19:59:40 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_parsing(t_data *data)
 	data->list_size = ft_lstsize(data->tokens);
 	expander(data->tokens, data);
 	ft_parser(data->tokens, data);
+	if (data->exit_code == -1)
+		return ;
 	if (head_checker(data->tokens))
 		ft_organizer1(&data->tokens);
 	ft_organizer(data->tokens);

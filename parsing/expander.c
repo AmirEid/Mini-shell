@@ -80,7 +80,7 @@ static void	process_dollar_expansion(int variable_len, char **tkn_str, t_data *d
 		num_of_dollars--;
 		i += variable_len + 1;
 		if (*tkn_str)
-			*string = ft_strjoin(*string, *tkn_str);
+			*string = ft_join(*string, *tkn_str);
 	}
 }
 
@@ -219,9 +219,9 @@ static void	expand_variable(t_list *mini_env, int *variable_len, char **tkn_str,
 	ft_strlcpy(variable, &(*tkn_str)[*start + 1], *i - *start);
 	var_expand = search_env(mini_env, variable, data);
 	if (var_expand)
-		*new = ft_strjoin(*new, var_expand);
+		*new = ft_join(*new, var_expand);
 	else if ((*tkn_str)[*i] != '\0')
-		*new = ft_strjoin(*new, "");
+		*new = ft_join(*new, "");
 	free(variable);
 	if (var_expand)
 		free(var_expand);
@@ -229,9 +229,14 @@ static void	expand_variable(t_list *mini_env, int *variable_len, char **tkn_str,
 
 static void	append_non_dollar_characters(char **tkn_str, int *i, int *start, char **new)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	while ((*tkn_str)[*i] != '\0' && !ft_ismeta((*tkn_str)[*i]) && (*tkn_str)[*i] != '$')
 		(*i)++;
-	*new = ft_strjoin(*new, ft_substr(*tkn_str, *start, *i - *start));
+	tmp = ft_substr(*tkn_str, *start, *i - *start);
+	*new = ft_join(*new, tmp);
+	free(tmp);
 }
 
 static void	dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, t_data *data)
@@ -253,7 +258,7 @@ static void	dquote_expander(t_list *mini_env, int variable_len, char **tkn_str, 
 		}
 		else if ((*tkn_str)[i] == '$')
 		{
-			new = ft_strjoin(new, "$");
+			new = ft_join(new, "$");
 			i++;
 		}
 		else

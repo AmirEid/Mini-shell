@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:00:34 by amireid           #+#    #+#             */
-/*   Updated: 2024/07/31 15:42:36 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/08 20:10:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strchar(char *str, int c)
 	int	i;
 
 	i = 0;
-	if (!str || str[i] == '\0')
+	if (!str)
 		return (0);
 	if (c == '\0')
 		return ((char *)&str[ft_strln(str)]);

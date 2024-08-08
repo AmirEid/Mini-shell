@@ -82,25 +82,22 @@ int	update_pwd(t_data *data)
 int	ft_cd(t_list *tokens, t_data *data)
 {
 	char		*path;
-    int			arg_count;
     t_list		*temp;
 	t_tkn_data	*token_data;
 	
-	arg_count = 0;
+	if (data->list_size > 2) 
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		exit_status = 1;
+		return (-1);
+	}
 	temp = tokens;
 	while (temp)
 	{
 		token_data = (t_tkn_data *)temp->content;
 		if (token_data->type != META_PIPE && token_data->type != META_REDIR_IN && token_data->type != META_REDIR_OUT && token_data->type != META_APPEND && token_data->type != META_HEREDOC)
 			break ;
-		arg_count++;
 		temp = temp->next;
-	}
-	if (arg_count > 2)
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		exit_status = 1;
-		return (-1);
 	}
 	path = get_cd_path(tokens);
 	if (path == NULL)

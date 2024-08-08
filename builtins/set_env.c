@@ -28,8 +28,8 @@ void	set_env(char *name, char *path, t_list *mini_env, t_data *data)
 		if (find_path((char *)current->content, name))
 		{
 			memory_allocator((void **)&new_entry, new_entry_len, data);
-			new_entry = ft_strjoin(name, "=");
-			new_entry = ft_strjoin(new_entry, "=");
+			new_entry = ft_join(name, "=");
+			new_entry = ft_join(new_entry, "=");
 			/*
 			ft_strlcat(new_entry, name, new_entry_len);
 			ft_strlcat(new_entry, "=", new_entry_len);

@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   special_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 17:23:24 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 20:35:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../headers/minishell.h"
 
-static char	*special_token_handler(t_data *data, t_tkn_data *token, int *quote_flag)
+static char	*special_token_handler(t_data *data, t_tkn_data *token, int *quote_flag, int prev)
 {
-	if (data->args[data->start] == '\'')
+	int tmp;
+
+	tmp = 0;
+	if (data->args[data->start] == '\'' && prev != '\"')
 	{
 		while (data->args[data->current] && data->args[data->current] != '\'')
 			(data->current)++;
@@ -26,7 +29,13 @@ static char	*special_token_handler(t_data *data, t_tkn_data *token, int *quote_f
 		while (data->args[data->current] && data->args[data->current] != '\"')
 		{
 			if (data->args[data->current] == '$')
-				get_variable_len(data, data->current, &token->variable_len);
+			{
+				if (tmp == 39 && prev != '\"')
+					token->variable_len = token->variable_len;
+				else
+					get_variable_len(data, data->current, &token->variable_len);
+			}
+			tmp = data->args[data->current];
 			(data->current)++;
 		}
 		if (data->args[data->current] == '\"')
@@ -48,9 +57,13 @@ static void	ft_assigning(t_tkn_data **token, int *quote_flag, t_types type)
 
 static void	ft_quote_handler(t_data **data, t_tkn_data **token, int *quote_flag, char **tmp)
 {
+	int prev;
+	
+	prev = 0;
 	(*quote_flag)++;
+	prev = (*data)->args[((*data)->current)];
 	((*data)->current)++;
-	(*tmp) = special_token_handler(*data, *token, quote_flag);
+	(*tmp) = special_token_handler(*data, *token, quote_flag, prev);
 }
 
 static void	else_handler(t_data **data, t_tkn_data **token, char **tmp)

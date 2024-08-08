@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/07 15:19:46 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:01:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			ft_execute_routine(tokens, env, data);
 			free_all(data);
 			free_env_list(&env);
+			close(data->tmp_fd);
+			close(data->tmp_fd2);
 			exit(exit_status);
 		}
 		else
@@ -82,6 +84,7 @@ static void	execute_signle_command_line(t_list *tokens, t_list *env, t_data *dat
 			signal(SIGQUIT, ft_sign_back_slash);
 			waitpid(pid, &exit_status, 0);
 			//exit_status = exit_status / 256;
+			//printf("exit status: %d\n", exit_status);
 			if (exit_status == 131)
 				WEXITSTATUS(exit_status);
 			//waitpid(pid, &exit_status, 0);

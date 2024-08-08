@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:53:19 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/07 17:22:37 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:34:44 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_lexer(t_data *data)
 			exit_status = ft_word_token(data, type);	
 		else
 			ft_meta_token(data, type);
-		if (data->exit_code != 0)
+		if (data->exit_code != 0 || data->args[data->current] == '\0')
 			break ;
 	}
 }
