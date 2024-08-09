@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:00:34 by amireid           #+#    #+#             */
-/*   Updated: 2024/08/08 20:10:25 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 15:46:51 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strchar(char *str, int c)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || str[0] == '\0')
 		return (0);
 	if (c == '\0')
 		return ((char *)&str[ft_strln(str)]);
@@ -77,7 +77,7 @@ char	*ft_get_line(char *str)
 	int		i;
 
 	i = 0;
-	if (!str[i])
+	if (!str[i] || !str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
@@ -107,6 +107,8 @@ char	*ft_new_left_line(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (!str[i])

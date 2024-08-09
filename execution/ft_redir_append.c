@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:06:16 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:45:42 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 23:49:22 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 void	ft_redir_append(t_list *file, int *redi_num, t_data *data)
 {
 	t_tkn_data	*tokendata;
-	int			p_errno;
 	int			fd;
 
 	tokendata = (t_tkn_data *)file->content;
-	fd = open (tokendata->token, O_CREAT | O_RDWR | O_APPEND, 0644);
+	fd = open(tokendata->token, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		p_errno = errno;
-		open_files_errors_manager(fd, tokendata->token, p_errno);
+		open_files_errors_manager(fd, tokendata->token, errno);
 		data->exit_code = -1;
 		return ;
 	}
@@ -32,8 +30,7 @@ void	ft_redir_append(t_list *file, int *redi_num, t_data *data)
 		dup2(fd, 1);
 		if (fd == -1)
 		{
-			p_errno = errno;
-			ft_dup2_error_manager(fd, p_errno);
+			ft_dup2_error_manager(fd, errno);
 			data->exit_code = -1;
 			return ;
 		}

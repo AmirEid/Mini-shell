@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 19:13:57 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:18:49 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 00:01:46 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static char	*dollar_m(t_data *data, t_tkn_data *token)
 	if (ft_isquote(data->args[data->current]))
 		ft_quote_handler_meta(&data, &token);
 	else if (ft_isalpha(data->args[data->current]))
+	{
 		while (ft_isprint(data->args[data->current]))
 		{
 			(data->current)++;
@@ -63,8 +64,9 @@ static char	*dollar_m(t_data *data, t_tkn_data *token)
 				|| ft_isquote(data->args[data->current]))
 				break ;
 		}
+	}
 	else if (ft_isdigit(data->args[data->current])
-			|| data->args[data->current] == '?')
+		|| data->args[data->current] == '?')
 	{
 		if (data->args[data->current] == '?')
 			token->type = META_STATUS;
@@ -93,6 +95,7 @@ void	dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 	if (ft_isquote(data->args[data->current]))
 		ft_quote_handler_meta(&data, &token);
 	else if (ft_isalpha(data->args[data->current]))
+	{
 		while (ft_isprint(data->args[data->current]))
 		{
 			(data->current)++;
@@ -100,7 +103,9 @@ void	dollar_meta(t_data *data, t_list *node, t_tkn_data *token)
 				|| ft_isquote(data->args[data->current]))
 				break ;
 		}
-	else if (ft_isdigit(data->args[data->current]) || data->args[data->current] == '?')
+	}
+	else if (ft_isdigit(data->args[data->current])
+		|| data->args[data->current] == '?')
 		handle_meta_status(data, token);
 	token->token = ft_substr(data->args, data->start, data->current
 			- data->start);

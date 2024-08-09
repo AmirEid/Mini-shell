@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:58:55 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/08 22:05:04 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 00:47:27 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	numeric_arg_required(char *str, t_data *data)
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	exit_status = 2;
-	free_all(data);
+	g_exit_status = 2;
+	free_all_exit(data);
 	free_env_list(&data->mini_env);
+	close(data->tmp_fd);
+	close(data->tmp_fd2);
 	get_next_line(-1);
-	exit(exit_status);
+	exit(g_exit_status);
 }
 
 long long int	ft_atoll(char *str, int i, t_data *data)
@@ -50,7 +52,7 @@ long long int	ft_atoll(char *str, int i, t_data *data)
 	return (result * sign);
 }
 
-void	check_exit_argument(char *str, int *begin, t_data *data)
+void	check_arg(char *str, int *begin, t_data *data)
 {
 	int	i;
 	int	end;

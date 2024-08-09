@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:38:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:14:58 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 19:39:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_unclosed_quote_error(int quote_flag, t_data **data)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		(*data)->exit_code = -1;
-		exit_status = 1;
+		g_exit_status = 1;
 		return (-1);
 	}
 	return (0);
@@ -83,5 +83,5 @@ int	ft_special_token(t_data *data, t_types type)
 		data->current--;
 	if (ft_unclosed_quote_error(quote_flag, &data) == -1)
 		return (-1);
-	return (exit_status);
+	return (g_exit_status);
 }

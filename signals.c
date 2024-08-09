@@ -6,65 +6,50 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/09 00:37:56 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 00:44:31 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./headers/minishell.h"
+#include "./headers/minishell.h"
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	exit_status = 130;
-	
-	ioctl(STDIN_FILENO, TIOCSTI,"\n");
+	g_exit_status = 130;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	//rl_redisplay();
 }
-
 
 void	sigint_exec(int sig)
 {
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-		exit_status = 130;
+		g_exit_status = 130;
 	}
 }
 
 void	ft_heredoc_handler(int sig)
 {
 	(void)sig;
-	exit_status = 130;
-	
-	ioctl(STDIN_FILENO, TIOCSTI,"\n");
-	// return ;
-	//exit(exit_status);
+	g_exit_status = 130;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 }
 
-void ft_sign_back_slash(int sig)
+void	ft_sign_back_slash(int sig)
 {
 	(void)sig;
-	exit_status = 131;
+	g_exit_status = 131;
 }
 
 void	ft_sig_term(t_data *data)
 {
-	//(void)data;
-	//ft_clear_history(data);
 	close(data->tmp_fd2);
 	close(data->tmp_fd);
 	get_next_line(-1);
 	write(STDOUT_FILENO, "exit\n", 5);
-	free_all(data);
+	free_all_exit(data);
 	free_env_list(&data->mini_env);
 	exit(0);
-}
-
-/** Uses signal function associate to handlers */
-void	ft_signals()
-{
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler);
 }

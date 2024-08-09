@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 23:57:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:14:11 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 23:55:55 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,37 +46,36 @@ void	copy_assign(char *string, t_data *data, t_tkn_data *token, t_list *node)
 	ft_lstadd_back(&data->tokens, node);
 }
 
-void	ft_copier(int *i, int c, char *string, t_data *data, int *quote_flag)
+void	ft_copier(int *i, int c, char *string, t_data *data)
 {
 	(data->start)++;
-	(*quote_flag)--;
+	data->quote_flag--;
 	while (data->args[data->start + *i] != c && data->args[data->start
-		+ *i] != '\0')
+			+ *i] != '\0')
 	{
 		string[*i] = data->args[data->start + *i];
 		(*i)++;
 	}
 	(data->start)++;
-	(*quote_flag)--;
+	data->quote_flag--;
 }
 
-void	ft_copier_dol(int *i, int c, char *string, t_data *data,
-		int *quote_flag)
+void	ft_copier_dol(int *i, int c, char *string, t_data **data)
 {
-	(data->start)++;
-	(*quote_flag)--;
-	while (data->args[data->start + *i] == c && data->args[data->start
-		+ *i] != '\0')
+	((*data)->start)++;
+	((*data)->quote_flag)--;
+	while ((*data)->args[(*data)->start + *i] == c
+		&& (*data)->args[(*data)->start + *i] != '\0')
 	{
-		(data->start)++;
-		(*quote_flag)--;
+		((*data)->start)++;
+		((*data)->quote_flag)--;
 	}
-	while (data->args[data->start + *i] != c && data->args[data->start
-		+ *i] != '\0')
+	while ((*data)->args[(*data)->start + *i] != c
+		&& (*data)->args[(*data)->start + *i] != '\0')
 	{
-		string[*i] = data->args[data->start + *i];
+		string[*i] = (*data)->args[(*data)->start + *i];
 		(*i)++;
 	}
-	(data->start)++;
-	(*quote_flag)--;
+	((*data)->start)++;
+	((*data)->quote_flag)--;
 }

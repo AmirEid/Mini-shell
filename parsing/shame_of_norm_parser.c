@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   shame_of_norm_parser.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 11:27:06 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/09 23:14:32 by aeid             ###   ########.fr       */
+/*   Created: 2024/08/09 22:43:43 by aeid              #+#    #+#             */
+/*   Updated: 2024/08/09 22:45:09 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-/* Displays the current working directory */
-int	ft_pwd(t_data *data)
+void	ft_ptsd(char *s, int fd)
 {
-	char	*str;
+	size_t	i;
 
-	str = malloc(sizeof(char) * PATH_MAX);
-	if (str == NULL)
-		return (1);
-	if (getcwd(str, PATH_MAX) != NULL)
+	i = 0;
+	while ((unsigned char)s[i])
 	{
-		free(data->pwd);
-		data->pwd = ft_strdup(str);
-		printf("%s\n", data->pwd);
+		write(fd, (unsigned char *)&s[i], 1);
+		i++;
 	}
-	else
-	{
-		free(str);
-		g_exit_status = 2;
-		return (2);
-	}
-	free(str);
-	g_exit_status = 0;
-	return (0);
 }

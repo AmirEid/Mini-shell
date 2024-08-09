@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:03:03 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:49:24 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 19:39:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	open_files_errors_manager(int fd, char *file_name, int errnum)
 			ft_putstr_fd(strerror(errno), 2);
 			ft_putstr_fd("\n", 2);
 		}
-		exit_status = 1;
+		g_exit_status = 1;
 	}
 }
 
@@ -63,6 +63,6 @@ void	ft_dup2_error_manager(int fd, int errnum)
 			ft_putstr_fd("\n", 2);
 		}
 		close(fd);
-		exit_status = 1;
+		g_exit_status = 1;
 	}
 }

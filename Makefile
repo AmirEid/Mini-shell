@@ -6,7 +6,7 @@
 #    By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:36:53 by anomourn          #+#    #+#              #
-#    Updated: 2024/08/09 00:32:03 by aeid             ###   ########.fr        #
+#    Updated: 2024/08/09 22:44:34 by aeid             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,10 +50,13 @@ M_SRC = ./Lexer/lexer.c \
 	./execution/execution.c \
 	./execution/execution_routine.c \
 	./execution/ft_here_doc.c \
+	./execution/check_exp_heredoc.c \
+	./execution/here_doc_utils.c \
 	./execution/ft_redir_append.c \
 	./execution/ft_redir_in.c \
 	./execution/ft_redir_out.c \
 	./execution/pipes.c \
+	./execution/pipes_utils.c \
 	./execution/exec_rout_utils.c \
 	./get_next_line/get_next_line.c \
 	./get_next_line/get_next_line_utils.c \
@@ -62,6 +65,8 @@ M_SRC = ./Lexer/lexer.c \
 	./parsing/expander.c \
 	./parsing/expander_one.c \
 	./parsing/expander_dquote.c \
+	./parsing/shame_of_norm_exp_dquote.c \
+	./parsing/shame_of_norm_parser.c \
 	./parsing/get_command.c \
 	./parsing/parser.c \
 	./parsing/parsing.c \

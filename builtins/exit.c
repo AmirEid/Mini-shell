@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:35:38 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/07 17:11:45 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:41:21 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	check_too_many_arguments(int list_size)
 	{
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
-		exit_status = 1;
+		g_exit_status = 1;
 	}
 	else
 	{
@@ -75,10 +75,9 @@ void	ft_exit_handler(t_list *current)
 		check_numeric_argument(next_string->token);
 		check_too_many_arguments(list_size);
 	}
-	else 
+	else
 	{
 		ft_putstr_fd("exit\n", 1);
-		//insert free and change exit code
 		exit(0);
 	}
 	return ;
@@ -86,16 +85,12 @@ void	ft_exit_handler(t_list *current)
 
 void	ft_exit(t_list *args)
 {
-	//int			exit_status;
 	t_tkn_data	*arg_data;
 
-	//exit_code = 0;
 	ft_exit_handler(args);
 	if (args->next != NULL)
 	{
 		arg_data = (t_tkn_data *)args->next->content;
-		exit_status = ft_atoi(arg_data->token) % 256;
+		g_exit_status = ft_atoi(arg_data->token) % 256;
 	}
-	//ft_putstr_fd("exit\n", 1);
-	//exit(exit_status);
 }

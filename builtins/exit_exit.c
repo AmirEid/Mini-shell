@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:35:22 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/08 22:18:05 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 00:46:45 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,21 @@ int	count_exit_list_size(t_list *current, int *again)
 		{
 			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			exit_status = 1;
+			g_exit_status = 1;
 			(*again)++;
 		}
 	}
 	return (list_size);
+}
+
+void	free_exit(t_data *data)
+{
+	free_all_exit(data);
+	free_env_list(&data->mini_env);
+	get_next_line(-1);
+	close(data->tmp_fd);
+	close(data->tmp_fd2);
+	exit(g_exit_status);
 }
 
 t_list	*control_first_arg(t_list *args, int *begin, t_data *data)
@@ -48,44 +58,37 @@ t_list	*control_first_arg(t_list *args, int *begin, t_data *data)
 	if (!current || !till(((t_tkn_data *)(current->content))->type))
 	{
 		ft_putstr_fd("exit\n", 1);
-		exit_status = 0;
-		free_all(data);
-		free_env_list(&data->mini_env);
-		get_next_line(-1);
-		exit(exit_status);
+		g_exit_status = 0;
+		free_exit(data);
 	}
 	else
-		check_exit_argument(((t_tkn_data *)(current->content))->token, begin, data);
+		check_arg(((t_tkn_data *)(current->content))->token,
+			begin, data);
 	return (current);
 }
-//+9223372036854775807
+
 void	ft_exit(t_list *args, t_data *data)
 {
-	long long int	exit_atoll;
+	long long int	exit_;
 	int				begin;
 	int				printed;
 
 	printed = 0;
+	exit_ = 0;
 	args = control_first_arg(args->next, &begin, data);
 	if (count_exit_list_size(args, &printed) == 1)
 	{
-		check_exit_argument(((t_tkn_data *)(args->content))->token, &begin, data);
-		exit_atoll = ft_atoll(((t_tkn_data *)(args->content))->token, begin, data);
+		check_arg(((t_tkn_data *)(args->content))->token, &begin, data);
+		exit_ = ft_atoll(((t_tkn_data *)(args->content))->token, begin, data);
 	}
 	else if (count_exit_list_size(args, &printed) == 0)
 	{
-		exit_status = 0;
-		free_all(data);
-		free_env_list(&data->mini_env);
-		get_next_line(-1);
-		exit(exit_status);
+		g_exit_status = 0;
+		free_exit(data);
 	}
 	else
 		return ;
-	exit_status = exit_atoll / 256;
+	g_exit_status = exit_ / 256;
 	ft_putstr_fd("exit\n", 1);
-	free_all(data);
-	free_env_list(&data->mini_env);
-	get_next_line(-1);
-	exit(exit_status);
+	free_exit(data);
 }

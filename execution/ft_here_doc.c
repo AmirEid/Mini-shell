@@ -3,77 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 13:21:22 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/10 00:03:07 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
 
-static char	*get_env_vars(char *env_line)
+static void	cleanup_heredoc(int tp_fd, int *fd, t_data *data, int *redi_num)
 {
-	int	i;
+	int	p_errno;
 
-	i = -1;
-	while (env_line[++i] != '=' && env_line[i])
-		;
-	if (!env_line[i] || !env_line)
-		return (NULL);
-	return (ft_substr(env_line, 0, i));
-}
-
-static void	check_expansion(char *buffer, int fd, t_list *env, t_data *data)
-{
-	int		i;
-	char	*var_env;
-	char	*expand_value;
-	t_list	*tmp;
-
-	i = -1;
-	var_env = NULL;
-	tmp = env;
-	expand_value = NULL;
-	while (buffer[++i])
+	dup2(tp_fd, 0);
+	close(*fd);
+	p_errno = 0;
+	if (data->buffer_heredoc)
+		free(data->buffer_heredoc);
+	if ((*redi_num) - 1 == 0)
 	{
-		if (buffer[i] == '$')
+		*fd = open(".heredoc", O_RDONLY);
+		if (*fd == -1)
 		{
-			while (tmp)
-			{
-				var_env = get_env_vars((char *)tmp->content);
-				if (ft_strncmp(var_env, ft_strchar(buffer + i, var_env[0]), ft_strlen(var_env)) == 0)
-					break ;
-				free(var_env);
-				var_env = NULL;
-				tmp = tmp->next;
-			}
-			if (var_env)
-			{
-				expand_value = search_env(env, var_env, data);
-				i += ft_strlen(var_env);
-				write(fd, expand_value, ft_strlen(expand_value));
-				free(var_env);
-				free(expand_value);
-			}
-			else
-				write(fd, "\n", 1);
+			p_errno = errno;
+			unlink(".heredoc");
+			ft_dup2_error_manager(*fd, p_errno);
 		}
-		else
-			write(fd, &buffer[i], 1);
+		dup2(*fd, 0);
+		close(*fd);
 	}
+	(*redi_num)--;
+	unlink(".heredoc");
+	close(tp_fd);
 }
 
-void slash(int sig)
+static bool	handle_exit_status(t_data *data, t_list *env, int tp_fd, int fd)
 {
-	(void)sig;
-	ft_putstr_fd("\b\b  \b\b", 2);
+	if (g_exit_status == 130)
+	{
+		unlink(".heredoc");
+		close(tp_fd);
+		close(fd);
+		data->buffer_heredoc = get_next_line(-1);
+		if (data->process_num > 1)
+		{
+			free_all(data);
+			free_env_list(&env);
+			exit(g_exit_status);
+		}
+		return (true);
+	}
+	return (false);
+}
+
+static bool	process_heredoc_line(t_tkn_data *tokendata, t_data *data, int fd,
+		t_list *env)
+{
+	if (!data->buffer_heredoc)
+	{
+		write(2, WR, sizeof(WR) - 1);
+		return (true);
+	}
+	if (ft_strncmp(tokendata->token, data->buffer_heredoc,
+			ft_strlen(tokendata->token)) == 0)
+		return (true);
+	if (check_type(tokendata, 1))
+		write(fd, data->buffer_heredoc, ft_strlen(data->buffer_heredoc));
+	else
+		check_expansion(data->buffer_heredoc, fd, env, data);
+	return (false);
 }
 
 void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
 	t_tkn_data	*tokendata;
-	int			p_errno;
 	int			fd;
 	int			tp_fd;
 
@@ -82,57 +86,17 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	signal(SIGINT, ft_heredoc_handler);
 	signal(SIGQUIT, slash);
-	exit_status = 0;
+	g_exit_status = 0;
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
 		write(0, "> ", 2);
 		data->buffer_heredoc = get_next_line(0);
-		// data->buffer_heredoc = readline("> ");
-		if (exit_status == 130)
-		{
-			unlink(".heredoc");
-			close(tp_fd);
-			close(fd);
-			free(data->buffer_heredoc);
-			if (data->process_num > 1)
-			{
-				free_all(data);
-				free_env_list(&env);
-				exit(exit_status);
-			}
+		if (handle_exit_status(data, env, tp_fd, fd))
 			return ;
-		}
-		if (!data->buffer_heredoc)
-		{
-			write(2, "minishell: warning: here-document at line 5 delimited by end-of-file\n", 70);
+		if (process_heredoc_line(tokendata, data, fd, env))
 			break ;
-		}
-		if (ft_strncmp(tokendata->token, data->buffer_heredoc, ft_strlen(tokendata->token)) == 0)
-				break ;
-		if (check_type(tokendata, 1))
-			write(fd, data->buffer_heredoc, ft_strlen(data->buffer_heredoc));
-		else
-			check_expansion(data->buffer_heredoc, fd, env, data);
 		free(data->buffer_heredoc);
 	}
-	dup2(tp_fd, 0);
-	close(fd);
-	if (data->buffer_heredoc)
-		 free(data->buffer_heredoc);
-	if ((*redi_num) - 1 == 0)
-	{
-		fd = open(".heredoc", O_RDONLY);
-		if (fd == -1)
-		{
-			p_errno = errno;
-			unlink(".heredoc");
-			ft_dup2_error_manager(fd, p_errno);
-		}
-		dup2(fd, 0);
-		close(fd);
-	}
-	(*redi_num)--;
-	unlink(".heredoc");
-	close(tp_fd);
+	cleanup_heredoc(tp_fd, &fd, data, redi_num);
 }

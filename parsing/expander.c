@@ -16,7 +16,7 @@ static void	ft_handle_status(t_tkn_data *current)
 {
 	char	*status;
 
-	status = ft_itoa(exit_status);
+	status = ft_itoa(g_exit_status);
 	free(current->token);
 	current->token = status;
 	current->type = WORD;
@@ -27,20 +27,20 @@ static void	type_checker(t_types *cur_type, t_types *prev_type, t_data *data,
 {
 	if (*cur_type == META_DOL && *prev_type != META_HEREDOC)
 		meta_dol_expander_manager(current->variable_len, &current->token, data,
-				*prev_type);
+			*prev_type);
 	else if (*cur_type == SPECIAL_DQUOTE || *cur_type == WORD_DOL
-			|| *cur_type == WORD_WITH_DQUOTE_INSIDE)
+		|| *cur_type == WORD_WITH_DQUOTE_INSIDE)
 	{
 		dquote_expander(data->mini_env, current->variable_len, &current->token,
-				data);
+			data);
 		if (*prev_type != META_HEREDOC)
 			current->type = WORD;
 	}
 	else if (*cur_type == META_STATUS)
 		ft_handle_status(current);
 	else if ((*cur_type == SPECIAL_SQUOTE
-				|| *cur_type == WORD_WITH_SQUOTE_INSIDE)
-			&& *prev_type != META_HEREDOC)
+			|| *cur_type == WORD_WITH_SQUOTE_INSIDE)
+		&& *prev_type != META_HEREDOC)
 		current->type = WORD;
 }
 

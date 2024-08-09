@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 22:02:12 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/05 18:15:14 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/09 15:30:25 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*search_env(t_list *mini_env, char *variable, t_data *data)
 			memory_allocator((void **)&after_equal_sign, ft_strlen(path) + 1,
 				data);
 			ft_strlcpy(after_equal_sign, path, ft_strlen(path) + 1);
-			return (after_equal_sign); // needs to be freed beacuse mallocd
+			return (after_equal_sign);
 		}
 		current = current->next;
 	}

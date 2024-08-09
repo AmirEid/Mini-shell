@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_env_arg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpaic <rpaic@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 17:25:05 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/05 19:24:03 by rpaic            ###   ########.fr       */
+/*   Updated: 2024/08/09 19:39:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_export_unset(char flag, char *str)
 		ft_putstr_fd("minishell: unset: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": not a valid identifier\n", 2);
-	exit_status = 1;
+	g_exit_status = 1;
 }
 
 static int	str_type(char *str)
@@ -69,8 +69,4 @@ void	check_left_side_export(char *str, int *left_side_type)
 {
 	*left_side_type = str_type(str);
 	check_left_side(str, left_side_type);
-	//left_side_type == 0  ERROR
-	//left_side_type = 1   export a=
-	//left_side_type = 2   export a+=
-	//left_side_type = -1  OK and alone -> export a
 }

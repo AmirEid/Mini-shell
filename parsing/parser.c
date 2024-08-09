@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:20:10 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 13:34:01 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 22:46:06 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ static int	check_initial_conditions(t_list *current, t_tkn_data *string)
 	if (!current->next)
 	{
 		if (string->type == META_PIPE)
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
+				2);
 		else
-			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+			ft_ptsd("minishell: syntax error near unexpected token `newline'\n",
+				2);
 		return (-1);
 	}
 	return (0);
@@ -35,7 +37,8 @@ static int	check_next_token_conditions(t_tkn_data *string, t_tkn_data *next)
 	if (next->type == string->type)
 	{
 		if (string->type == META_PIPE)
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
+				2);
 		else
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
@@ -52,11 +55,13 @@ static int	check_next_token_conditions(t_tkn_data *string, t_tkn_data *next)
 	return (0);
 }
 
-static int	check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data *data)
+static int	check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next,
+		t_data *data)
 {
-	if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT ||
-		 string->type == META_APPEND || string->type == META_HEREDOC) &&
-		(next->type != WORD && next->type != META_DOL && next->type != WORD_WITH_DQUOTE_INSIDE && next->type != WORD_WITH_SQUOTE_INSIDE && next->type != SPECIAL_DQUOTE && next->type != SPECIAL_SQUOTE))
+	if (((is_redirection(string, 0))) && (next->type != WORD
+			&& next->type != META_DOL && next->type != WORD_WITH_DQUOTE_INSIDE
+			&& next->type != WORD_WITH_SQUOTE_INSIDE
+			&& next->type != SPECIAL_DQUOTE && next->type != SPECIAL_SQUOTE))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
 		write(2, "'", 1);
@@ -65,7 +70,8 @@ static int	check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data
 		ft_putstr_fd("\n", 2);
 		return (-1);
 	}
-	if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT || string->type == META_APPEND) && (data->exp_var == 1))
+	if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
+			|| string->type == META_APPEND) && (data->exp_var == 1))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		write(2, "'", 1);
@@ -77,14 +83,13 @@ static int	check_ambiguous_redirect(t_tkn_data *string, t_tkn_data *next, t_data
 	return (0);
 }
 
-static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
+static int	ft_check_next_token(t_list *current, t_tkn_data *string,
+		t_data *data)
 {
 	t_tkn_data	*next;
 
 	next = NULL;
-	if (string->type == META_PIPE || string->type == META_REDIR_IN ||
-		string->type == META_REDIR_OUT || string->type == META_APPEND ||
-		string->type == META_HEREDOC)
+	if (is_redirection(string, 1))
 	{
 		if (check_initial_conditions(current, string) == -1)
 			return (1);
@@ -96,76 +101,6 @@ static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data
 	}
 	return (0);
 }
-
-// static int	ft_check_next_token(t_list *current, t_tkn_data *string, t_data *data)
-// {
-// 	t_tkn_data	*next;
-
-// 	next = NULL;
-// 	if (string->type == META_PIPE || string->type == META_REDIR_IN
-// 		|| string->type == META_REDIR_OUT || string->type == META_APPEND
-// 		|| string->type == META_HEREDOC)
-// 	{
-// 		if (!current->next)
-// 		{
-// 			if (string->type == META_PIPE)
-// 				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
-// 						2);
-// 			else
-// 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-// 						2);
-// 			return(-1);
-// 		}
-// 		next = (t_tkn_data *)current->next->content;
-// 		if (string->type != META_PIPE && next->type == META_PIPE)
-// 		{
-// 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-// 			return(-1);
-// 		}
-// 		if (next->type == string->type)
-// 		{
-// 			if (string->type == META_PIPE)
-// 				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
-// 						2);
-// 			else
-// 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-// 						2);
-// 			return(-1);
-// 		}
-// 		if ((next->type == META_HEREDOC && string->type == META_PIPE) || (next->type == META_PIPE && string->type == META_HEREDOC))
-// 		{
-// 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-// 			return(-1);
-// 		}
-// 		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-// 			|| string->type == META_APPEND || string->type == META_HEREDOC)
-// 			&& (next->type != WORD && next->type != META_DOL))
-// 			{
-// 				ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
-// 				write (2, "'", 1);
-// 				write(2, next->token, ft_strlen(next->token));
-// 				write (2, "'", 1);
-// 				ft_putstr_fd("\n", 2);
-// 				return(-1);
-// 			}
-// 		if ((string->type == META_REDIR_IN || string->type == META_REDIR_OUT
-// 			|| string->type == META_APPEND || string->type == META_HEREDOC)
-// 			&& (data->exp_var == 1))
-// 			{
-// 				ft_putstr_fd("minishell: ", 2);
-// 				write (2, "'", 1);
-// 				write(2, next->token, ft_strlen(next->token));
-// 				write (2, "'", 1);
-// 				ft_putstr_fd(": ambiguous redirect\n", 2);
-// 				return(-1);
-// 			}
-// 	}
-// 	return(0);
-// }
-
-
-
-//echo 1=2 < inf > out here=3 > out
 
 void	ft_parser(t_list *tokens, t_data *data)
 {
@@ -179,7 +114,7 @@ void	ft_parser(t_list *tokens, t_data *data)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 		data->exit_code = -1;
-		exit_status = 2; //ok
+		g_exit_status = 2;
 		return ;
 	}
 	while (current)
@@ -189,7 +124,7 @@ void	ft_parser(t_list *tokens, t_data *data)
 		if (status != 0)
 		{
 			data->exit_code = -1;
-			exit_status = status;
+			g_exit_status = status;
 			return ;
 		}
 		current = current->next;

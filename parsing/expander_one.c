@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 00:24:58 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:36:43 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 22:23:03 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ static char	*meta_dol_expander(t_list *mini_env, int variable_len,
 	return (NULL);
 }
 
-static void	process_dollar_expansion(int variable_len, char **tkn_str,
-		t_data *data, char *tmp, char **string)
+static char	*process_dollar_expansion(int variable_len, char **tkn_str,
+		t_data *data, char *tmp)
 {
 	int		i;
 	char	num_of_dollars;
+	char	*string;
 
 	i = 0;
+	string = NULL;
 	num_of_dollars = dollar_counter_parsing(*tkn_str);
 	while (num_of_dollars > 0)
 	{
@@ -79,20 +81,21 @@ static void	process_dollar_expansion(int variable_len, char **tkn_str,
 		num_of_dollars--;
 		i += variable_len + 1;
 		if (*tkn_str)
-			*string = ft_join(*string, *tkn_str);
+			string = ft_join(string, *tkn_str);
 	}
+	return (string);
 }
 
-void	meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *data, t_types type)
+void	meta_dol_expander_manager(int variable_len, char **tkn_str,
+		t_data *data, t_types type)
 {
 	char	*string;
 	char	*tmp;
 
-	string = NULL;
-	tmp = ft_strdup(*tkn_str);
 	if (variable_len == 0 || (*tkn_str)[1] == '\0' || (*tkn_str)[1] == ' ')
 		return ;
-	process_dollar_expansion(variable_len, tkn_str, data, tmp, &string);
+	tmp = ft_strdup(*tkn_str);
+	string = process_dollar_expansion(variable_len, tkn_str, data, tmp);
 	if (*tkn_str)
 	{
 		free(*tkn_str);
@@ -110,4 +113,3 @@ void	meta_dol_expander_manager(int variable_len, char **tkn_str, t_data *data, t
 		free(tmp);
 	}
 }
-

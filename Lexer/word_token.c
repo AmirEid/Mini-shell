@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:10:35 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:14:01 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 00:00:02 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,19 @@ static int	ft_checker(t_data *data, int *quote_flag, t_tkn_data *token)
 	return (0);
 }
 
-static int	qflag_word_token_handler(t_data **data, int *q_flag,
-		t_tkn_data **token, t_list **node, char **string)
+static int	qflag_word_token_handler(t_data **data, t_tkn_data **token,
+		t_list **node, char **string)
 {
-	if ((*q_flag) % 2 != 0)
+	if ((*data)->quote_flag % 2 != 0)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		((*data)->current)--;
 		(*data)->exit_code = -1;
-		exit_status = -1;
+		g_exit_status = -1;
 		return (-1);
 	}
-	if (!((*q_flag) % 2) && *q_flag != 0)
-		quote_removal_copy(*string, *data, *token, *node, *q_flag);
+	if (!((*data)->quote_flag % 2) && (*data)->quote_flag != 0)
+		quote_removal_copy(*string, *data, *token, *node);
 	else
 	{
 		*string = ft_substr((*data)->args, (*data)->start, (*data)->current
@@ -130,8 +130,8 @@ int	ft_word_token(t_data *data, t_types type)
 		if (data->args[data->current])
 			(data->current)++;
 	}
-	if (qflag_word_token_handler(&data, &quote_flag, &token, &node, &string) ==
-		-1)
+	data->quote_flag = quote_flag;
+	if (qflag_word_token_handler(&data, &token, &node, &string) == -1)
 		return (-1);
-	return (exit_status);
+	return (g_exit_status);
 }

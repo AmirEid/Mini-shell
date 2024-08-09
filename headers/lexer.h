@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/09 00:21:18 by aeid             ###   ########.fr       */
+/*   Created: 2024/08/09 23:25:56 by aeid              #+#    #+#             */
+/*   Updated: 2024/08/10 00:52:01 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+# include "../Libft/libft.h"
 # include "minishell.h"
 
 typedef enum s_types
@@ -48,6 +49,31 @@ typedef struct s_tkn_data
 	char	*cmd_exec_path;
 }			t_tkn_data;
 
+typedef struct s_data
+{
+	t_list	*mini_env;
+	t_list	*tokens;
+	int		list_size;
+	int		current;
+	int		exit_code;
+	t_list	**args_p;
+	int		*pipe_fd;
+	pid_t	*pids;
+	bool	*wait_for;
+	int		quote_flag;
+	int		tmp_fd;
+	int		tmp_fd2;
+	int		start;
+	int		exp_var;
+	char	*buffer_heredoc;
+	int		here_doc;
+	int		process_num;
+	char	*pwd;
+	char	*old_pwd;
+	char	*args;
+	char	**env;
+}			t_data;
+
 void		ft_lexer(t_data *data);
 void		memory_allocator(void **ptr, size_t size, t_data *data);
 void		ft_meta_token(t_data *data, t_types type);
@@ -66,13 +92,11 @@ int			dollar_counter_lexer(char *args, int current);
 void		copy_assign(char *string, t_data *data, t_tkn_data *token,
 				t_list *node);
 void		quote_removal_copy(char *string, t_data *data, t_tkn_data *token,
-				t_list *node, int quote_flag);
-void		ft_copier(int *i, int c, char *string, t_data *data,
-				int *quote_flag);
+				t_list *node);
+void		ft_copier(int *i, int c, char *string, t_data *data);
 void		ft_assign_word_token(int *q_flag, t_tkn_data **token, char **string,
 				t_types type);
-void		ft_copier_dol(int *i, int c, char *string, t_data *data,
-				int *quote_flag);
+void		ft_copier_dol(int *i, int c, char *string, t_data **data);
 void		handle_meta_status(t_data *data, t_tkn_data *token);
 
 #endif

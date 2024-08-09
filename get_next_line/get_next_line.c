@@ -6,11 +6,12 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:59:12 by amireid           #+#    #+#             */
-/*   Updated: 2024/08/02 12:26:09 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 19:39:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/get_next_line.h"
+#include "../headers/minishell.h"
 
 // #include <stdio.h>
 
@@ -26,9 +27,10 @@ char	*ft_left_string(int fd, char *fline)
 	while (!ft_strchar(fline, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
-		if (bytes_read == -1)
+		if (bytes_read == -1 || g_exit_status == 130)
 		{
 			free(buff);
+			fline = NULL;
 			return (NULL);
 		}
 		buff[bytes_read] = '\0';
@@ -38,13 +40,25 @@ char	*ft_left_string(int fd, char *fline)
 	return (fline);
 }
 
+static void	free_str(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
 	static char	*str;
 	char		*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	str = NULL;
+	line = NULL;
+	tmp = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || g_exit_status == 130)
 	{
 		if (str)
 			free(str);
@@ -53,11 +67,7 @@ char	*get_next_line(int fd)
 	tmp = ft_left_string(fd, str);
 	if (!tmp)
 	{
-		if (str)
-		{
-			free(str);
-			str = NULL;
-		}
+		free_str(&str);
 		return (NULL);
 	}
 	str = tmp;

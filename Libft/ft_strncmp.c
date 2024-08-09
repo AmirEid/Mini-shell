@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:42:52 by rpaic             #+#    #+#             */
-/*   Updated: 2024/07/28 16:35:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 15:46:08 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 	if (s1 == NULL || s2 == NULL)
 		return (1);
-
 	i = 0;
 	if (n == 0)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 23:35:53 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:17:37 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 23:50:48 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	pipe_meta(t_data *data, t_list *node, t_tkn_data *token)
 	ft_lstadd_back(&data->tokens, node);
 }
 
-void handle_meta_status(t_data *data, t_tkn_data *token)
+void	handle_meta_status(t_data *data, t_tkn_data *token)
 {
-    if (data->args[data->current] == '?')
-        token->type = META_STATUS;
-    (data->current)++;
+	if (data->args[data->current] == '?')
+		token->type = META_STATUS;
+	(data->current)++;
 }

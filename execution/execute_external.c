@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:41:39 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 01:08:37 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 23:52:40 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,12 @@ static char	**ft_get_env_matrix(t_list *env, t_data *data)
 	return (envp);
 }
 
-// static void print_matrix(char **matrix)
-// {
-// 	int i;
-
-// 	i = -1;
-// 	while (matrix[++i] != NULL)
-// 		printf("%s\n", matrix[i]);
-// }
-
-void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *data)
+void	ft_command_execution(t_list *tokens, t_list *env, t_list *current,
+		t_data *data)
 {
-	char **args;
-	char **envp;
-	t_tkn_data *tokendata;
+	char		**args;
+	char		**envp;
+	t_tkn_data	*tokendata;
 
 	tokendata = (t_tkn_data *)current->content;
 	args = ft_get_commands(tokens, current, data);
@@ -98,17 +90,16 @@ void	ft_command_execution(t_list *tokens, t_list *env, t_list *current, t_data *
 		write(2, "minishell: ", 11);
 		write(2, tokendata->token, ft_strlen(tokendata->token));
 		write(2, ": command not found\n", 21);
-		exit_status = 127;
+		g_exit_status = 127;
 		free_null(envp);
 		free_null(args);
 		return ;
 	}
-	// print_matrix(args);
 	execve(tokendata->cmd_exec_path, args, envp);
 	write(2, "minishell: '", 12);
 	write(2, tokendata->token, ft_strlen(tokendata->token));
 	write(2, "': command not found\n", 22);
-	exit_status = 127;
+	g_exit_status = 127;
 	free_null(envp);
 	free_null(args);
 }

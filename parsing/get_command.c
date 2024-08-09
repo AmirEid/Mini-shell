@@ -6,17 +6,28 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:08:41 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 21:45:31 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 22:50:20 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
+
+static char	*check_command_access(char *cmd)
+{
+	char	*command;
+
+	command = ft_strdup(cmd);
+	if (access(command, F_OK) == 0)
+		return (command);
+	free(command);
+	return (NULL);
+}
 
 static char	*get_command(char **paths, char *cmd)
 {
 	char	*p;
 	char	*command;
-	char *slash;
+	char	*slash;
 
 	if (!paths)
 		return (NULL);
@@ -24,13 +35,7 @@ static char	*get_command(char **paths, char *cmd)
 	while (*paths)
 	{
 		if (slash)
-		{
-			command = ft_strdup(cmd);
-			if (access(command, F_OK) == 0)
-				return (command);
-			free(command);
-			return (NULL);
-		}
+			return (check_command_access(cmd));
 		else
 		{
 			p = ft_strjoin(*paths, "/");
@@ -57,7 +62,6 @@ char	**get_cmd_path(t_list *mini_env, t_data *data)
 	free(path_str);
 	return (path);
 }
-
 
 void	define_commands(t_list *tokens, char **path)
 {

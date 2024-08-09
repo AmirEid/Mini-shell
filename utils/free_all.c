@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/09 12:56:06 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/08/10 01:04:52 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../headers/minishell.h"
+#include "../headers/minishell.h"
 
 void	free_list(t_list *list)
 {
@@ -48,19 +48,11 @@ void	free_env_list(t_list **env_list) // for get_env
 	*env_list = NULL;
 }
 
-void	free_all(t_data *data)
+void	free_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (data->tokens)
-		free_list(data->tokens);
-	if (data->pwd)
-		free(data->pwd);
-	if (data->old_pwd)
-		free(data->old_pwd);
-	if (data->args)
-		free(data->args);
 	if (data->env)
 	{
 		while (data->env[i] != NULL)
@@ -70,6 +62,58 @@ void	free_all(t_data *data)
 		}
 		free(data->env);
 	}
-	// get_next_line(-1);
-	//free(data);
+}
+
+void	free_all(t_data *data)
+{
+	if (data->tokens)
+		free_list(data->tokens);
+	if (data->pwd)
+		free(data->pwd);
+	if (data->args_p)
+		free(data->args_p);
+	free(data->pipe_fd);
+	free(data->pids);
+	free(data->wait_for);
+	if (data->old_pwd)
+		free(data->old_pwd);
+	if (data->args)
+		free(data->args);
+	free_env(data);
+	if (data->here_doc > 0 && g_exit_status == 130)
+	{
+		data->buffer_heredoc = get_next_line(-1);
+		data->here_doc--;
+	}
+	if (data->process_num > 1)
+	{
+		close(data->tmp_fd);
+		close(data->tmp_fd2);
+	}
+}
+
+void	free_all_exit(t_data *data)
+{
+	if (data->tokens)
+		free_list(data->tokens);
+	if (data->pwd)
+		free(data->pwd);
+	if (data->old_pwd)
+		free(data->old_pwd);
+	if (data->args)
+		free(data->args);
+	free_env(data);
+	if (data->here_doc > 0 && g_exit_status == 130)
+	{
+		data->buffer_heredoc = get_next_line(-1);
+		data->here_doc--;
+	}
+	if (data->process_num > 1)
+	{
+		close(data->tmp_fd);
+		close(data->tmp_fd2);
+	}
+	free(data->pipe_fd);
+	free(data->pids);
+	free(data->wait_for);
 }
