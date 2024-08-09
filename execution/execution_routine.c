@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_routine.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:50:22 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 01:12:12 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:34:04 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void	execution_redir_in(t_list *token, t_list *env, t_data *data, int *re
 		if (tokendata->type == META_REDIR_IN)
 			ft_redir_in(current->next, redi_num, data);
 		else if (tokendata->type == META_HEREDOC)
+		{
+			signal(SIGQUIT, SIG_IGN);
 			ft_heredoc(current->next, env, data, redi_num);
+		}
 		current = current->next;
 		if (current != NULL)
 			tokendata = (t_tkn_data *)current->content;
@@ -81,7 +84,7 @@ void	ft_execute_routine(t_list *tokens, t_list *env, t_data *data)
 	if (tokendata->type == COMMAND)	
 		ft_command_execution(tokens, env, current, data);
 	else if (tokendata->type == WORD_CD)
-		ft_cd(tokens, data);
+		ft_cd(tokens, data, env);
 	else if (tokendata->type == WORD_PWD)
 		ft_pwd(data);
 	else if (tokendata->type == WORD_EXPORT)

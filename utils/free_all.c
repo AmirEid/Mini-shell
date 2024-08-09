@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/08 22:48:38 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:56:06 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ void	free_all(t_data *data)
 		}
 		free(data->env);
 	}
-	get_next_line(-1);
+	// get_next_line(-1);
 	//free(data);
 }

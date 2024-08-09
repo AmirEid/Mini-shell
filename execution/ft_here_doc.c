@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 01:11:15 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 13:21:22 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ static void	check_expansion(char *buffer, int fd, t_list *env, t_data *data)
 	}
 }
 
+void slash(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\b\b  \b\b", 2);
+}
 
 void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 {
@@ -76,12 +81,14 @@ void	ft_heredoc(t_list *file, t_list *env, t_data *data, int *redi_num)
 	tokendata = (t_tkn_data *)file->content;
 	fd = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	signal(SIGINT, ft_heredoc_handler);
+	signal(SIGQUIT, slash);
 	exit_status = 0;
 	while (1)
 	{
 		dup2(data->tmp_fd, 0);
 		write(0, "> ", 2);
 		data->buffer_heredoc = get_next_line(0);
+		// data->buffer_heredoc = readline("> ");
 		if (exit_status == 130)
 		{
 			unlink(".heredoc");

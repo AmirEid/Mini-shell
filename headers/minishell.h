@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 20:50:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/08 17:12:32 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 11:27:32 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ void	printTokens(t_list *tokens);
 void	ft_signals();
 void	ft_sig_term(t_data *data);
 int		ft_pwd(t_data *data);
-int		ft_cd(t_list *tokens, t_data *data);
+int		ft_cd(t_list *tokens, t_data *data, t_list *mini_env);
 void	ft_heredoc_handler(int sig);
 void	free_env_list(t_list **env_list);
 void	sigint_exec(int sig);
 void	free_env_list(t_list **env_list);
 void	ft_sign_back_slash(int sig);
 void	sigint_handler(int sig);
+char	*find_path(char *curr_content, char *variable);
 //void free_env_new(t_list **env_list);
 
 # include "lexer.h"

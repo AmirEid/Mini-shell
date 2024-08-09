@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:16:30 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 00:21:34 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/09 12:36:37 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	main (int argc, char **argv, char **env)
 	data.mini_env = get_env(data, env);
 	while (1)
 	{
+		exit_status = 0;
 		ft_signals(&data);
 		prompt_loop(&data);
 		ft_lexer(&data);

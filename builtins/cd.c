@@ -12,13 +12,13 @@
 
 #include "../headers/minishell.h"
 
-char	*get_cd_path(t_list *tokens)
+char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
 {
 	char	*home;
 
 	if (tokens->next == NULL || (strlen(((t_tkn_data *)tokens->next->content)->token) == 0))
 	{
-		home = getenv("HOME");
+		home = search_env(mini_env, "HOME", data);
 		if (!home)
 		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
@@ -79,7 +79,7 @@ int	update_pwd(t_data *data)
 	return (0);
 }
 
-int	ft_cd(t_list *tokens, t_data *data)
+int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 {
 	char		*path;
     t_list		*temp;
@@ -99,7 +99,7 @@ int	ft_cd(t_list *tokens, t_data *data)
 			break ;
 		temp = temp->next;
 	}
-	path = get_cd_path(tokens);
+	path = get_cd_path(tokens, data, mini_env);
 	if (path == NULL)
 		return (-1);
 	if (update_old_pwd(data) == -1)
