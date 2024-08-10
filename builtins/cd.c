@@ -106,9 +106,9 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 	char		*path;
 	t_list		*temp;
 	t_tkn_data	*token_data;
-	int flag;
+	bool flag;
 
-	flag = 0;
+	flag = true;
 	if (data->list_size > 2)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
@@ -130,7 +130,7 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 		temp = tokens->next;
 		token_data = (t_tkn_data *)temp->content;
 		path = token_data->token;
-		flag = 1;
+		flag = false;
 	}
 	if (old_pwd(data) == -1
 		|| change_direct(path) == -1 || up_pwd(data) == -1)
