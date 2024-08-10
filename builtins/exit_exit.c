@@ -88,7 +88,7 @@ void	ft_exit(t_list *args, t_data *data)
 	}
 	else
 		return ;
-	g_exit_status = exit_ / 256;
+	g_exit_status = exit_ % 256;
 	ft_putstr_fd("exit\n", 1);
 	free_exit(data);
 }

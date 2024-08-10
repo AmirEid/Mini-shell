@@ -24,7 +24,7 @@ void	numeric_arg_required(char *str, t_data *data)
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	g_exit_status = 2;
+	g_exit_status = 255;
 	free_all_exit(data);
 	free_env_list(&data->mini_env);
 	close(data->tmp_fd);
