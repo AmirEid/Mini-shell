@@ -30,6 +30,7 @@
 // 		return (home);
 // 	}
 // 	return (((t_tkn_data *)tokens->next->content)->token);
+if you want to keep this function get cd path, in the end put return (NULL), instead of return (((t_tkn_data *)tokens->next->content)->token);
 // }
 
 char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
