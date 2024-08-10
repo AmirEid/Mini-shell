@@ -31,7 +31,7 @@ char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
 	return (((t_tkn_data *)tokens->next->content)->token);
 }
 
-int	update_old_pwd(t_data *data)
+int	old_pwd(t_data *data)
 {
 	char	cwd[PATH_MAX];
 
@@ -50,7 +50,7 @@ int	update_old_pwd(t_data *data)
 	return (0);
 }
 
-int	change_directory(const char *path)
+int	change_direct(const char *path)
 {
 	if (chdir(path) != 0)
 	{
@@ -61,7 +61,7 @@ int	change_directory(const char *path)
 	return (0);
 }
 
-int	update_pwd(t_data *data)
+int	up_pwd(t_data *data)
 {
 	char	cwd[PATH_MAX];
 
@@ -101,10 +101,9 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 		temp = temp->next;
 	}
 	path = get_cd_path(tokens, data, mini_env);
-	if (path == NULL)
+	if (path == NULL || old_pwd(data) == -1
+		|| change_direct(path) == -1 || up_pwd(data) == -1)
 		return (-1);
-	if (update_old_pwd(data) == -1 || change_directory(path) == -1
-		|| update_pwd(data) == -1)
-		return (-1);
+	g_exit_status = 0;
 	return (0);
 }

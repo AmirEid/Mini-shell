@@ -58,11 +58,9 @@ static bool	ft_get_the_head(t_list **head, t_list **tokens, t_list **prev)
 
 void	ft_organizer1(t_list **tokens)
 {
-	t_list	*current;
 	t_list	*prev;
 	t_list	*head;
 
-	current = *tokens;
 	ft_set_null(&prev, &head);
 	if (ft_get_the_head(&head, tokens, &prev))
 		return ;

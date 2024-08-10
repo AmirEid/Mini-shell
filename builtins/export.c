@@ -132,4 +132,5 @@ t_list	*ft_export(t_data data, t_list *cur_token)
 		curr = curr->next;
 	}
 	return (curr);
+	g_exit_status = 0;
 }

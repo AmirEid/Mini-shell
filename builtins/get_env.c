@@ -69,4 +69,5 @@ void	solo_export(t_data data)
 			ft_printf("%s\n", (char *)temp->content);
 		temp = temp->next;
 	}
+	g_exit_status = 0;
 }

@@ -110,4 +110,5 @@ void	ft_echo(t_list *cur_token)
 			write(STDOUT_FILENO, " ", 1);
 	}
 	check_nl(nl);
+	g_exit_status = 0;
 }

@@ -85,4 +85,5 @@ void	ft_unset(t_data data, t_list *cur_token)
 			unset_if_found(data, str);
 		curr = curr->next;
 	}
+	g_exit_status = 0;
 }
