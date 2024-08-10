@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/10 16:16:32 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 22:29:08 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	free_list(t_list *list)
 		tmp = list;
 		tkn_data = (t_tkn_data *)tmp->content;
 		list = list->next;
-		free(tkn_data->token);
+		if (tkn_data->token != NULL)
+			free(tkn_data->token);
 		if (tkn_data->cmd_exec_path)
 			free(tkn_data->cmd_exec_path);
 		free(tkn_data);

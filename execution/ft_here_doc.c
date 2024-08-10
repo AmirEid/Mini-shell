@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/10 16:13:55 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 22:29:35 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,26 @@ static bool	handle_exit_status(t_data *data, t_list *env, int tp_fd, int fd)
 static bool	process_heredoc_line(t_tkn_data *tokendata, t_data *data, int fd,
 		t_list *env)
 {
+	size_t	size_buff;
+	size_t	size_token;
+
+	size_token = ft_strlen(tokendata->token);
+	size_buff = ft_strlen(data->buffer_heredoc) - 1;
 	if (!data->buffer_heredoc)
 	{
 		write(2, WR, sizeof(WR) - 1);
 		return (true);
 	}
-	if (ft_strncmp(tokendata->token, data->buffer_heredoc,
-			ft_strlen(tokendata->token)) == 0)
-		return (true);
+	if (size_buff > size_token)
+	{
+		if (ft_strncmp(tokendata->token, data->buffer_heredoc, size_buff) == 0)
+			return (true);
+	}
+	else
+	{
+		if (ft_strncmp(tokendata->token, data->buffer_heredoc, size_token) == 0)
+			return (true);
+	}
 	if (check_type(tokendata, 1))
 		write(fd, data->buffer_heredoc, ft_strlen(data->buffer_heredoc));
 	else
