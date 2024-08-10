@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:35:22 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/10 00:46:45 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 14:30:56 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_exit(t_data *data)
 {
 	free_all_exit(data);
 	free_env_list(&data->mini_env);
-	get_next_line(-1);
+	data->buffer_heredoc = get_next_line(-1);
 	close(data->tmp_fd);
 	close(data->tmp_fd2);
 	exit(g_exit_status);

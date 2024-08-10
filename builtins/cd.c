@@ -17,7 +17,7 @@ char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
 	char	*home;
 
 	if (tokens->next == NULL
-		|| (strlen(((t_tkn_data *)tokens->next->content)->token) == 0))
+		|| (ft_strlen(((t_tkn_data *)tokens->next->content)->token) == 0))
 	{
 		home = search_env(mini_env, "HOME", data);
 		if (!home)
@@ -105,5 +105,5 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 		|| change_direct(path) == -1 || up_pwd(data) == -1)
 		return (-1);
 	g_exit_status = 0;
-	return (0);
+	return (free(path), 0);
 }

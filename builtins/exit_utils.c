@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:58:55 by rpaic             #+#    #+#             */
-/*   Updated: 2024/08/10 00:47:27 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 14:31:36 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	numeric_arg_required(char *str, t_data *data)
 	free_env_list(&data->mini_env);
 	close(data->tmp_fd);
 	close(data->tmp_fd2);
-	get_next_line(-1);
+	data->buffer_heredoc = get_next_line(-1);
 	exit(g_exit_status);
 }
 

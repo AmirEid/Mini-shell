@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/10 01:04:52 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 14:58:13 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void	free_all_exit(t_data *data)
 	if (data->args)
 		free(data->args);
 	free_env(data);
-	if (data->here_doc > 0 && g_exit_status == 130)
+	if (data->here_doc > 0)
 	{
+		printf("here_doc: %d\n", data->here_doc);
 		data->buffer_heredoc = get_next_line(-1);
 		data->here_doc--;
 	}

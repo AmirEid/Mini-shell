@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:16:59 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/08/10 00:44:31 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 14:32:22 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_sig_term(t_data *data)
 {
 	close(data->tmp_fd2);
 	close(data->tmp_fd);
-	get_next_line(-1);
+	data->buffer_heredoc = get_next_line(-1);
 	write(STDOUT_FILENO, "exit\n", 5);
 	free_all_exit(data);
 	free_env_list(&data->mini_env);
