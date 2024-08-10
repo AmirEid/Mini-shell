@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:03:38 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 22:07:05 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 15:34:15 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	process_variable(char **tkn_str, int *i, int *variable_len)
 	(*i)++;
 	while (ft_isprint((*tkn_str)[*i]) && (*tkn_str)[*i] != '\0'
 		&& !ft_ismeta((*tkn_str)[*i]) && *variable_len > 0
-		&& (*tkn_str)[*i] != '$')
+		&& (*tkn_str)[*i] != '$' && (*tkn_str)[*i] != ':')
 	{
 		(*i)++;
 		(*variable_len)--;

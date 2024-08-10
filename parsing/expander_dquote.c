@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 00:30:24 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/09 22:06:56 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 15:58:47 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	dquote_expander(t_list *env, int vlen, char **str, t_data *data)
 	char	*variable;
 	char	*var_expand;
 
-	var_expand = NULL;
 	initialize_dquote_expander(&i, &start, &new, &variable);
 	if (vlen == 0 || (*str)[i + 1] == '\0' || (*str)[i + 1] == ' ')
 		return ;
@@ -62,6 +61,7 @@ void	dquote_expander(t_list *env, int vlen, char **str, t_data *data)
 			var_expand = search_env(env, variable, data);
 			join_variable_expansion(&new, var_expand, str, i);
 			free_variables_exp(variable, var_expand);
+			start = i;
 		}
 		else
 			process_remaining_characters(str, &i, &start, &new);

@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:17 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/10 14:57:55 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 16:13:55 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	cleanup_heredoc(int tp_fd, int *fd, t_data *data, int *redi_num)
 	p_errno = 0;
 	if (data->buffer_heredoc)
 		free(data->buffer_heredoc);
+	get_next_line(-1);
 	if ((*redi_num) - 1 == 0)
 	{
 		*fd = open(".heredoc", O_RDONLY);
@@ -45,6 +46,7 @@ static bool	handle_exit_status(t_data *data, t_list *env, int tp_fd, int fd)
 		unlink(".heredoc");
 		close(tp_fd);
 		close(fd);
+		free(data->buffer_heredoc);
 		data->buffer_heredoc = get_next_line(-1);
 		if (data->process_num > 1)
 		{

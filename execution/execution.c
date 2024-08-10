@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:27:04 by aeid              #+#    #+#             */
-/*   Updated: 2024/08/10 00:50:16 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 16:08:14 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	execute_child_process(t_list *tokens, t_list *env, t_data *data)
 	free_env_list(&env);
 	close(data->tmp_fd);
 	close(data->tmp_fd2);
+	data->buffer_heredoc = get_next_line(-1);
 	exit(g_exit_status);
 }
 

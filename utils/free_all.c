@@ -6,7 +6,7 @@
 /*   By: aeid <aeid@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:15:35 by anomourn          #+#    #+#             */
-/*   Updated: 2024/08/10 14:58:13 by aeid             ###   ########.fr       */
+/*   Updated: 2024/08/10 16:16:32 by aeid             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	free_all_exit(t_data *data)
 		free_list(data->tokens);
 	if (data->pwd)
 		free(data->pwd);
+	if (data->args_p)
+		free(data->args_p);
 	if (data->old_pwd)
 		free(data->old_pwd);
 	if (data->args)
