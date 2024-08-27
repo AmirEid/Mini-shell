@@ -86,7 +86,6 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 {
 	char		*path;
 	t_list		*temp;
-	t_tkn_data	*token_data;
 	bool		flag;
 
 	flag = true;
@@ -99,15 +98,7 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 	temp = tokens;
 	path = get_cd_path(tokens, data, mini_env);
 	if (!path)
-	{
-		if (tokens->next)
-		{
-			temp = tokens->next;
-			token_data = (t_tkn_data *)temp->content;
-			flag = false;
-			path = token_data->token;
-		}
-	}
+		path = get_next_token_path(tokens, &temp, &flag);
 	if (old_pwd(data) == -1
 		|| change_direct(path) == -1 || up_pwd(data) == -1)
 		return (-1);

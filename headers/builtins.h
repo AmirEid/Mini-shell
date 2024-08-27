@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*				                                                              */
+/*						                                                      */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -49,4 +49,5 @@ void			ft_echo(t_list *cur_token);
 void			skip_null_tokens(t_list **cur_token);
 void			check_nl(bool nl);
 bool			till(int type);
+char			*get_next_token_path(t_list *tokens, t_list **temp, bool *flag);
 #endif
