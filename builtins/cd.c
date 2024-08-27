@@ -12,27 +12,6 @@
 
 #include "../headers/minishell.h"
 
-//*** OLD GET_CD_PATH, logic error ***/
-// char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
-// {
-// 	char	*home;
-
-// 	if (tokens->next == NULL
-// 		|| (ft_strlen(((t_tkn_data *)tokens->next->content)->token) == 0))
-// 	{
-// 		home = search_env(mini_env, "HOME", data);
-// 		if (!home)
-// 		{
-// 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-// 			g_exit_status = 1;
-// 			return (NULL);
-// 		}
-// 		return (home);
-// 	}
-// 	return (((t_tkn_data *)tokens->next->content)->token);
-if you want to keep this function get cd path, in the end put return (NULL), instead of return (((t_tkn_data *)tokens->next->content)->token);
-//// }
-
 char	*get_cd_path(t_list *tokens, t_data *data, t_list *mini_env)
 {
 	char	*home;
@@ -73,6 +52,8 @@ int	old_pwd(t_data *data)
 
 int	change_direct(const char *path)
 {
+	if (!path)
+		return (-1);
 	if (chdir(path) != 0)
 	{
 		perror("cd error");
@@ -106,7 +87,7 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 	char		*path;
 	t_list		*temp;
 	t_tkn_data	*token_data;
-	bool flag;
+	bool		flag;
 
 	flag = true;
 	if (data->list_size > 2)
@@ -116,27 +97,22 @@ int	ft_cd(t_list *tokens, t_data *data, t_list *mini_env)
 		return (-1);
 	}
 	temp = tokens;
-	//***Credo che questo non e utile ***/
-	// while (temp)
-	// {
-	// 	token_data = (t_tkn_data *)temp->content;
-	// 	if (!is_redirection(token_data, 1))
-	// 		break ;
-	// 	temp = temp->next;
-	// }
 	path = get_cd_path(tokens, data, mini_env);
 	if (!path)
 	{
-		temp = tokens->next;
-		token_data = (t_tkn_data *)temp->content;
-		path = token_data->token;
-		flag = false;
+		if (tokens->next)
+		{
+			temp = tokens->next;
+			token_data = (t_tkn_data *)temp->content;
+			flag = false;
+			path = token_data->token;
+		}
 	}
 	if (old_pwd(data) == -1
 		|| change_direct(path) == -1 || up_pwd(data) == -1)
 		return (-1);
 	g_exit_status = 0;
-	if (!flag)
+	if (flag)
 		free(path);
 	return (0);
 }
